@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 7.0,
                           ),
                           Text(
-                            'Welcome to Center Jordan',
+                            'Welcome to Sport Center Login Screen',
                             style: TextStyle(color: Colors.black54, fontSize: 17.0),
                           ),
                           SizedBox(
