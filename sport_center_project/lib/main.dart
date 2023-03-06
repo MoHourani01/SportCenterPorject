@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_center_project/Screens/Home/home_screen.dart';
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       // title: 'Flutter',
-      home: SplashScreen(title:'login'),
+      // home: SplashScreen(title:'login'),
+      home: MainNavigationBar(),
     );
   }
 }
