@@ -87,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (value.isEmpty) {
                                 return 'Please enter your email address';
                               }
+                              return null;
                             },
                             prefix: Icons.email_outlined,
                             // backgroundHintColor: Colors.white,

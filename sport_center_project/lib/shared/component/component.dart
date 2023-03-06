@@ -8,12 +8,12 @@ Widget defaultLoginFormField({
   //Function? onTap,
   required String hintText,
   required String labelText,
-  required validate,
+  required Function validate,
   required IconData prefix,
   IconData? suffix,
   bool isPassword = false,
   void Function()? suffixPressed,
-  void Function()? onTap,
+  Function()? onTap,
   Color? hintStyleColor,
   Color? labilStyleColor,
   Color? BorderColor,
@@ -62,8 +62,11 @@ Widget defaultLoginFormField({
           ),
           // border: InputBorder.none
         ),
-        validator: validate,
-        onTap: onTap,
+        validator: (value){
+          return validate!(value);
+        },
+
+        onTap:onTap!=null?onTap():null,
       ),
     );
 
