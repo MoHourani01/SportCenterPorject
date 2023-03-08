@@ -45,7 +45,7 @@ dependencies:
   curved_navigation_bar:
 
   #firebase
-  firebase_core:
+  firebase_core: ^2.7.1
   firebase_auth:
   cloud_firestore:
   firebase_storage:
