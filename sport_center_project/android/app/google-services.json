@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "847158307893",
+    "project_id": "sport-center-d9e1c",
+    "storage_bucket": "sport-center-d9e1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847158307893:android:5dbd6110a72f7205a9d57c",
+        "android_client_info": {
+          "package_name": "com.example.sport_center_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847158307893-425u33fpdjoqq2qe6urupf8u4c635t6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8rcPwnOuKmxIHCFfpkJbnauW-wRf3COY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847158307893-425u33fpdjoqq2qe6urupf8u4c635t6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

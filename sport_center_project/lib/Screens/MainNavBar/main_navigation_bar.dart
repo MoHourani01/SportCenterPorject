@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/cart/Cart_Screen.dart';
 import 'package:sport_center_project/Screens/category/Category_Screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
+import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
 
 class MainNavigationBar extends StatefulWidget {
@@ -14,10 +15,11 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
   // const MainNavigationBar({Key? key}) : super(key: key);
   int page = 0;
   List<Widget> screens = [
+    HomeScreen(),
     CategoryScreen(),
     FavoriteScreen(),
-    ProfileScreen(),
     CartScreen(),
+    ProfileScreen(),
 
   ];
 
@@ -27,34 +29,34 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[page],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: page,
+      bottomNavigationBar: CurvedNavigationBar(
+        animationDuration: Duration(milliseconds: 300),
+        animationCurve: Curves.easeOut,
+        index: 0,
+        backgroundColor: Colors.white,
+        color: Color(0xFF012605),
+        height: 60,
+        // currentIndex: page,
         items: [
-          BottomNavigationBarItem
-            (
-            icon: Icon(
-                Icons.category,
-              color: Colors.blue,
+          Icon(
+              Icons.home,
+              color: Colors.green[100],
             ),
-          label: 'Category',
+          Icon(
+            Icons.category,
+            color: Colors.green[100],
           ),
-          BottomNavigationBarItem
-            (
-            icon: Icon(
-                Icons.favorite,
-              color: Colors.red,
-            ),
-            label: 'Favorite',
+          Icon(
+            Icons.favorite,
+            color: Colors.green[100],
           ),
-          BottomNavigationBarItem
-            (
-            icon: Icon(Icons.person,color: Colors.blue,),
-            label: 'Profile',
+          Icon(
+            Icons.shopping_cart,
+            color: Colors.green[100],
           ),
-          BottomNavigationBarItem
-            (
-            icon: Icon(Icons.shopping_cart,color: Colors.grey,),
-            label: 'Cart',
+          Icon(
+            Icons.person,
+            color: Colors.green[100],
           ),
         ],
         onTap: (index){
