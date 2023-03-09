@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // primaryColor: _primaryColor,
         // accentColor: _accentColor,
+        // useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
       // title: 'Flutter',
