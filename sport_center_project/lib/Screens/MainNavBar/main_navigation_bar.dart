@@ -34,29 +34,29 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
         animationCurve: Curves.easeOut,
         index: 0,
         backgroundColor: Colors.white,
-        color: Color(0xFF012605),
+        color: Color(0xFF130359),
         height: 60,
         // currentIndex: page,
         items: [
           Icon(
               Icons.home,
-              color: Colors.green[100],
+              color: Colors.white,
             ),
           Icon(
             Icons.category,
-            color: Colors.green[100],
+            color: Colors.white,
           ),
           Icon(
             Icons.favorite,
-            color: Colors.green[100],
+            color: Colors.white,
           ),
           Icon(
             Icons.shopping_cart,
-            color: Colors.green[100],
+            color: Colors.white,
           ),
           Icon(
             Icons.person,
-            color: Colors.green[100],
+            color: Colors.white,
           ),
         ],
         onTap: (index){
