@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // expandedHeight: 200,
             backgroundColor: Color(0xFF130359),
             leading: IconButton(
-              onPressed: (){},
+              onPressed: () {},
               icon: Icon(
                 Icons.menu,
                 color: Colors.white,
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'Sport Center',
               style: TextStyle(
                   // color: Colors.white,
-              ),
+                  ),
             ),
             centerTitle: true,
             actions: [
@@ -61,12 +61,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              childCount: 100;
-              return ListTile(
-                title: Text('Item $index'),
-              );
-            }),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  height: 220,
+                  margin: EdgeInsets.only(left: 15,right: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue
+                  ),
+                );
+              },
+              childCount: 20,
+            ),
           ),
         ],
       ),
