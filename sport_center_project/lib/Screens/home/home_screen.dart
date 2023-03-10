@@ -171,14 +171,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             side: BorderSide(
                               color: Theme.of(context).colorScheme.outline,
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(6)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
                           ),
                           child: Container(
                             height: 160,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6.0),
                                 image: DecorationImage(
-                                    image: AssetImage('assets/images/Soccer.jpg'),
+                                    image:
+                                        AssetImage('assets/images/Soccer.jpg'),
                                     fit: BoxFit.cover)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -186,40 +188,266 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(6.0),
                                   child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 7.0, sigmaY: 7.0),
                                     child: Container(
                                         height: 36,
                                         width: double.infinity,
-                                        decoration:
-                                        BoxDecoration(color: Colors.black.withOpacity(0.3)),
+                                        decoration: BoxDecoration(
+                                            color:
+                                                Colors.black.withOpacity(0.3)),
                                         child: Padding(
-                                          padding: const EdgeInsets.only(left: 10, bottom: 3),
+                                          padding: const EdgeInsets.only(
+                                              left: 10, bottom: 3),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                            Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                },
-                                                child: Icon(
-                                                  Icons.favorite_border,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 37, right: 15),
-                                                child: Text(
-                                                  'Price JD',
-                                                  style: const TextStyle(
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons.favorite_border,
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.w600),
-                                                ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 37,
+                                                            right: 15),
+                                                    child: Text(
+                                                      'Price JD',
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(6)),
+                          ),
+                          child: Container(
+                            height: 160,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                                image: DecorationImage(
+                                    image:
+                                    AssetImage('assets/images/Soccer.jpg'),
+                                    fit: BoxFit.cover)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 7.0, sigmaY: 7.0),
+                                    child: Container(
+                                        height: 36,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color:
+                                            Colors.black.withOpacity(0.3)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, bottom: 3),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons.favorite_border,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                        left: 37,
+                                                        right: 15),
+                                                    child: Text(
+                                                      'Price JD',
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(6)),
+                          ),
+                          child: Container(
+                            height: 160,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                                image: DecorationImage(
+                                    image:
+                                    AssetImage('assets/images/Soccer.jpg'),
+                                    fit: BoxFit.cover)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 7.0, sigmaY: 7.0),
+                                    child: Container(
+                                        height: 36,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color:
+                                            Colors.black.withOpacity(0.3)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, bottom: 3),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons.favorite_border,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                        left: 37,
+                                                        right: 15),
+                                                    child: Text(
+                                                      'Price JD',
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(6)),
+                          ),
+                          child: Container(
+                            height: 160,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                                image: DecorationImage(
+                                    image:
+                                    AssetImage('assets/images/Soccer.jpg'),
+                                    fit: BoxFit.cover)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 7.0, sigmaY: 7.0),
+                                    child: Container(
+                                        height: 36,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color:
+                                            Colors.black.withOpacity(0.3)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, bottom: 3),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Icon(
+                                                      Icons.favorite_border,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                        left: 37,
+                                                        right: 15),
+                                                    child: Text(
+                                                      'Price JD',
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         )),
