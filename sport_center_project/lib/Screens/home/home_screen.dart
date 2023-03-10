@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -144,7 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     color: items[i] == items[indexItems]
                                         ? Colors.white
-                                        : Colors.blueGrey.shade900.withOpacity(1),
+                                        : Colors.blueGrey.shade900
+                                            .withOpacity(1),
                                   ),
                                 ),
                               ),
@@ -154,55 +157,79 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15,right: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
                     child: GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        shrinkWrap: true,
-                        primary: false,
-                        children: [
-                          Container(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      shrinkWrap: true,
+                      primary: false,
+                      children: [
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            borderRadius: const BorderRadius.all(Radius.circular(6)),
+                          ),
+                          child: Container(
+                            height: 160,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/Soccer.jpg',
+                                borderRadius: BorderRadius.circular(6.0),
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/Soccer.jpg'),
+                                    fit: BoxFit.cover)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+                                    child: Container(
+                                        height: 36,
+                                        width: double.infinity,
+                                        decoration:
+                                        BoxDecoration(color: Colors.black.withOpacity(0.3)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 10, bottom: 3),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                            Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                },
+                                                child: Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 37, right: 15),
+                                                child: Text(
+                                                  'Price JD',
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w600),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                            ],
+                                          ),
+                                        )),
+                                  ),
                                 ),
-                                fit: BoxFit.cover,
-                              ),
+                              ],
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/Soccer.jpg',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/Soccer.jpg',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/Soccer.jpg',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
+                      ],
                     ),
                   )
                 ],
