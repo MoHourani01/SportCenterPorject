@@ -43,6 +43,7 @@ dependencies:
   dio:
   shared_preferences:
   curved_navigation_bar:
+  carousel_slider:
 
   #firebase
   firebase_core: ^2.7.1

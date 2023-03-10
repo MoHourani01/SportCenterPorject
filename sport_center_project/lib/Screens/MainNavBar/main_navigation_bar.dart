@@ -43,7 +43,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
               color: Colors.white,
             ),
           Icon(
-            Icons.category,
+            Icons.newspaper,
             color: Colors.white,
           ),
           Icon(
