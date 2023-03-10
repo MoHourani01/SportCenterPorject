@@ -7,6 +7,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // const HomeScreen({Key? key}) : super(key: key);
+  // final List<Color> colors = [    Colors.red,    Colors.orange,    Colors.yellow,    Colors.green,    Colors.blue,    Colors.purple,  ];
+  final List<String> images=[ 'assets/images/Soccer.jpg', 'assets/images/basketball.jpg'];
+  final List<String> texts=['Football', 'Basketball'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             title: Text(
               'Sport Center',
-              style: TextStyle(
-                  // color: Colors.white,
-                  ),
             ),
             centerTitle: true,
             actions: [
@@ -60,19 +60,44 @@ class _HomeScreenState extends State<HomeScreen> {
               collapseMode: CollapseMode.pin,
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Container(
-                  height: 220,
-                  margin: EdgeInsets.only(left: 15,right: 15),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SizedBox(height: 10,),
+                Container(
+                  height: 250,
+                  margin: EdgeInsets.only(left: 20,right: 20),
                   decoration: BoxDecoration(
+                    color: Colors.grey,
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue
                   ),
-                );
-              },
-              childCount: 20,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: PageView.builder(
+                      itemCount: images.length,
+                        itemBuilder: (context,index){
+                          return Container(
+                            margin: EdgeInsets.only(left: 15,right: 15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              image: DecorationImage(
+                                  image: AssetImage('${images[index % images.length]}'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: Text(
+                              '${texts[index]}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          );
+                        },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
