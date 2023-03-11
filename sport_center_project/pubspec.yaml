@@ -46,6 +46,7 @@ dependencies:
   curved_navigation_bar:
   carousel_slider:
   smooth_page_indicator:
+  flip_card:
 
   #firebase
   firebase_core: ^2.7.1
