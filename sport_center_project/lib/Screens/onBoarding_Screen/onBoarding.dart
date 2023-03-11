@@ -1,74 +1,160 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class onBoarding extends StatefulWidget {
-  const onBoarding({Key? key}) : super(key: key);
+class BoardingModel{
+  final String image;
+  final String title;
+  final String description;
 
-  @override
-  State<onBoarding> createState() => _onBoardingState();
+  BoardingModel({
+    required this.image,
+    required this.title,
+    required this.description,
+  });
 }
 
-class _onBoardingState extends State<onBoarding> {
-  late PageController _pageController;
-
-  int _pageIndex = 0;
-
+class OnBoardingScreen extends StatefulWidget {
   @override
-  void initState() {
-    _pageController = PageController(initialPage: 0);
-    super.initState();
-  }
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  var boardController = PageController();
+  bool isLast=false;
+  List<BoardingModel> boarding=[
+    BoardingModel(
+      image: 'assets/images/Soccer.jpg',
+      title: 'hello mahmoud ',
+      description: 'i live in jordan',),
+    BoardingModel(
+      image: 'assets/images/Soccer.jpg',
+      title: 'hello mahmoud ',
+      description: 'i live in jordan',),
+    BoardingModel(
+      image: 'assets/images/Soccer.jpg',
+      title: 'hello mahmoud ',
+      description: 'i live in jordan',),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      backgroundColor: Colors.grey.shade300,
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              physics: BouncingScrollPhysics(),
+              controller: boardController,
+              itemBuilder: (context,index)=> buildBoardingItem(boarding[index]),
+              itemCount: boarding.length,
+              onPageChanged: (int index){
+                if (index==boarding.length-1){
+                  setState(() {
+                    isLast=true;
+                  });
+                  // print('Last');
+                }
+                else{
+                  setState(() {
+                    isLast=false;
+                  });
+                  // print('Not Last');
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildBoardingItem(BoardingModel model) => Stack(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          height: 430,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0),
+              image: DecorationImage(
+                  image: AssetImage(model.image),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black54,
+                      BlendMode.darken
+                  )
+              )
+          ),
+        ),
+      ),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment:MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: PageView.builder(
-                  itemCount: demo_data.length,
-                  controller: _pageController,
-                  onPageChanged: (index){
-                    setState(() {
-                      _pageIndex = index;
-                    });
-                  },
-                  itemBuilder: (context, index) => OnboardingContent(
-                    image: demo_data[index].image,
-                    title: demo_data[index].title,
-                    description: demo_data[index].description,
-                  ),
+              SizedBox(
+                height: 25.0,
+              ),
+              Text(
+                '${model.title}',
+                style: TextStyle(
+                    fontSize: 24.0,
+                    color: Colors.blue.shade900,
                 ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                '${model.description}',
+                style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.blueAccent.shade400
+                ),
+              ),
+              SizedBox(
+                height: 24.0,
               ),
               Row(
                 children: [
-                  ...List.generate(demo_data.length, (index) => Padding(
-                    padding: const EdgeInsets.only(right:4),
-                    child: DotIndicator(isActive: index==_pageIndex),
-                  )),
-                  const Spacer(),
-                  SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _pageController.nextPage(
-                            curve: Curves.ease,
-                            duration: const Duration(milliseconds: 300));
+                  SmoothPageIndicator(
+                    controller: boardController,
+                    count: boarding.length,
+                    // axisDirection: Axis.horizontal,
+                    effect: ExpandingDotsEffect(
+                      activeDotColor: Colors.blue.shade900.withOpacity(1),
+                      dotColor: Colors.grey,
+                      dotHeight: 10,
+                      dotWidth: 10,
+                      spacing: 5,
+                      expansionFactor: 4,
+                    ),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15,right: 3),
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.blue.shade900.withOpacity(1),
+                      onPressed: (){
+                        if (isLast==true){
+                          // navigateAndFinish(context, LoginScreen());
+                          // VariablesUtils.onBoardingShow = false;
+                          // submit();
+                        }
+                        else{
+                          boardController.nextPage(
+                              duration: Duration(
+                                milliseconds: 600,
+                              ),
+                              curve: Curves.easeInOutCubicEmphasized);
+                        }
                       },
-                      style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                      child: SvgPicture.asset(
-                        'assets/Icons/right.svg',
+                      child: Icon(
+                        Icons.arrow_forward_ios,
                         color: Colors.white,
                       ),
                     ),
@@ -79,95 +165,6 @@ class _onBoardingState extends State<onBoarding> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class DotIndicator extends StatelessWidget {
-  const DotIndicator({
-    Key? key,
-    this.isActive = false,
-  }) : super(key: key);
-
-  final bool isActive;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds:300 ),
-      height: isActive ? 12 : 4,
-      width: 4,
-      decoration:  BoxDecoration(
-        // color: isActive ? Colors.primaryColor:primaryColor.withOpacity(0.4),
-        color: isActive ? Colors.white:Colors.blue,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-      ),
-    );
-  }
-}
-
-class Onboard {
-  final String image, title, description;
-
-  Onboard(
-      {required this.image, required this.title, required this.description});
-}
-
-final List<Onboard> demo_data = [
-  Onboard(
-    image: 'assets/images/Soccer.jpg',
-    title: 'hello mahmoud ',
-    description: 'i live in jordan',
-  ),
-  Onboard(
-    image: 'assets/images/Soccer.jpg',
-    title: 'hello mahmoud ',
-    description: 'i live in jordan',
-  ),
-  Onboard(
-    image: 'assets/images/Soccer.jpg',
-    title: 'hello mahmoud ',
-    description: 'i live in jordan',
-  ),
-];
-
-class OnboardingContent extends StatelessWidget {
-  const OnboardingContent({
-    Key? key,
-    required this.image,
-    required this.title,
-    required this.description,
-  }) : super(key: key);
-
-  final String image, title, description;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Spacer(),
-        Image.asset(
-          image,
-          height: 250,
-        ),
-        const Spacer(),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headline5!
-              .copyWith(fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Text(
-          description,
-          textAlign: TextAlign.center,
-        ),
-        const Spacer(),
-      ],
-    );
-  }
+    ],
+  );
 }

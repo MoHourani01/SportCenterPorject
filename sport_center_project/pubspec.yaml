@@ -45,6 +45,7 @@ dependencies:
   shared_preferences:
   curved_navigation_bar:
   carousel_slider:
+  smooth_page_indicator:
 
   #firebase
   firebase_core: ^2.7.1
