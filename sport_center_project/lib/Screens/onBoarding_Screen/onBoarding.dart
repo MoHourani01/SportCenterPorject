@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/registration/login/login_screen.dart';
+import 'package:sport_center_project/shared/component/component.dart';
 
 class BoardingModel{
   final String image;
@@ -39,32 +41,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              physics: BouncingScrollPhysics(),
-              controller: boardController,
-              itemBuilder: (context,index)=> buildBoardingItem(boarding[index]),
-              itemCount: boarding.length,
-              onPageChanged: (int index){
-                if (index==boarding.length-1){
-                  setState(() {
-                    isLast=true;
-                  });
-                  // print('Last');
-                }
-                else{
-                  setState(() {
-                    isLast=false;
-                  });
-                  // print('Not Last');
-                }
-              },
+      backgroundColor: Color(0xFFDEDEDE),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                physics: BouncingScrollPhysics(),
+                controller: boardController,
+                itemBuilder: (context,index)=> buildBoardingItem(boarding[index]),
+                itemCount: boarding.length,
+                onPageChanged: (int index){
+                  if (index==boarding.length-1){
+                    setState(() {
+                      isLast=true;
+                    });
+                    // print('Last');
+                  }
+                  else{
+                    setState(() {
+                      isLast=false;
+                    });
+                    // print('Not Last');
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -112,8 +116,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Text(
                 '${model.description}',
                 style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.blueAccent.shade400
+                    fontSize: 17.0,
+                    color: Colors.blue.shade700
                 ),
               ),
               SizedBox(
@@ -127,7 +131,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     // axisDirection: Axis.horizontal,
                     effect: ExpandingDotsEffect(
                       activeDotColor: Colors.blue.shade900.withOpacity(1),
-                      dotColor: Colors.grey,
+                      dotColor: Colors.grey.shade700,
                       dotHeight: 10,
                       dotWidth: 10,
                       spacing: 5,
@@ -141,7 +145,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       backgroundColor: Colors.blue.shade900.withOpacity(1),
                       onPressed: (){
                         if (isLast==true){
-                          // navigateAndFinish(context, LoginScreen());
+                          navigators.navigateTo(context, LoginScreen());
                           // VariablesUtils.onBoardingShow = false;
                           // submit();
                         }

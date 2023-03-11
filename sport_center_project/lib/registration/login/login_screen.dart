@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/registration/register/register_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
@@ -140,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //backround: Colors.blue,
                             function: () {
                               // validateAndSubmit(context);
-                              // navigators.navigatePop(context);
+                              navigators.navigateTo(context, MainNavigationBar());
                             },
                             text: 'LOGIN',
                             radius: 8.0,
