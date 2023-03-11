@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
+import 'Screens/onBoarding_Screen/onBoarding.dart';
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // title: 'Flutter',
       // home: SplashScreen(title:'login'),
-      home: MainNavigationBar(),
+      home: onBoarding(),
     );
   }
 }
