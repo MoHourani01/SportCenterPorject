@@ -1,7 +1,8 @@
 import 'dart:ui';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,9 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<String> texts = ['Football', 'Basketball'];
   final List<String> items = ['All', 'Shoes', 'Shirts', 'Equipments', 'Balls'];
 
-  int indexItems = 0;
-  final cards = List.generate(10, (index) => index + 1);
+  final carouselController = CarouselController();
 
+  int indexItems = 0;
+
+  int activatedIndex=0;
 
   @override
   Widget build(BuildContext context) {
@@ -81,43 +84,72 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 220,
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: PageView.builder(
-                        itemCount: images.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(left: 15, right: 15),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      '${images[index % images.length]}'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              child: Text(
-                                '${texts[index]}',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                  // Container(
+                  //   height: 220,
+                  //   margin: EdgeInsets.only(left: 20, right: 20),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.grey.shade300,
+                  //     borderRadius: BorderRadius.circular(20),
+                  //   ),
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(12.0),
+                  //     child: PageView.builder(
+                  //       itemCount: images.length,
+                  //       itemBuilder: (context, index) {
+                  //         return InkWell(
+                  //           onTap: () {},
+                  //           child: Container(
+                  //             margin: EdgeInsets.only(left: 15, right: 15),
+                  //             decoration: BoxDecoration(
+                  //               borderRadius: BorderRadius.circular(20.0),
+                  //               image: DecorationImage(
+                  //                 image: AssetImage(
+                  //                     '${images[index % images.length]}'),
+                  //                 fit: BoxFit.cover,
+                  //               ),
+                  //             ),
+                  //             child: Text(
+                  //               '${texts[index]}',
+                  //               style: TextStyle(
+                  //                 color: Colors.black,
+                  //                 fontSize: 20,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
+                  CarouselSlider(
+                      items: images.map((e) => Image(
+                        image: AssetImage('${e}'),
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),).toList(),
+                      options: CarouselOptions(
+                        height: 200,
+                        // aspectRatio: 10/6,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        enlargeFactor: 0.3,
+                        // onPageChanged: callbackFunction,
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (index,reason)=>
+                            setState(()=> activatedIndex=index),
                       ),
-                    ),
                   ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  buildIndicator(),
                   SizedBox(
                     height: 8,
                   ),
@@ -611,6 +643,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  /// ToDo Mahmoud
   Widget cardFlippers(){
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
@@ -733,5 +766,21 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget buildIndicator(){
+    return AnimatedSmoothIndicator(
+      activeIndex: activatedIndex,
+      count: images.length,
+      onDotClicked: animateToSlide,
+      effect: SlideEffect(
+        dotWidth: 10,
+        dotHeight: 10,
+        activeDotColor: Colors.blue.shade900.withOpacity(1),
+        dotColor: Colors.grey
+      ),
+    );
+  }
+
+  void animateToSlide(int index)=> carouselController.animateToPage(index);
 }
 
