@@ -4,7 +4,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class flipWidget{
+class flipWidget {
   final String image;
 
   flipWidget({
@@ -27,20 +27,23 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<String> texts = ['Football', 'Basketball'];
   final List<String> items = ['All', 'Shoes', 'Shirts', 'Equipments', 'Balls'];
 
-  List<flipWidget> flipper=[
+  List<flipWidget> flipper = [
     flipWidget(
-      image: 'assets/images/Soccer.jpg',),
+      image: 'assets/images/Soccer.jpg',
+    ),
     flipWidget(
-      image: 'assets/images/Soccer.jpg',),
+      image: 'assets/images/Soccer.jpg',
+    ),
     flipWidget(
-      image: 'assets/images/Soccer.jpg',),
+      image: 'assets/images/Soccer.jpg',
+    ),
   ];
 
   final carouselController = CarouselController();
 
   int indexItems = 0;
 
-  int activatedIndex=0;
+  int activatedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -139,29 +142,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   //   ),
                   // ),
                   CarouselSlider(
-                      items: images.map((e) => Image(
-                        image: AssetImage('${e}'),
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),).toList(),
-                      options: CarouselOptions(
-                        height: 200,
-                        // aspectRatio: 10/6,
-                        viewportFraction: 0.8,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        enlargeFactor: 0.3,
-                        // onPageChanged: callbackFunction,
-                        scrollDirection: Axis.horizontal,
-                        onPageChanged: (index,reason)=>
-                            setState(()=> activatedIndex=index),
-                      ),
+                    items: images
+                        .map(
+                          (e) => Image(
+                            image: AssetImage('${e}'),
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                        .toList(),
+                    options: CarouselOptions(
+                      height: 200,
+                      // aspectRatio: 10/6,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      enlargeFactor: 0.3,
+                      // onPageChanged: callbackFunction,
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (index, reason) =>
+                          setState(() => activatedIndex = index),
+                    ),
                   ),
                   SizedBox(
                     height: 8,
@@ -332,7 +339,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: MediaQuery.of(context).size.height,
                     child: PageView.builder(
                       itemCount: flipper.length,
-                      itemBuilder: (context,index)=> cardFlippers(flipper[index]),
+                      itemBuilder: (context, index) =>
+                          cardFlippers(flipper[index]),
                     ),
                   ),
                 ],
@@ -343,8 +351,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   /// ToDo Mahmoud
-  Widget cardFlippers(flipWidget flip){
+  Widget cardFlippers(flipWidget flip) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: GridView.count(
@@ -361,47 +370,42 @@ class _HomeScreenState extends State<HomeScreen> {
             // default
             side: CardSide.FRONT,
             // The side to initially display.
-            front:  Card(
+            front: Card(
               elevation: 3,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
                   color: Theme.of(context).colorScheme.outline,
                 ),
-                borderRadius:
-                const BorderRadius.all(Radius.circular(6)),
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
               ),
               child: Container(
                 height: 160,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6.0),
                     image: DecorationImage(
-                        image:
-                        AssetImage('${flip.image}'),
-                        fit: BoxFit.cover)),
+                        image: AssetImage('${flip.image}'), fit: BoxFit.cover)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6.0),
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                            sigmaX: 7.0, sigmaY: 7.0),
+                        filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
                         child: Container(
                             height: 36,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                color:
-                                Colors.black.withOpacity(0.3)),
+                                color: Colors.black.withOpacity(0.3)),
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, bottom: 3),
+                              padding:
+                                  const EdgeInsets.only(left: 10, bottom: 3),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       InkWell(
                                         onTap: () {},
@@ -411,18 +415,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            left: 37,
-                                            right: 15),
+                                        padding: const EdgeInsets.only(
+                                            left: 37, right: 15),
                                         child: InkWell(
-                                          onTap: (){},
+                                          onTap: () {},
                                           child: Text(
                                             'Price JD',
                                             style: const TextStyle(
                                                 color: Colors.white,
-                                                fontWeight:
-                                                FontWeight.w600),
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                       ),
@@ -467,20 +468,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildIndicator(){
+  Widget buildIndicator() {
     return AnimatedSmoothIndicator(
       activeIndex: activatedIndex,
       count: images.length,
       onDotClicked: animateToSlide,
       effect: SlideEffect(
-        dotWidth: 10,
-        dotHeight: 10,
-        activeDotColor: Colors.blue.shade900.withOpacity(1),
-        dotColor: Colors.grey
-      ),
+          dotWidth: 10,
+          dotHeight: 10,
+          activeDotColor: Colors.blue.shade900.withOpacity(1),
+          dotColor: Colors.grey),
     );
   }
 
-  void animateToSlide(int index)=> carouselController.animateToPage(index);
+  void animateToSlide(int index) => carouselController.animateToPage(index);
 }
-
