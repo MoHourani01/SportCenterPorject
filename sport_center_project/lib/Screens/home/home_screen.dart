@@ -347,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: MasonryGridView.count(
                         physics: BouncingScrollPhysics(),
                         crossAxisCount: 2,
-                        crossAxisSpacing: 3,
+                        crossAxisSpacing: 1,
                         mainAxisSpacing: 5,
                         primary: false,
                         shrinkWrap: true,
