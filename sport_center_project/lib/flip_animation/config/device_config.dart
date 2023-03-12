@@ -1,2 +1,0 @@
-double ?height;
-double ?width;
