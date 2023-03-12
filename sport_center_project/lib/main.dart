@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
+import 'package:sport_center_project/Screens/home/home_screen.dart';
+import 'package:sport_center_project/flip_animation/widgets/flip_view.dart';
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
 import 'Screens/onBoarding_Screen/onBoarding.dart';
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // title: 'Flutter',
       // home: SplashScreen(title:'login'),
-      home: MainNavigationBar(),
+      home:FlipView(),
     );
   }
 }
