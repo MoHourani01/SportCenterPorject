@@ -30,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       title: 'hello mahmoud ',
       description: 'i live in jordan',),
     BoardingModel(
-      image: 'assets/images/Soccer.jpg',
+      image: 'assets/images/basketball.jpg',
       title: 'hello mahmoud ',
       description: 'i live in jordan',),
     BoardingModel(

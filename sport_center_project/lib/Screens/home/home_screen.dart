@@ -2,13 +2,16 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class flipWidget {
+class flipWidget{
   final String image;
+  final String title;
 
   flipWidget({
     required this.image,
+    required this.title,
   });
 }
 
@@ -27,16 +30,18 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<String> texts = ['Football', 'Basketball'];
   final List<String> items = ['All', 'Shoes', 'Shirts', 'Equipments', 'Balls'];
 
-  List<flipWidget> flipper = [
+  var flipController = PageController();
+
+  List<flipWidget> flipper=[
     flipWidget(
       image: 'assets/images/Soccer.jpg',
-    ),
+      title: 'Price JD',),
+    flipWidget(
+      image: 'assets/images/basketball.jpg',
+      title: 'hello',),
     flipWidget(
       image: 'assets/images/Soccer.jpg',
-    ),
-    flipWidget(
-      image: 'assets/images/Soccer.jpg',
-    ),
+      title: 'Price JD',),
   ];
 
   final carouselController = CarouselController();
@@ -48,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       body: CustomScrollView(
         slivers: [
           SliverAppBar.medium(
@@ -336,11 +342,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   //   ),
                   // ),
                   Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: PageView.builder(
-                      itemCount: flipper.length,
-                      itemBuilder: (context, index) =>
-                          cardFlippers(flipper[index]),
+                    // height: 500,
+                    // color: Colors.blue,
+                    child: MasonryGridView.count(
+                        physics: BouncingScrollPhysics(),
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 3,
+                        mainAxisSpacing: 5,
+                        primary: false,
+                        shrinkWrap: true,
+                        itemCount:5,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index >= flipper.length) {
+                            return SizedBox.shrink(); // Return an empty widget if index is out of bounds
+                          }
+                          return cardFlippers(flipper[index]);
+                        }
                     ),
                   ),
                 ],
@@ -356,114 +373,105 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget cardFlippers(flipWidget flip) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
-      child: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        shrinkWrap: true,
-        primary: false,
-        children: [
-          FlipCard(
-            fill: Fill.fillFront,
-            // Fill the back side of the card to make in the same size as the front.
-            direction: FlipDirection.HORIZONTAL,
-            // default
-            side: CardSide.FRONT,
-            // The side to initially display.
-            front: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(6)),
-              ),
-              child: Container(
-                height: 160,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6.0),
-                    image: DecorationImage(
-                        image: AssetImage('${flip.image}'), fit: BoxFit.cover)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6.0),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
-                        child: Container(
-                            height: 36,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.3)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, bottom: 3),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+      child: FlipCard(
+        fill: Fill.fillFront,
+        // Fill the back side of the card to make in the same size as the front.
+        direction: FlipDirection.HORIZONTAL,
+        // default
+        side: CardSide.FRONT,
+        // The side to initially display.
+        front: Card(
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.outline,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(6)),
+          ),
+          child: Container(
+            height: 160,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6.0),
+                image: DecorationImage(
+                    image: AssetImage('${flip.image}'), fit: BoxFit.cover)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(6.0),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+                    child: Container(
+                        height: 36,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.3)),
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.only(left: 10, bottom: 3),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.white,
-                                        ),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 37, right: 15),
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Text(
+                                        '${flip.title}',
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 37, right: 15),
-                                        child: InkWell(
-                                          onTap: () {},
-                                          child: Text(
-                                            'Price JD',
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            back: Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-              ),
-              child: Container(
-                height: 160,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.grey,
-                ),
-                child: Center(
-                  child: Text(
-                    'Sport Center',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                            ],
+                          ),
+                        )),
                   ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        back: Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.outline,
+            ),
+          ),
+          child: Container(
+            height: 160,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.grey,
+            ),
+            child: Center(
+              child: Text(
+                'Sport Center',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
