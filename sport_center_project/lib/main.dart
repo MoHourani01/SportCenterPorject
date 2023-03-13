@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // title: 'Flutter',
       // home: SplashScreen(title:'login'),
-      home:HomeScreen(),
+      home:MainNavigationBar(),
     );
   }
 }

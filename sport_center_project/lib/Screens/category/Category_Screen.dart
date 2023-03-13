@@ -8,7 +8,7 @@ class CategoryScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text(
-          'Category Screen',
+          'News  Screen',
           style: TextStyle(
             fontSize: 25.0,
           ),
