@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/cart/Cart_Screen.dart';
-import 'package:sport_center_project/Screens/category/Category_Screen.dart';
+import 'package:sport_center_project/Screens/news/News_Screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
