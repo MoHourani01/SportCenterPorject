@@ -362,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSpacing: 5,
                       primary: false,
                       shrinkWrap: true,
-                      itemCount:5,
+                      itemCount:flipper.length,
                       itemBuilder: (BuildContext context, int index) {
                         if (index >= flipper.length) {
                           return SizedBox.shrink(); // Return an empty widget if index is out of bounds

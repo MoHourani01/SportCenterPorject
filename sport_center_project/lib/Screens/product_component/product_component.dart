@@ -108,6 +108,7 @@ Widget cardFlippers(flipWidget flip,Icon icon) {
         ),
       ),
       back: Card(
+        color: Colors.transparent,
         elevation: 0,
         // shape: RoundedRectangleBorder(
         //   side: BorderSide(

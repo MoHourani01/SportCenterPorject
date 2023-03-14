@@ -48,6 +48,7 @@ dependencies:
   smooth_page_indicator:
   flip_card:
   flutter_staggered_grid_view:
+  font_awesome_flutter:
 
   #firebase
   firebase_core: ^2.7.1
