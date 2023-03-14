@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 
 
@@ -31,9 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   final List<String> texts = ['Football', 'Basketball'];
   final List<String> items = ['All', 'Shoes', 'Shirts', 'Equipments', 'Balls'];
-
   var flipController = PageController();
-
   // List<flipWidget> flipper=[
   //   flipWidget(
   //     image: 'assets/images/Soccer.jpg',
@@ -48,16 +49,36 @@ class _HomeScreenState extends State<HomeScreen> {
   //     image: 'assets/images/basketball.jpg',
   //     title: 'hello',),
   // ];
-
   final carouselController = CarouselController();
-
   int indexItems = 0;
-
   int activatedIndex = 0;
+  bool isBottomSheet = false;
+
+
+  var formKey = GlobalKey<FormState>();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          if (isBottomSheet){
+            // isBottomSheet=true;
+            print('closed');
+          }
+          else{
+            print('opened');
+            scaffoldKey.currentState!.showBottomSheet((context) => CategoriesInfo()).closed.then((value) => {
+              isBottomSheet=true,
+            });
+          }
+        },
+        backgroundColor: Color(0xFF130359).withOpacity(0.8),
+        child: Icon(Icons.sports_outlined),
+      ),
       backgroundColor: Colors.grey.shade300,
       body: CustomScrollView(
         slivers: [
@@ -507,4 +528,5 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void animateToSlide(int index) => carouselController.animateToPage(index);
+
 }

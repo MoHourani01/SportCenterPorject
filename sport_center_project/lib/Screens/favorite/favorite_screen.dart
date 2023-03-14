@@ -12,7 +12,7 @@ class FavoriteScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
-        title: Text('Favorite Products'),
+        title: Text('Wishlist Products'),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class FavoriteScreen extends StatelessWidget {
             MasonryGridView.count(
                 physics: BouncingScrollPhysics(),
                 crossAxisCount: 2,
-                crossAxisSpacing: 1,
+                // crossAxisSpacing:1,
                 mainAxisSpacing: 5,
                 primary: false,
                 shrinkWrap: true,
