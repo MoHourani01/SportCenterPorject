@@ -65,17 +65,21 @@ class _HomeScreenState extends State<HomeScreen> {
       key: scaffoldKey,
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          if (isBottomSheet){
-            // isBottomSheet=true;
-            print('closed');
-          }
-          else{
-            print('opened');
-            scaffoldKey.currentState!.showBottomSheet((context) => CategoriesInfo()).closed.then((value) => {
-              isBottomSheet=true,
-            });
-          }
+          setState(() {
+            if (isBottomSheet) {
+              Navigator.of(context).pop();
+              isBottomSheet = false;
+            } else {
+              scaffoldKey.currentState!.showBottomSheet(
+                    (context) {
+                  isBottomSheet = true;
+                  return CategoriesInfo();
+                },
+              );
+            }
+          });
         },
+        tooltip: 'Categories',
         backgroundColor: Color(0xFF130359).withOpacity(0.8),
         child: Icon(Icons.sports_outlined),
       ),
@@ -529,4 +533,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void animateToSlide(int index) => carouselController.animateToPage(index);
 
+  // void toggleBottomSheet() {
+  //   setState(() {
+  //     if (isBottomSheet) {
+  //       Navigator.of(context).pop();
+  //       isBottomSheet = false;
+  //     } else {
+  //       scaffoldKey.currentState!.showBottomSheet(
+  //             (context) {
+  //           isBottomSheet = true;
+  //           return CategoriesInfo();
+  //         },
+  //       );
+  //     }
+  //   });
+  // }
 }

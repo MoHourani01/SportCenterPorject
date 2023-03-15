@@ -16,7 +16,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
   int page = 0;
   List<Widget> screens = [
     HomeScreen(),
-    CategoryScreen(),
+    NewsScreen(),
     FavoriteScreen(),
     CartScreen(),
     ProfileScreen(),
