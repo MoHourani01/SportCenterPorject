@@ -12,7 +12,7 @@ class FavoriteScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
-        title: Text('Wishlist Products'),
+        title: Text('Wishlist'),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(

@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         tooltip: 'Categories',
         backgroundColor: Color(0xFF130359).withOpacity(0.8),
-        child: Icon(Icons.sports_outlined),
+        child: Icon(Icons.category),
       ),
       backgroundColor: Colors.grey.shade300,
       body: CustomScrollView(
