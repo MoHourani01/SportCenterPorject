@@ -105,161 +105,164 @@ class _CartScreenState extends State<CartScreen> {
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 275,
-                  child: FlipCard(
-                    fill: Fill.fillFront,
-                    // Fill the back side of the card to make in the same size as the front.
-                    direction: FlipDirection.HORIZONTAL,
-                    // default
-                    side: CardSide.FRONT,
-                    // The side to initially display.
-                    front: Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: Colors.grey,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 275,
+                    child: FlipCard(
+                      fill: Fill.fillFront,
+                      // Fill the back side of the card to make in the same size as the front.
+                      direction: FlipDirection.HORIZONTAL,
+                      // default
+                      side: CardSide.FRONT,
+                      // The side to initially display.
+                      front: Card(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          borderRadius: const BorderRadius.all(Radius.circular(6)),
                         ),
-                        borderRadius: const BorderRadius.all(Radius.circular(6)),
-                      ),
-                      child: Container(
-                        // height: 10,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6.0),
-                            image: DecorationImage(
-                                image: AssetImage('${myCart[index]}'), fit: BoxFit.cover)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ClipRRect(
+                        child: Container(
+                          // height: 10,
+                          decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6.0),
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
-                                child: Container(
-                                    height: 36,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.3)),
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 10, bottom: 3),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 5),
-                                            child: InkWell(
-                                              onTap: () {},
-                                              child: Icon(Icons.favorite_border_outlined,color: Colors.red,),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Text(
-                                              '${stringCart[index]}',
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(right: 8),
-                                            child: InkWell(
-                                              onTap: () {},
-                                              child: Icon(
-                                                Icons.shopping_cart_outlined,
-                                                color: Colors.white,
+                              image: DecorationImage(
+                                  image: AssetImage('${myCart[index]}'), fit: BoxFit.cover)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(6.0),
+                                child: BackdropFilter(
+                                  filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+                                  child: Container(
+                                      height: 36,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.3)),
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.only(left: 10, bottom: 3),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 5),
+                                              child: InkWell(
+                                                onTap: () {},
+                                                child: Icon(Icons.favorite_border_outlined,color: Colors.red,),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Text(
+                                                '${stringCart[index]}',
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right: 8),
+                                              child: InkWell(
+                                                onTap: () {},
+                                                child: Icon(
+                                                  Icons.shopping_cart_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      back: Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: Container(
+                          height: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.grey,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Sport Center',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                    back: Card(
-                      color: Colors.transparent,
-                      elevation: 0,
-                      child: Container(
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.grey,
+                  ),
+                  SizedBox(width: 15,),
+                  Container(
+                    // color: Colors.blue,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 30,
+                          child: FloatingActionButton(
+                            onPressed: (){
+                              setState(() {
+                                counter++;
+                                print(counter);
+                              });
+                            },
+                            mini: true,
+                            backgroundColor: Color(0xFF17299F),
+                            child: Icon(Icons.add,color: Colors.white,size: 20,),
+                          ),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Sport Center',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                        SizedBox(width: 8,),
+                        Text('$counter'),
+                        SizedBox(width: 8,),
+                        Container(
+                          height: 30,
+                          width: 30,
+                          child: FloatingActionButton(
+                            onPressed: (){
+                              setState(() {
+                                if (counter<=0){
+                                  counter=0;
+                                  print(counter);
+                                }
+                                else{
+                                  counter--;
+                                  print(counter);
+                                }
+                              });
+                            },
+                            mini: true,
+                            backgroundColor: Color(0xFF17299F),
+                            child: FaIcon(
+                              FontAwesomeIcons.minus,
+                              color: Colors.white,
+                              size: 20,
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                ),
-                SizedBox(width: 15,),
-                Container(
-                  // color: Colors.blue,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        child: FloatingActionButton(
-                          onPressed: (){
-                            setState(() {
-                              counter++;
-                              print(counter);
-                            });
-                          },
-                          mini: true,
-                          backgroundColor: Color(0xFF17299F),
-                          child: Icon(Icons.add,color: Colors.white,size: 20,),
-                        ),
-                      ),
-                      SizedBox(width: 8,),
-                      Text('$counter'),
-                      SizedBox(width: 8,),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        child: FloatingActionButton(
-                          onPressed: (){
-                            setState(() {
-                              if (counter<=0){
-                                counter=0;
-                                print(counter);
-                              }
-                              else{
-                                counter--;
-                                print(counter);
-                              }
-                            });
-                          },
-                          mini: true,
-                          backgroundColor: Color(0xFF17299F),
-                          child: FaIcon(
-                            FontAwesomeIcons.minus,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

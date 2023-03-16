@@ -13,13 +13,14 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
     return Container(
       height: 250,
       decoration: BoxDecoration(
-        color: Colors.grey.shade400,
+        color:Color(0xFF000056),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(30),
           topLeft: Radius.circular(30),
         ),
       ),
       child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(
@@ -31,7 +32,7 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                 height: 120,
                 // color: Colors.blue,
                 decoration: BoxDecoration(
-                  color: Colors.teal,
+                  color:Colors.grey.shade100.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
@@ -39,32 +40,24 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) => LinearGradient(
-                            colors: [Colors.black, Colors.black38],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.center)
-                            .createShader(bounds),
-                        blendMode: BlendMode.darken,
-                        child: Container(
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            // color: Colors.grey.shade300,
-                            // borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/Soccer.jpg'),
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-                            ),
+                      Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          // color: Colors.grey.shade300,
+                           borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/Soccer.jpg'),
+                            fit: BoxFit.cover,
+                           // colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
                           ),
                         ),
                       ),
                       Text(
-                        'Soccer Category',
+                        'Soccer',
                         style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white,
+                          fontSize:20,
+                          color: Color(0xFF000056),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -79,7 +72,7 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                 height: 120,
                 // color: Colors.blue,
                 decoration: BoxDecoration(
-                  color: Colors.teal,
+                  color:Colors.grey.shade100.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
@@ -87,32 +80,24 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) => LinearGradient(
-                                colors: [Colors.black, Colors.black38],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.center)
-                            .createShader(bounds),
-                        blendMode: BlendMode.darken,
-                        child: Container(
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            // color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/basketball.jpg'),
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-                            ),
+                      Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          // color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/basketball.jpg'),
+                            fit: BoxFit.cover,
+                           // colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
                           ),
                         ),
                       ),
                       Text(
-                        'Basketball Category',
+                        'Basketball',
                         style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white,
+                          fontSize: 20,
+                          color:Color(0xFF000056),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
