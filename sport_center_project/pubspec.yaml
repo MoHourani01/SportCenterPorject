@@ -38,7 +38,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.4
   flutter_svg:
-  conditional_builder:
   bloc:
   flutter_bloc:
   dio:

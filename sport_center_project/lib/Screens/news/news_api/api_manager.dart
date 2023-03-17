@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:sport_center_project/Screens/news/soccermodel.dart';
-
+import 'package:sport_center_project/Screens/news/news_api/soccermodel.dart';
 class SoccerApi {
   //now let's set our variables
   //first : let's add the endpoint URL
@@ -10,7 +9,7 @@ class SoccerApi {
   // we will just change our endpoint
   //the null means that the match didn't started yet
   //let's fix that
-  final Uri apiUrl = Uri.parse("https://api-football-v1.p.rapidapi.com/v3/timezone");
+  final Uri apiUrl = Uri.parse("https://api-football-v1.p.rapidapi.io/v3/fixtures?live=all");
   //In our tutorial we will only see how to get the live matches
   //make sure to read the api documentation to be ables too understand it
 
@@ -20,7 +19,7 @@ class SoccerApi {
   static const headers = {
     'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
     //Always make sure to check the api key and the limit of a request in a free api
-    'x-rapidapi-key': "a757d4164bmsh4a0469eb8a9de80p1368a4jsn1c1c4d3f1f6d"
+    'x-rapidapi-key': "7677dda70123483dbfb39118dc337c1a"
 
   };
 

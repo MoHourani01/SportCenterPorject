@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sport_center_project/Screens/news/goalstat.dart';
-import 'package:sport_center_project/Screens/news/matchstat.dart';
-import 'package:sport_center_project/Screens/news/matchtile.dart';
-import 'soccermodel.dart';
+import 'package:sport_center_project/Screens/news/news_api/goalstat.dart';
+import 'package:sport_center_project/Screens/news/news_api/matchstat.dart';
+import 'package:sport_center_project/Screens/news/news_api/matchtile.dart';
+import 'package:sport_center_project/Screens/news/news_api/soccermodel.dart';
 
 Widget PageBody(List<SoccerMatch> allmatches) {
   return Column(

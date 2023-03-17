@@ -6,8 +6,8 @@ class DioHelper{
   static init(){
     dio=Dio(
       BaseOptions(
-        // baseUrl: 'https://newsapi.org/',
-        baseUrl: 'https://student.valuxapps.com/api/',
+        baseUrl: 'https://newsapi.org/',
+        // baseUrl: 'https://student.valuxapps.com/api/',
         receiveDataWhenStatusError: true,
         // headers: {
         //   'Content-Type':'application/json',
