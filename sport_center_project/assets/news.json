@@ -1,0 +1,266 @@
+{
+  "status": "ok",
+  "totalResults": 65,
+  -"articles": [
+  -{
+    -"source": {
+      "id": null,
+      "name": "CNBC"
+    },
+    "author": "Alex Harring, Hakyung Kim",
+    "title": "Dow closes nearly 400 points lower on Friday as First Republic and regional banks resume slide: Live updates - CNBC",
+    "description": "The Dow Jones Industrial Average fell Friday as investors remained skittish on First Republic and other banks amid the industry's crisis.",
+    "url": "https://www.cnbc.com/2023/03/16/stock-market-today-live-updates.html",
+    "urlToImage": "https://image.cnbcfm.com/api/v1/image/107210996-1679083769022-aa6_img_100_99_112_1917665_1000-1679083617173.jpg?v=1679084514&w=1920&h=1080",
+    "publishedAt": "2023-03-17T20:25:00Z",
+    "content": "Stocks fell Friday as investors pulled back from positions in First Republic and other bank shares amid lingering concerns over the state of the U.S. banking sector.\r\nThe Dow Jones Industrial Average… [+2558 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "FDA.gov"
+    },
+    "author": "Office of Regulatory Affairs",
+    "title": "Updated - Scenic Fruit Company Recalls Frozen Organic Strawberries and Frozen Organic Tropical Blend Because of Possible Health Risk - FDA.gov",
+    "description": "Scenic Fruit Company of Gresham, Oregon is recalling frozen Organic Strawberries sold to Costco, Aldi, KeHE, Vital Choice Seafood, PCC Community Markets and frozen Organic Tropical Fruit Blend sold to Trader Joe’s due to an outbreak of Hepatitis A illnesses. …",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/updated-scenic-fruit-company-recalls-frozen-organic-strawberries-and-frozen-organic-tropical-blend",
+    "urlToImage": "https://www.fda.gov/themes/custom/preview/img/FDA-Social-Graphic.png",
+    "publishedAt": "2023-03-17T20:11:46Z",
+    "content": "Summary\r\nCompany Announcement Date:\r\nMarch 16, 2023\r\nFDA Publish Date:\r\nMarch 17, 2023\r\nProduct Type:\r\nFood &amp; Beverages \r\nReason for Announcement:\r\nRecall Reason Description\r\nCompany Name:\r\n Scen… [+3436 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "YouTube"
+    },
+    "author": null,
+    "title": "Treasury and oil markets suggest there's a recession coming, says Solus' Dan Greenhaus - CNBC Television",
+    "description": "Dan Greenhaus, Solus Alternative Asset Management chief strategist, and Kristen Bitterly, Citi Global Wealth Management’s head of North America investments, ...",
+    "url": "https://www.youtube.com/watch?v=G1Cr3k1z4As",
+    "urlToImage": "https://i.ytimg.com/vi/G1Cr3k1z4As/maxresdefault.jpg",
+    "publishedAt": "2023-03-17T19:46:12Z",
+    "content": null
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "CNBC"
+    },
+    "author": "Lorie Konish",
+    "title": "Yellen says uninsured deposits may be at risk in future bank failures. Here’s how FDIC coverage works - CNBC",
+    "description": "You may have to rely on FDIC insurance if your bank fails. Here's how to make sure you money is fully covered.",
+    "url": "https://www.cnbc.com/2023/03/17/is-my-money-safe-here-are-the-ins-and-outs-of-fdic-insurance.html",
+    "urlToImage": "https://image.cnbcfm.com/api/v1/image/107208843-1678859742644-gettyimages-1248206138-SVBV.jpeg?v=1679080140&w=1920&h=1080",
+    "publishedAt": "2023-03-17T19:09:00Z",
+    "content": "People wait for service outside Silicon Valley Bank in Menlo Park, California.\r\nAccount holders at failed Silicon Valley Bank and Signature Bank got a lucky break in recent days when emergency federa… [+5042 chars]"
+  },
+  -{
+    -"source": {
+      "id": "financial-times",
+      "name": "Financial Times"
+    },
+    "author": "Ortenca Aliaj, Stephen Gandel, James Fontanella-Khan",
+    "title": "US regulators open to sharing losses to smooth sale of SVB and Signature - Financial Times",
+    "description": "Refusal by FDIC to shoulder burden has been stumbling block in auction process",
+    "url": "https://www.ft.com/content/932a7c34-c6bf-40bb-9f9d-1d9100ee8ce2",
+    "urlToImage": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fd1e00ek4ebabms.cloudfront.net%2Fproduction%2Fb71f7a1a-ffe1-4104-a3ac-a06e6581fc97.jpg?source=next-opengraph&fit=scale-down&width=900",
+    "publishedAt": "2023-03-17T18:47:27Z",
+    "content": "US regulators are willing to entertain the prospect of backstopping losses at Silicon Valley Bank and Signature Bank if it helps push through a sale of the failed lenders, according to people briefed… [+2760 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "Barron's"
+    },
+    "author": "Teresa Rivas",
+    "title": "Apple and Other Big Tech Stocks See Gains Despite Bank Blowups. Here's Why. - Barron's",
+    "description": "Parts of big tech can look pretty defensive—especially relative to shakier regional banks or cash-hungry start-ups.",
+    "url": "https://www.barrons.com/articles/bank-crisis-apple-google-tech-stocks-fd937612",
+    "urlToImage": "https://images.barrons.com/im-745698/social",
+    "publishedAt": "2023-03-17T18:25:00Z",
+    "content": "SVB Financial\r\ns troubles might have kicked off the latest round of stock market woes, but despite the lenders ties to Silicon Valley, the tech sector has been remarkably resilient during the selloff… [+2974 chars]"
+  },
+  -{
+    -"source": {
+      "id": "reuters",
+      "name": "Reuters"
+    },
+    "author": null,
+    "title": "Exclusive: Credit Suisse to hold internal talks this weekend on scenarios for bank -sources - Reuters",
+    "description": "Credit Suisse AG <a href=\"https://www.reuters.com/companies/CSGN.S\" target=\"_blank\">(CSGN.S)</a> will hold meetings over the weekend to assess scenarios for the bank as it struggles to regain the market's confidence, people with knowledge of the matter told R…",
+    "url": "https://www.reuters.com/business/finance/credit-suisse-cfo-teams-hold-talks-this-weekend-scenarios-bank-sources-2023-03-17/",
+    "urlToImage": "https://www.reuters.com/resizer/9iQNz738MsSITZ6gF0A0djqWZ3A=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/VHDOZHQPYZOUXICO43WHX4M5WQ.jpg",
+    "publishedAt": "2023-03-17T17:57:00Z",
+    "content": "LONDON/ZURICH, March 17 (Reuters) - Credit Suisse AG (CSGN.S) will hold meetings over the weekend to assess scenarios for the bank as it struggles to regain the market's confidence, people with knowl… [+2346 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "CNBC"
+    },
+    "author": "Jeff Cox",
+    "title": "Fed poised to approve quarter-point rate hike next week, despite market turmoil - CNBC",
+    "description": "Chairman Jerome Powell and his fellow central bankers will want to signal that it's important to continue the fight to bring down inflation.",
+    "url": "https://www.cnbc.com/2023/03/17/fed-poised-to-approve-quarter-point-rate-hike-next-week-despite-market-turmoil.html",
+    "urlToImage": "https://image.cnbcfm.com/api/v1/image/107187607-16752832442023-02-01t201728z_1086082931_rc2j2z90tr4u_rtrmadp_0_usa-fed.jpeg?v=1679075721&w=1920&h=1080",
+    "publishedAt": "2023-03-17T17:55:21Z",
+    "content": "U.S. Federal Reserve Chair Jerome Powell addresses reporters after the Fed raised its target interest rate by a quarter of a percentage point, during a news conference at the Federal Reserve Building… [+5316 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "Barron's"
+    },
+    "author": "Allan Sloan",
+    "title": "The Fed’s Remittances to the Treasury Have Gone from Billions to Nearly Zero - Barron's",
+    "description": "The Federal Reserve used to send billions in remittances to the Treasury. Interest-rate increases have rapidly changed that, Allan Sloan writes.",
+    "url": "https://www.barrons.com/articles/fed-rate-increases-treasury-income-stream-f37705cf",
+    "urlToImage": "https://images.barrons.com/im-745205/social",
+    "publishedAt": "2023-03-17T17:46:00Z",
+    "content": "This is a commentary by Allan Sloan, an independent business journalist and seven-time winner of the Loeb Award, business journalisms highest honor.We all know about the problems the Federal Reserve … [+5062 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "FRANCE 24 English"
+    },
+    "author": "France 24",
+    "title": "Credit Suisse at a crossroads as stocks slide again - FRANCE 24 English",
+    "description": "Credit Suisse shares fell again Friday despite being bolstered by the Swiss central bank as investors worry about which road the embattled lender will take to try and restore confidence.",
+    "url": "https://www.france24.com/en/live-news/20230317-credit-suisse-at-a-crossroads-as-stocks-slide-again",
+    "urlToImage": "https://s.france24.com/media/display/0b909fe8-c4eb-11ed-b569-005056a90321/w:1280/p:16x9/5743f6023c8ff7c496949db3cad8c4a2d92ac837.jpg",
+    "publishedAt": "2023-03-17T17:42:11Z",
+    "content": "Zurich (AFP) Credit Suisse shares fell again Friday despite being bolstered by the Swiss central bank as investors worry about which road the embattled lender will take to try and restore confidence.… [+4496 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "MarketWatch"
+    },
+    "author": "Jon Swartz",
+    "title": "Google’s Bard could ‘blow a hole’ in margins, analyst warns - MarketWatch",
+    "description": "Could Alphabet Inc.’s foray into artificial intelligence, Bard, “blow a hole” in its margins? It’s a question posed by UBS analyst Lloyd Walmsley posed in a...",
+    "url": "https://www.marketwatch.com/story/googles-bard-could-blow-a-hole-in-margins-analyst-warns-75c4d251",
+    "urlToImage": "https://s.wsj.net/public/resources/MWimages/MW-GP644_MicroS_ZG_20180906154215.jpg",
+    "publishedAt": "2023-03-17T17:32:00Z",
+    "content": "Could Alphabet Inc.s foray into artificial intelligence, Bard, blow a hole in its margins? Its a question posed by UBS analyst Lloyd Walmsley posed in a note Thursday. After careful consideration, he… [+554 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "Fox Business"
+    },
+    "author": "Chris Pandolfo",
+    "title": "Silicon Valley Bank's holding company files for Chapter 11 bankruptcy protection in NY - Fox Business",
+    "description": "SVB Financial Group on Friday announced it has filed for Chapter 11 bankruptcy protection in the Southern District of New York in order to preserve its value.",
+    "url": "https://www.foxbusiness.com/markets/silicon-valley-bank-holding-company-files-chapter-11-bankruptcy-protection-ny",
+    "urlToImage": "https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2023/03/0/0/GettyImages-1472651915-1.jpg?ve=1&tl=1",
+    "publishedAt": "2023-03-17T17:26:15Z",
+    "content": "Silicon Valley Bank's parent company SVB Financial Group has filed for Chapter 11 bankruptcy protection in a New York court after the bank collapsed last week, upending the world of tech startups.\r\nT… [+4080 chars]"
+  },
+  -{
+    -"source": {
+      "id": "ars-technica",
+      "name": "Ars Technica"
+    },
+    "author": "Ron Amadeo",
+    "title": "YouTube TV jumps in price again—it’s now $72.99 per month - Ars Technica",
+    "description": "The base package is going up $8, but the 4K add-on is going down $10.",
+    "url": "https://arstechnica.com/gadgets/2023/03/youtube-tv-jumps-in-price-again-its-now-72-99-per-month/",
+    "urlToImage": "https://cdn.arstechnica.net/wp-content/uploads/2020/02/getty-youtube-tv-760x380.jpg",
+    "publishedAt": "2023-03-17T17:17:25Z",
+    "content": "119 with \r\nYouTube TV is jumping up in price again. The cable TV replacement service launched in 2017 for $35, but it went up to $40 in 2018, $50 in 2019, $65 in 2020, and with this latest price incr… [+2362 chars]"
+  },
+  -{
+    -"source": {
+      "id": "the-washington-post",
+      "name": "The Washington Post"
+    },
+    "author": "Ellen Francis",
+    "title": "First Republic the fourth bank in crisis this week: What to know - The Washington Post",
+    "description": "First Republic Bank is the fourth bank in trouble in the past week, as officials seek to stem fears of a wider financial crisis.",
+    "url": "https://www.washingtonpost.com/business/2023/03/17/first-republic-svb-bank-failures/",
+    "urlToImage": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/D6RPE6WERMI63AVHNKDVKXAYPA.jpg&w=1440",
+    "publishedAt": "2023-03-17T17:15:00Z",
+    "content": "First Republic Bank is the fourth bank to face a crisis in the past week, as banking and government officials try to dispel fears of a wider financial meltdown.\r\nHeres a recap of some of the latest t… [+39 chars]"
+  },
+  -{
+    -"source": {
+      "id": "the-hill",
+      "name": "The Hill"
+    },
+    "author": "Julia Shapero",
+    "title": "Zuckerberg grilled at staff meeting after Meta layoff announcement - The Hill",
+    "description": "Meta CEO Mark Zuckerberg was grilled by staff at an all-hands meeting on Thursday, following the Facebook parent company’s announcement that it would lay off another 10,000 workers. Staff reportedly asked Zuckerberg how they can be expected to trust the compa…",
+    "url": "https://thehill.com/policy/technology/3905320-zuckerberg-grilled-at-staff-meeting-after-meta-layoff-announcement/",
+    "urlToImage": "https://thehill.com/wp-content/uploads/sites/2/2022/12/d47a5641db5f4cfc816a61caa6becbf0.jpg?w=1280",
+    "publishedAt": "2023-03-17T17:08:00Z",
+    "content": "Skip to content\r\nMeta CEO Mark Zuckerberg was grilled by staff at an all-hands meeting on Thursday, following the Facebook parent company’s announcement that it would lay off another 10,000 workers.\r… [+1391 chars]"
+  },
+  -{
+    -"source": {
+      "id": "engadget",
+      "name": "Engadget"
+    },
+    "author": "https://www.engadget.com/about/editors/jon-fingas",
+    "title": "Google won't pay remaining parental or medical leave for laid-off employees - Engadget",
+    "description": "Laid-off Google employees want the company to honor the rest of their parental and medical leaves..",
+    "url": "https://www.engadget.com/google-wont-pay-remaining-parental-or-medial-leave-for-laid-off-employees-161713912.html",
+    "urlToImage": "https://s.yimg.com/uu/api/res/1.2/E1bVkDLabPdrHP61T_OSPA--~B/Zmk9ZmlsbDtoPTYzMDtweW9mZj0wO3c9MTIwMDthcHBpZD15dGFjaHlvbg--/https://media-mbst-pub-ue1.s3.amazonaws.com/creatr-images/2018-12/e444c7c0-02c0-11e9-a4f3-ea8756ee0018.cf.jpg",
+    "publishedAt": "2023-03-17T16:19:58Z",
+    "content": "Google is facing pushback from some of its 12,000 laid-off employees. CNBC has learned that over 100 ex-staffers have formed a \"Laid off on Leave\" group asking Google to pay for the full leaves they … [+1753 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "New York Post"
+    },
+    "author": "Andrew Court",
+    "title": "Eyedrops kill 1, force others to have eyes removed due to drug-resistant bacteria: CDC alert - New York Post ",
+    "description": "Four people infected have been forced to have their eyes surgically removed, while 68 patients in 16 US states have been diagnosed with a rare bacterial infection linked to preservative-free eyedro…",
+    "url": "https://nypost.com/2023/03/17/eyedrops-may-have-killed-one-severely-injured-others-due-to-drug-resistant-bacteria-cdc/",
+    "urlToImage": "https://nypost.com/wp-content/uploads/sites/2/2023/03/NYPICHPDPICT000008393726.jpg?quality=75&strip=all&w=1024",
+    "publishedAt": "2023-03-17T16:19:00Z",
+    "content": "Keep your eye on this disturbing developing story. \r\nThe Centers for Disease Control and Prevention say 68 patients in 16 US states have been diagnosed with a rare bacterial infection likely caused b… [+3759 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "Yahoo Entertainment"
+    },
+    "author": "Aimee Picchi",
+    "title": "Here's how much Ryan Reynolds could make from Mint Mobile sale - Yahoo Finance",
+    "description": "The actor's savvy investments are paying off in multi-million deals, such as his stake in Aviator Gin and now Mint Mobile.",
+    "url": "https://finance.yahoo.com/news/heres-much-ryan-reynolds-could-161558273.html",
+    "urlToImage": "https://s.yimg.com/ny/api/res/1.2/WW2EkFYw9rTt2LoaWMDPZw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://media.zenfs.com/en/cbsmoneywatch.com/c36cfee9ac0e6c0055d021971f07b73c",
+    "publishedAt": "2023-03-17T16:15:58Z",
+    "content": "Ryan Reynolds may be best known for his portrayal of the wise-cracking Deadpool, but the actor is also developing a reputation as a savvy investor. After taking stakes in businesses like Aviator Gin … [+2657 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "The Guardian"
+    },
+    "author": "Edward Helmore",
+    "title": "‘We are a little bit scared’: OpenAI CEO warns of risks of artificial intelligence - The Guardian",
+    "description": "Sam Altman stresses need to guard against negative consequences of technology, as company releases new version GPT-4",
+    "url": "https://www.theguardian.com/technology/2023/mar/17/openai-sam-altman-artificial-intelligence-warning-gpt4",
+    "urlToImage": "https://i.guim.co.uk/img/media/150c4f58de654284c0ea9c0d6146efac782844a1/0_0_3000_1800/master/3000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=85199429e0608148fd4d01faff2de70b",
+    "publishedAt": "2023-03-17T16:14:00Z",
+    "content": "Sam Altman, CEO of OpenAI, the company that developed the controversial consumer-facing artificial intelligence application ChatGPT, has warned that the technology comes with real dangers as it resha… [+3505 chars]"
+  },
+  -{
+    -"source": {
+      "id": null,
+      "name": "CNBC"
+    },
+    "author": "Michelle Fox",
+    "title": "Retail investors are buying the dip in financial stocks in unprecedented amounts - CNBC",
+    "description": "Vanda Research's data show that there has been a surge of retail investor buying of bank stocks. These are the names they're buying.",
+    "url": "https://www.cnbc.com/2023/03/17/retail-investors-buying-the-dip-in-financial-stocks-in-unprecedented-amountsts.html",
+    "urlToImage": "https://image.cnbcfm.com/api/v1/image/107210809-1679069477545-gettyimages-1321778885-schwab1126199.jpeg?v=1679069771&w=1920&h=1080",
+    "publishedAt": "2023-03-17T15:29:44Z",
+    "content": null
+  }
+]
+}
