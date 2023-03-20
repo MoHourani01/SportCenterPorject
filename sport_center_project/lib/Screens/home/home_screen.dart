@@ -9,7 +9,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 
-
 // class flipWidget{
 //   final String image;
 //   final String title;
@@ -35,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<String> texts = ['Football', 'Basketball'];
   final List<String> items = ['All', 'Shoes', 'Shirts', 'Equipments', 'Balls'];
   var flipController = PageController();
+
   // List<flipWidget> flipper=[
   //   flipWidget(
   //     image: 'assets/images/Soccer.jpg',
@@ -54,24 +54,22 @@ class _HomeScreenState extends State<HomeScreen> {
   int activatedIndex = 0;
   bool isBottomSheet = false;
 
-
   var formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           setState(() {
             if (isBottomSheet) {
               Navigator.of(context).pop();
               isBottomSheet = false;
             } else {
               scaffoldKey.currentState!.showBottomSheet(
-                    (context) {
+                (context) {
                   isBottomSheet = true;
                   return CategoriesInfo();
                 },
@@ -387,18 +385,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSpacing: 5,
                       primary: false,
                       shrinkWrap: true,
-                      itemCount:flipper.length,
+                      itemCount: flipper.length,
                       itemBuilder: (BuildContext context, int index) {
                         if (index >= flipper.length) {
-                          return SizedBox.shrink(); // Return an empty widget if index is out of bounds
+                          return SizedBox
+                              .shrink(); // Return an empty widget if index is out of bounds
                         }
-                        return cardFlippers(flipper[index],Icon(
+                        return cardFlippers(
+                          flipper[index],
+                          Icon(
                             Icons.favorite_border_outlined,
-                          color: Colors.red,
+                            color: Colors.red,
                           ),
                         );
-                      }
-                  ),
+                      }),
                 ],
               ),
             ),
@@ -533,19 +533,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void animateToSlide(int index) => carouselController.animateToPage(index);
 
-  // void toggleBottomSheet() {
-  //   setState(() {
-  //     if (isBottomSheet) {
-  //       Navigator.of(context).pop();
-  //       isBottomSheet = false;
-  //     } else {
-  //       scaffoldKey.currentState!.showBottomSheet(
-  //             (context) {
-  //           isBottomSheet = true;
-  //           return CategoriesInfo();
-  //         },
-  //       );
-  //     }
-  //   });
-  // }
+// void toggleBottomSheet() {
+//   setState(() {
+//     if (isBottomSheet) {
+//       Navigator.of(context).pop();
+//       isBottomSheet = false;
+//     } else {
+//       scaffoldKey.currentState!.showBottomSheet(
+//             (context) {
+//           isBottomSheet = true;
+//           return CategoriesInfo();
+//         },
+//       );
+//     }
+//   });
+// }
 }
