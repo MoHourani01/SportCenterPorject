@@ -49,6 +49,8 @@ dependencies:
   flutter_staggered_grid_view:
   font_awesome_flutter:
   http:
+  fluttertoast:
+  conditional_builder_null_safety: ^0.0.6
 
   #firebase
   firebase_core: ^2.7.1

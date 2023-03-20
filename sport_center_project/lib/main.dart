@@ -1,7 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
+import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
+import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
+import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/shared/network/shared.network.remote/dio_helper.dart';
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
@@ -20,16 +24,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        // primaryColor: _primaryColor,
-        // accentColor: _accentColor,
-        // useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context)  => LoginCubit(),
+        ),
+      ],
+      child: BlocConsumer<LoginCubit,LoginStates>(
+        listener: (context,state){},
+        builder: (context,state){
+          return MaterialApp(
+            theme: ThemeData(
+              // primaryColor: _primaryColor,
+              // accentColor: _accentColor,
+              // useMaterial3: true,
+            ),
+            debugShowCheckedModeBanner: false,
+            // title: 'Flutter',
+            // home: SplashScreen(title:'login'),
+            home:LoginScreen(),
+          );
+        },
       ),
-      debugShowCheckedModeBanner: false,
-      // title: 'Flutter',
-      // home: SplashScreen(title:'login'),
-      home:MainNavigationBar(),
     );
   }
 }

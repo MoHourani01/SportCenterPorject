@@ -63,7 +63,7 @@ Widget defaultLoginFormField({
           // border: InputBorder.none
         ),
         validator: (value){
-          return validate!(value);
+          return validate(value);
         },
 
         onTap:onTap!=null?onTap():null,
