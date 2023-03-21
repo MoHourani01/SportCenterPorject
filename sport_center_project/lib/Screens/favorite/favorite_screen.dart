@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/shared/component/component.dart';
+import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
 class FavoriteScreen extends StatelessWidget {
   // const FavoriteScreen({Key? key}) : super(key: key);
@@ -52,6 +54,9 @@ class FavoriteScreen extends StatelessWidget {
                     Icons.favorite,
                     color: Colors.red,
                     ),
+                    onPressed: () {
+                        navigators.navigateTo(context, Detail());
+                    },
                   );
                 },
             ),

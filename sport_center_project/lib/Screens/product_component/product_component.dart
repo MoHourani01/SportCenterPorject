@@ -28,10 +28,19 @@ List<flipWidget> flipper=[
   flipWidget(
     image: 'assets/images/basketball.jpg',
     title: 'hello',),
+  flipWidget(
+    image: 'assets/images/basketball.jpg',
+    title: 'hello',),
+  flipWidget(
+    image: 'assets/images/basketball.jpg',
+    title: 'hello',),
+  flipWidget(
+    image: 'assets/images/basketball.jpg',
+    title: 'hello',),
 ];
-Widget cardFlippers(flipWidget flip,Icon icon) {
+Widget cardFlippers(flipWidget flip,Icon icon, {required Function() onPressed}) {
   return Padding(
-    padding: const EdgeInsets.only(left: 15, right: 15),
+    padding: const EdgeInsets.only(left: 10, right: 10),
     child: FlipCard(
       fill: Fill.fillFront,
       // Fill the back side of the card to make in the same size as the front.
@@ -39,73 +48,86 @@ Widget cardFlippers(flipWidget flip,Icon icon) {
       // default
       side: CardSide.FRONT,
       // The side to initially display.
-      front: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Colors.grey,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
-        ),
-        child: Container(
-          height: 160,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.0),
-              image: DecorationImage(
-                  image: AssetImage('${flip.image}'), fit: BoxFit.cover)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6.0),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
-                  child: Container(
-                      height: 36,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3)),
-                      child: Padding(
-                        padding:
-                        const EdgeInsets.only(left: 10, bottom: 3),
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: InkWell(
-                                onTap: () {},
-                                child: icon,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                '${flip.title}',
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Icon(
-                                  Icons.shopping_cart_outlined,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-                ),
+      front: Stack(
+        children: [
+          Card(
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.grey,
               ),
-            ],
+              borderRadius: const BorderRadius.all(Radius.circular(6)),
+            ),
+            child: Container(
+              // height: 160,
+              width: 220,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6.0),
+                  image: DecorationImage(
+                      image: AssetImage('${flip.image}'), fit: BoxFit.cover)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6.0),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+                      child: Container(
+                          height: 36,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.3)),
+                          child: Padding(
+                            padding:
+                            const EdgeInsets.only(left: 10, bottom: 3),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: icon,
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Text(
+                                    '${flip.title}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Icon(
+                                      Icons.shopping_cart_outlined,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: onPressed,
+              icon: Icon(Icons.arrow_forward),
+            ),
+          ),
+        ],
       ),
       back: Card(
         color: Colors.transparent,

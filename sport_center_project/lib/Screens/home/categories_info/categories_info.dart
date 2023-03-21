@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sport_center_project/shared/component/component.dart';
+import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
 
 class CategoriesInfo extends StatefulWidget {
   const CategoriesInfo({Key? key}) : super(key: key);
@@ -35,33 +37,38 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                   color:Colors.grey.shade100.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          // color: Colors.grey.shade300,
-                           borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/Soccer.jpg'),
-                            fit: BoxFit.cover,
-                           // colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+                child: InkWell(
+                  onTap: (){
+                    navigators.navigatorWithBack(context, Home());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 80,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            // color: Colors.grey.shade300,
+                             borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/Soccer.jpg'),
+                              fit: BoxFit.cover,
+                             // colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        'Soccer',
-                        style: TextStyle(
-                          fontSize:20,
-                          color: Color(0xFF000056),
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          'Soccer',
+                          style: TextStyle(
+                            fontSize:20,
+                            color: Color(0xFF000056),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

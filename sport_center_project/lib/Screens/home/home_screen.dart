@@ -8,6 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/shared/component/component.dart';
+import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
 // class flipWidget{
 //   final String image;
@@ -397,6 +399,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.favorite_border_outlined,
                             color: Colors.red,
                           ),
+                          onPressed: () {
+                            setState(() {
+                              navigators.navigateTo(context, Detail());
+                            });
+                          },
                         );
                       }),
                 ],
