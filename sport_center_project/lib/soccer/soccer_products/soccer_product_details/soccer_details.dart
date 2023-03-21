@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:sport_center_project/Screens/soccer/home.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
 
 class Detail extends StatefulWidget {
   const Detail({Key? key}) : super(key: key);
@@ -38,6 +39,13 @@ class _DetailState extends State<Detail> {
     );
   }
 
+  int activatedIndex = 0;
+  int dotIndex=0;
+
+  final List<String> sizes = ['S', 'M', 'L', 'XL'];
+
+  final carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +63,9 @@ class _DetailState extends State<Detail> {
                     enableInfiniteScroll: false,
                     enlargeCenterPage: true,
                     autoPlay: true,
+                    reverse: false,
+                    onPageChanged: (index, reason)=>
+                        setState(()=>dotIndex=index),
                   ),
                   items: images
                       .map(
@@ -116,6 +127,7 @@ class _DetailState extends State<Detail> {
                 ),
               ),
             ),
+            buildIndicator(),
             Expanded(
               child: Padding(
                 padding:
@@ -128,7 +140,7 @@ class _DetailState extends State<Detail> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Berrylush",
+                          "Soccer",
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
@@ -158,6 +170,7 @@ class _DetailState extends State<Detail> {
                           "Choose Size",
                           style: TextStyle(
                             color: Color(0xff979797),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         CircleAvatar(
@@ -169,25 +182,40 @@ class _DetailState extends State<Detail> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            buildSizeButton(
-                              title: "S",
-                              isSeleted: false,
-                            ),
-                            buildSizeButton(
-                              title: "M",
-                              isSeleted: false,
-                            ),
-                            buildSizeButton(
-                              title: "L",
-                              isSeleted: true,
-                            ),
-                            buildSizeButton(
-                              title: "XL",
-                              isSeleted: false,
-                            ),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for (int i=0; i<sizes.length; i++)
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      activatedIndex=i;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 7, horizontal: 12),
+                                    decoration: BoxDecoration(
+                                        color: activatedIndex == i
+                                            ? Color(0xff9985cc).withOpacity(1)
+                                            : Colors.white70,
+                                        borderRadius: BorderRadius.circular(6)),
+                                    child:Text(
+                                      sizes[i],
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: sizes[i] == sizes[activatedIndex]
+                                            ? Colors.white
+                                            : Colors.blueGrey.shade900
+                                            .withOpacity(1),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -260,20 +288,20 @@ class _DetailState extends State<Detail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Berrylush is a casualwear In Wastern syle that is",
+                          "This is test product of our graduation project",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xffb2b2b2),
+                            color: Color(0xff989494),
                           ),
                         ),
                         SizedBox(
                           height: 10.0,
                         ),
                         Text(
-                          "relaxed,occasinal and suited fir everyday use.",
+                          "sport product to test the project.",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xffb2b2b2),
+                            color: Color(0xff989494),
                           ),
                         )
                       ],
@@ -320,4 +348,19 @@ class _DetailState extends State<Detail> {
       ),
     );
   }
+
+  Widget buildIndicator() {
+    return AnimatedSmoothIndicator(
+      activeIndex: dotIndex,
+      count: images.length,
+      onDotClicked: animateToSlide,
+      effect: SlideEffect(
+          dotWidth: 10,
+          dotHeight: 10,
+          activeDotColor: Color(0xff8471bb),
+          dotColor: Colors.grey),
+    );
+  }
+
+  void animateToSlide(int index) => carouselController.animateToPage(index);
 }

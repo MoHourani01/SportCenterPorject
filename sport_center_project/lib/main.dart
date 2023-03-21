@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
-import 'package:sport_center_project/Screens/soccer/home.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
             // home: SplashScreen(title:'login'),
-            home:Home(),
+            home:MainNavigationBar(),
           );
         },
       ),

@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:sport_center_project/Screens/soccer/details.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
+import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/shared/component/component.dart';
+import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -49,12 +52,12 @@ class _HomeState extends State<Home> {
     );
   }
 
-  List<String> images = [
-    "assets/images/basketball.jpg",
-    "assets/images/basketball.jpg",
-    "assets/images/basketball.jpg",
-    "assets/images/basketball.jpg",
-  ];
+  // List<String> images = [
+  //   "assets/images/basketball.jpg",
+  //   "assets/images/basketball.jpg",
+  //   "assets/images/basketball.jpg",
+  //   "assets/images/basketball.jpg",
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +72,7 @@ class _HomeState extends State<Home> {
             color: Color(0xff8275b3),
           ),
           onPressed: () {
-
+            navigators.navigateTo(context, MainNavigationBar());
           },
         ),
         actions: [
@@ -91,6 +94,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: ListView(
+        // shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         children: [
           Padding(
@@ -107,7 +111,15 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
-                    )
+                    ),
+                    SizedBox(height: 5,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 14),
+                      child: Text(
+                        "Explore Our Collections",
+                        style: TextStyle(color: Color(0xffa3a3a3)),
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -127,13 +139,13 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Text(
-              "Explore Our Collections",
-              style: TextStyle(color: Color(0xffa3a3a3)),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 12.0),
+          //   child: Text(
+          //     "Explore Our Collections",
+          //     style: TextStyle(color: Color(0xffa3a3a3)),
+          //   ),
+          // ),
           SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -180,21 +192,6 @@ class _HomeState extends State<Home> {
                 ),
                 fillColor: Colors.white,
                 filled: true,
-                suffixIcon: Container(
-                  padding: EdgeInsets.all(7.0),
-                  child: PhysicalShape(
-                    color: Color(0xff8477bb),
-                    shadowColor: Colors.black,
-                    elevation: 3,
-                    clipper: ShapeBorderClipper(
-                      shape: CircleBorder(),
-                    ),
-                    child: Icon(
-                      Icons.sync_alt,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(40.0),
                   borderSide: BorderSide.none,
@@ -203,98 +200,34 @@ class _HomeState extends State<Home> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(12.0),
             child: MasonryGridView.count(
               crossAxisCount: 2,
+              // crossAxisSpacing: 5.0,
               mainAxisSpacing: 5,
-              itemCount: images.length,
+              itemCount: 10,
               primary: false,
               shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) => GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Detail(),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        'assets/images/Soccer.jpg',
-                      ),
-                    ),
+              itemBuilder: (BuildContext context, int index) {
+                if (index >= flipper.length) {
+                  return SizedBox
+                      .shrink(); // Return an empty widget if index is out of bounds
+                }
+                return cardFlippers(
+                  flipper[index],
+                  Icon(
+                    Icons.favorite_border_outlined,
+                    color: Colors.red,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                          child: Container(
-                            height: 100,
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(horizontal: 7.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white12.withOpacity(0.1),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(
-                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Berrylush",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      "\$120",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "casual",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: Colors.white),
-                                    Text(
-                                      "4.5",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                  onPressed: () {
+                    setState(() {
+                      navigators.navigateTo(context, Detail());
+                    });
+                  },
+                );
+              },
               // staggeredTileBuilder:
               // mainAxisSpacing: 20.0,
-              crossAxisSpacing: 20.0,
               // gridDelegate: null,),
             )),
         ],
