@@ -90,9 +90,11 @@ class LoginScreen extends StatelessWidget {
                                     controller: emailController,
                                     type: TextInputType.emailAddress,
                                     hintText: 'Email Address',
-                                    validate: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Please enter your email address';
+                                    validate: (String value)
+                                    {
+                                      if(value!.isEmpty)
+                                      {
+                                        return'please enter email address!';
                                       }
                                       return null;
                                     },
@@ -120,12 +122,14 @@ class LoginScreen extends StatelessWidget {
                                       // });
                                       model.changePasswordVisibilty();
                                     },
-                                    validate: (String value) {
-                                      if (value!.isEmpty) {
-                                        return 'Password musn\'t be empty';
-                                      }
-                                      // return null;
-                                    },
+                                      validate: (String? value)
+                                      {
+                                        if(value!.isEmpty)
+                                        {
+                                          return'please enter Password!';
+                                        }
+                                        return null;
+                                      },
                                     prefixIconColor: Color(0xFD040842),
                                     // hintStyleColor: Colors.black26,
                                     // backgroundHintColor: Color(0xFCF8D2E7),
@@ -158,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                                           if (formKey.currentState!.validate()){
                                             model.userLogin(email: emailController.text, password: passwordController.text);
                                           }
-                                          navigators.navigateTo(context, MainNavigationBar());
+                                          //navigators.navigateTo(context, MainNavigationBar());
                                         },
                                         text: 'LOGIN',
                                         radius: 8.0,
