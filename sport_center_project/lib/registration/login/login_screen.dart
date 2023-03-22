@@ -16,10 +16,9 @@ class LoginScreen extends StatelessWidget {
 
   var passwordController = TextEditingController();
 
-  // final GlobalKey<FormState> formKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
-  var formKey=GlobalKey<FormState>();
 
   bool showPassword = true;
 
@@ -121,8 +120,8 @@ class LoginScreen extends StatelessWidget {
                                       // });
                                       model.changePasswordVisibilty();
                                     },
-                                    validate: (value) {
-                                      if (value.isEmpty) {
+                                    validate: (String value) {
+                                      if (value!.isEmpty) {
                                         return 'Password musn\'t be empty';
                                       }
                                       // return null;
@@ -150,17 +149,14 @@ class LoginScreen extends StatelessWidget {
                                     height: 20.0,
                                   ),
                                   ConditionalBuilder(
-                                      condition: state is! GetUserLoadingState,
+                                      condition: state is! UserRegisterLoadingState,
                                       builder: (context)=>defaultLoginButton(
                                         width: double.infinity,
                                         //backround: Colors.blue,
                                         function: () {
                                           // validateAndSubmit(context);
                                           if (formKey.currentState!.validate()){
-                                            model.userLogin(
-                                                email: emailController.text,
-                                                password: passwordController.text
-                                            );
+                                            model.userLogin(email: emailController.text, password: passwordController.text);
                                           }
                                           navigators.navigateTo(context, MainNavigationBar());
                                         },
@@ -172,6 +168,7 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                       fallback: (context)=>Center(child: CircularProgressIndicator()),
                                   ),
+
                                   SizedBox(height: 12.0,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
