@@ -1,12 +1,14 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
 import 'package:sport_center_project/registration/register/register_cubit/register_states.dart';
 import 'package:sport_center_project/registration/register/register_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
+import 'package:sport_center_project/shared/network/local/cache_helper.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -160,9 +162,24 @@ class LoginScreen extends StatelessWidget {
                                         function: () {
                                           // validateAndSubmit(context);
                                           if (formKey.currentState!.validate()){
-                                            model.userLogin(email: emailController.text, password: passwordController.text);
+                                            LoginCubit.get(context).userLogin(
+                                                email: emailController.text, password: passwordController.text);
+                                            showToast(text: 'Login Success', state: ToastStates.Success);
+                                            navigators.navigateTo(context, MainNavigationBar());
                                           }
-                                          //navigators.navigateTo(context, MainNavigationBar());
+                                          else if(passwordController.text==''){
+                                            showToast(text: 'Please enter your password', state: ToastStates.Warning);
+                                          }
+                                          else if(emailController.text==''){
+                                            showToast(text: 'Please enter your email address', state: ToastStates.Warning);
+                                          }
+                                          else{
+                                            showToast(text: 'Login Failed', state: ToastStates.Error);
+                                          }
+                                          // else{
+                                          //   Fluttertoast.showToast(msg: 'Login failed');
+                                          // }
+                                          // navigators.navigateTo(context, MainNavigationBar());
                                         },
                                         text: 'LOGIN',
                                         radius: 8.0,
@@ -209,7 +226,22 @@ class LoginScreen extends StatelessWidget {
               ),
             );
           },
-          listener: (context,state){}
+          listener: (context,state){
+            // if (state is GetUserErrorState) {
+            //   showToast(
+            //     text: state.error,
+            //     state: ToastStates.Error,
+            //   );
+            // }
+            // if (state is GetUserSuccessState){
+            //   CacheHelper.saveData(
+            //       key: 'uId',
+            //       value: state.uId
+            //   ).then((value) {
+            //     navigators.navigateTo(context, MainNavigationBar());
+            //   });
+            // }
+          }
       ),
     );
   }

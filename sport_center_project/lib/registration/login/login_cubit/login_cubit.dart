@@ -16,35 +16,35 @@ class LoginCubit extends Cubit<LoginStates> {
 
   UserModel? userModel;
 
-  void userData() {
-    emit(GetUserLoadingState());
-    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
-      print(value.data());
-      userModel = UserModel.fromJson(value.data()!);
-      emit(GetUserSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetUserErrorState(error.toString()));
-    });
-  }
+  // void userData() {
+  //   emit(GetUserLoadingState());
+  //   FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+  //     print(value.data());
+  //     userModel = UserModel.fromJson(value.data()!);
+  //     emit(GetUserSuccessState());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(GetUserErrorState(error.toString()));
+  //   });
+  // }
 
   void userLogin({
-      required String email,
-      required String password,
-    })
-  {
+    required String email,
+    required String password,
+  }) {
     emit(GetUserLoadingState());
     FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
+      email: email,
+      password: password,
     ).then((value) {
       print(value.user!.email);
       print(value.user!.uid);
-      emit(GetUserSuccessState());
+      emit(GetUserSuccessState(value.user!.uid));
     }).catchError((error){
       emit(GetUserErrorState(error.toString()));
     });
   }
+
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
