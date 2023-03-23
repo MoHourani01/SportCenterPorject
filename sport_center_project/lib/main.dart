@@ -14,7 +14,7 @@ import 'Screens/onBoarding_Screen/onBoarding.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  DioHelper.init();
+  await DioHelper.init();
   runApp(MyApp());
 }
 

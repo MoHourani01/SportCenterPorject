@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget defaultLoginFormField({
   required TextEditingController controller,
@@ -155,3 +156,32 @@ class Navigators {
 }
 
 Navigators navigators = Navigators();
+
+void showToast({required String text,required ToastStates state})=>Fluttertoast.showToast(
+    msg: text,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 5,
+    backgroundColor: chooseToastColor(state),
+    textColor: Colors.white,
+    fontSize: 16.0
+);
+
+enum ToastStates{Success, Error, Warning}
+
+Color? chooseToastColor(ToastStates state){
+  Color color;
+  switch (state)
+  {
+    case ToastStates.Success:
+      color=Colors.green;
+      break;
+    case ToastStates.Error:
+      color= Colors.red;
+      break;
+    case ToastStates.Warning:
+      color= Colors.amber.shade800;
+      break;
+  }
+  return color;
+}

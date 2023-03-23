@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/registration/register/register_cubit/register_cubit.dart';
@@ -57,14 +58,14 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      height: 550,
-                      width: 350,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                  child: Container(
+                    height: 550,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Form(
@@ -95,9 +96,11 @@ class RegisterScreen extends StatelessWidget {
                                 type: TextInputType.text,
                                 hintText: 'Username',
                                 validate: (String value) {
-                                  if (value.isEmpty) {
-                                    return 'Please enter your username';
+                                  if(value!.isEmpty)
+                                  {
+                                    return'please enter your username!';
                                   }
+                                  return null;
                                 },
                                 prefix: Icons.person,
                                 // backgroundHintColor: Colors.white,
@@ -114,9 +117,11 @@ class RegisterScreen extends StatelessWidget {
                                 type: TextInputType.emailAddress,
                                 hintText: 'Email Address',
                                 validate: (String value) {
-                                  if (value.isEmpty) {
-                                    return 'Please enter your email address';
+                                  if(value!.isEmpty)
+                                  {
+                                    return'please enter email address!';
                                   }
+                                  return null;
                                 },
                                 prefix: Icons.email,
                                 // backgroundHintColor: Colors.white,
@@ -145,10 +150,11 @@ class RegisterScreen extends StatelessWidget {
                                   signUpModel.changePasswordVisibilty();
                                 },
                                 validate: (String value) {
-                                  if (value.isEmpty) {
-                                    return 'Password musn\'t be empty';
+                                  if(value!.isEmpty)
+                                  {
+                                    return'please enter your password!';
                                   }
-                                  // return null;
+                                  return null;
                                 },
                                 prefixIconColor: Color(0xFD040842),
                                 // hintStyleColor: Colors.black26,
@@ -174,9 +180,11 @@ class RegisterScreen extends StatelessWidget {
                                 type: TextInputType.phone,
                                 hintText: 'Email Address',
                                 validate: (String value) {
-                                  if (value.isEmpty) {
-                                    return 'Please enter your email address';
+                                  if(value!.isEmpty)
+                                  {
+                                    return'please enter your phone number!';
                                   }
+                                  return null;
                                 },
                                 prefix: Icons.phone_android_outlined,
                                 // backgroundHintColor: Colors.white,
@@ -202,8 +210,25 @@ class RegisterScreen extends StatelessWidget {
                                           name: userController.text,
                                           phone: phoneController.text,
                                       );
+                                      showToast(text: 'Registered Success', state: ToastStates.Success);
+                                      navigators.navigateTo(context, MainNavigationBar());
                                     }
-                                    navigators.navigateTo(context, MainNavigationBar());
+                                    else if(phoneController.text==''){
+                                      showToast(text: 'Please enter your phone number', state: ToastStates.Warning);
+                                    }
+                                    else if(passwordController.text==''){
+                                      showToast(text: 'Please enter your password', state: ToastStates.Warning);
+                                    }
+                                    else if(userController.text==''){
+                                      showToast(text: 'Please enter your username', state: ToastStates.Warning);
+                                    }
+                                    else if(emailController.text==''){
+                                      showToast(text: 'Please enter your email address', state: ToastStates.Warning);
+                                    }
+                                    // navigators.navigateTo(context, MainNavigationBar());
+                                    else{
+                                      showToast(text: 'Registered Failed', state: ToastStates.Error);
+                                    }
                                   },
                                   text: 'SignUp',
                                   radius: 8.0,
