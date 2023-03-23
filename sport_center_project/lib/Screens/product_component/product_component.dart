@@ -38,7 +38,7 @@ List<flipWidget> flipper=[
     image: 'assets/images/basketball.jpg',
     title: 'hello',),
 ];
-Widget cardFlippers(flipWidget flip,Icon icon, {required Function() onPressed}) {
+Widget cardFlippers(flipWidget flip,IconButton icon, {required Function() onPressed}) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 10),
     child: FlipCard(
@@ -84,20 +84,17 @@ Widget cardFlippers(flipWidget flip,Icon icon, {required Function() onPressed}) 
                               mainAxisAlignment:
                               MainAxisAlignment.spaceBetween,
                               children: [
+                                icon,
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                  padding: const EdgeInsets.only(right: 3),
                                   child: InkWell(
                                     onTap: () {},
-                                    child: icon,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Text(
-                                    '${flip.title}',
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600),
+                                    child: Text(
+                                      '${flip.title}',
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                 ),
                                 Padding(

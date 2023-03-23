@@ -14,19 +14,6 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  UserModel? userModel;
-
-  // void userData() {
-  //   emit(GetUserLoadingState());
-  //   FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
-  //     print(value.data());
-  //     userModel = UserModel.fromJson(value.data()!);
-  //     emit(GetUserSuccessState());
-  //   }).catchError((error) {
-  //     print(error.toString());
-  //     emit(GetUserErrorState(error.toString()));
-  //   });
-  // }
 
   void userLogin({
     required String email,
