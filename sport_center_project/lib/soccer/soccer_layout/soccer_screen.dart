@@ -215,10 +215,10 @@ class _HomeState extends State<Home> {
                 }
                 return cardFlippers(
                   flipper[index],
-                  Icon(
+                  IconButton(onPressed: (){}, icon: Icon(
                     Icons.favorite_border_outlined,
                     color: Colors.red,
-                  ),
+                  ),),
                   onPressed: () {
                     setState(() {
                       navigators.navigateTo(context, Detail());

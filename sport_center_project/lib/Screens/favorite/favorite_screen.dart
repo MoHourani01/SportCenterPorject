@@ -50,10 +50,11 @@ class FavoriteScreen extends StatelessWidget {
                   if (index >= flipper.length) {
                     return SizedBox.shrink(); // Return an empty widget if index is out of bounds
                   }
-                  return cardFlippers(flipper[index],Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    ),
+                  return cardFlippers(flipper[index],
+                    IconButton(onPressed: (){}, icon: Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    ),),
                     onPressed: () {
                         navigators.navigateTo(context, Detail());
                     },
