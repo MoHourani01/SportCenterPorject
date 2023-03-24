@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
         VariablesUtils.imageUrl = value.image!;
 
     }).whenComplete(() {
-      // navigators.navigateTo(context, MainNavigationBar());
+      navigators.navigateTo(context, MainNavigationBar());
     });
   }
 }

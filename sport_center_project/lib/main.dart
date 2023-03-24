@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
+import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
@@ -19,7 +20,8 @@ void main() async{
   await Firebase.initializeApp();
   await DioHelper.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setBool('productsAddedToFirebase', false);
+  // prefs.setBool('productsAddedToFirebase', false);
+  ProductService.addProducts(products);
   runApp(MyApp());
 }
 List<ProductsModel> products=[
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context)  => LoginCubit(),
         ),
-        BlocProvider(create: (BuildContext context) => SportCenterCubit()..addProductsToFirebase(products),
+        BlocProvider(create: (BuildContext context) => SportCenterCubit(),
         ),
       ],
       child: BlocConsumer<LoginCubit,LoginStates>(
