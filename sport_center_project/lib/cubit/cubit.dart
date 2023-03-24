@@ -98,6 +98,11 @@ class SportCenterCubit extends Cubit<SportCenterStates> {
       price: '50 JD',
       image: 'https://cdn.shopify.com/s/files/1/0405/9807/7603/products/HF0291-RMCFMZ0074-02_500x480.jpg?v=1655974763',
     ),
+    ProductsModel(
+      name: 'Miami Heat Jersey',
+      price: '60 JD',
+      image: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fddec8b1-7aee-4b47-826d-f2ec00ad4e66/miami-heat-association-edition-2022-23-dri-fit-nba-swingman-jersey-gLpkQ8.png',
+    ),
   ];
 
   List<String> productID = [];
