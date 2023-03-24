@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_center_project/models/product_model.dart';
 
 class flipWidget{
   final String image;
@@ -38,7 +39,7 @@ List<flipWidget> flipper=[
     image: 'assets/images/basketball.jpg',
     title: 'hello',),
 ];
-Widget cardFlippers(flipWidget flip,IconButton icon, {required Function() onPressed}) {
+Widget cardFlippers(ProductsModel model,IconButton icon, {required Function() onPressed}) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 10),
     child: FlipCard(
@@ -64,7 +65,7 @@ Widget cardFlippers(flipWidget flip,IconButton icon, {required Function() onPres
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6.0),
                   image: DecorationImage(
-                      image: AssetImage('${flip.image}'), fit: BoxFit.cover)),
+                      image: NetworkImage('${model.image}'), fit: BoxFit.cover)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -90,7 +91,7 @@ Widget cardFlippers(flipWidget flip,IconButton icon, {required Function() onPres
                                   child: InkWell(
                                     onTap: () {},
                                     child: Text(
-                                      '${flip.title}',
+                                      '${model.price}',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600),
@@ -142,7 +143,7 @@ Widget cardFlippers(flipWidget flip,IconButton icon, {required Function() onPres
           ),
           child: Center(
             child: Text(
-              'Sport Center',
+              '${model.name}',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

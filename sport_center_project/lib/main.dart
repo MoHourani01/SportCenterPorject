@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
+import 'package:sport_center_project/cubit/cubit.dart';
+import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
@@ -15,9 +18,27 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await DioHelper.init();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool('productsAddedToFirebase', false);
   runApp(MyApp());
 }
-
+List<ProductsModel> products=[
+  ProductsModel(
+    name: 'Man United Jersey',
+    price: '50 JD',
+    image: 'https://cdn.shopify.com/s/files/1/0002/6440/5057/products/Home1OG.jpg',
+  ),
+  ProductsModel(
+    name: 'Barcelona Jersey',
+    price: '50 JD',
+    image: 'https://arenajerseys.com/wp-content/uploads/2022/06/download-4.jpg',
+  ),
+  ProductsModel(
+    name: 'RealMadrid Jersey',
+    price: '50 JD',
+    image: 'https://cdn.shopify.com/s/files/1/0405/9807/7603/products/HF0291-RMCFMZ0074-02_500x480.jpg?v=1655974763',
+  ),
+];
 class MyApp extends StatelessWidget {
   // const MyApp({super.key});
 
@@ -28,6 +49,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (BuildContext context)  => LoginCubit(),
+        ),
+        BlocProvider(create: (BuildContext context) => SportCenterCubit()..addProductsToFirebase(products),
         ),
       ],
       child: BlocConsumer<LoginCubit,LoginStates>(
@@ -42,7 +65,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
             // home: SplashScreen(title:'login'),
-            home:MainNavigationBar(),
+            home:LoginScreen(),
           );
         },
       ),

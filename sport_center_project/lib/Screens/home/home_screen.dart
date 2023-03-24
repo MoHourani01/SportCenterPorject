@@ -1,13 +1,17 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/cubit/cubit.dart';
+import 'package:sport_center_project/cubit/states.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
@@ -50,210 +54,215 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            if (isBottomSheet) {
-              Navigator.of(context).pop();
-              isBottomSheet = false;
-            } else {
-              scaffoldKey.currentState!.showBottomSheet(
-                (context) {
-                  isBottomSheet = true;
-                  return CategoriesInfo();
-                },
-              );
-            }
-          });
-        },
-        tooltip: 'Categories',
-        backgroundColor: Color(0xFF130359).withOpacity(0.8),
-        child: Icon(Icons.category),
-      ),
-      backgroundColor: Colors.grey.shade300,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar.medium(
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10.0),
-                bottomLeft: Radius.circular(10.0),
-              ),
+    return BlocConsumer<SportCenterCubit,SportCenterStates>(
+        builder: (context, state){
+          var cubit=SportCenterCubit.get(context);
+          return Scaffold(
+            key: scaffoldKey,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  if (isBottomSheet) {
+                    Navigator.of(context).pop();
+                    isBottomSheet = false;
+                  } else {
+                    scaffoldKey.currentState!.showBottomSheet(
+                          (context) {
+                        isBottomSheet = true;
+                        return CategoriesInfo();
+                      },
+                    );
+                  }
+                });
+              },
+              tooltip: 'Categories',
+              backgroundColor: Color(0xFF130359).withOpacity(0.8),
+              child: Icon(Icons.category),
             ),
-            elevation: 0,
-            // expandedHeight: 200,
-            backgroundColor: Color(0xFF130359),
-            leading: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-            title: Text(
-              'Sport Center',
-            ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  // color: Color(0xFF130359),
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF130359),
-                      Color(0xF717217A),
-                      Color(0xFF1D2EA8),
-                    ],
-                    begin: AlignmentDirectional.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-              title: Text('Sport Center'),
-              centerTitle: true,
-              collapseMode: CollapseMode.pin,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  CarouselSlider(
-                    items: images
-                        .map(
-                          (e) => Image(
-                            image: AssetImage('${e}'),
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                        .toList(),
-                    options: CarouselOptions(
-                      height: 200,
-                      // aspectRatio: 10/6,
-                      viewportFraction: 0.8,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 3),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
-                      // onPageChanged: callbackFunction,
-                      scrollDirection: Axis.horizontal,
-                      onPageChanged: (index, reason) =>
-                          setState(() => activatedIndex = index),
+            backgroundColor: Colors.grey.shade300,
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar.medium(
+                  shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
                     ),
                   ),
-                  SizedBox(
-                    height: 8,
+                  elevation: 0,
+                  // expandedHeight: 200,
+                  backgroundColor: Color(0xFF130359),
+                  leading: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
                   ),
-                  buildIndicator(),
-                  SizedBox(
-                    height: 8,
+                  title: Text(
+                    'Sport Center',
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15, bottom: 15),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          for (int i = 0; i < items.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  indexItems = i;
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 7, horizontal: 12),
-                                decoration: BoxDecoration(
-                                    color: indexItems == i
-                                        ? Color(0xFF320C72).withOpacity(1)
-                                        : Colors.white70,
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Text(
-                                  items[i],
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: items[i] == items[indexItems]
-                                        ? Colors.white
-                                        : Colors.blueGrey.shade900
-                                            .withOpacity(1),
-                                  ),
-                                ),
-                              ),
-                            )
-                        ],
+                  centerTitle: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.white,
                       ),
                     ),
+                  ],
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                      decoration: BoxDecoration(
+                        // color: Color(0xFF130359),
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0),
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF130359),
+                            Color(0xF717217A),
+                            Color(0xFF1D2EA8),
+                          ],
+                          begin: AlignmentDirectional.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                    ),
+                    title: Text('Sport Center'),
+                    centerTitle: true,
+                    collapseMode: CollapseMode.pin,
                   ),
+                ),
+                SliverToBoxAdapter(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
 
-                  MasonryGridView.count(
-                      physics: BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 1,
-                      mainAxisSpacing: 5,
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount: flipper.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index >= flipper.length) {
-                          return SizedBox
-                              .shrink(); // Return an empty widget if index is out of bounds
-                        }
-                        return cardFlippers(
-                          flipper[index],
-                          IconButton(
-                            onPressed: (){
-                              setState(() {
-                                isFavorite=!isFavorite;
-                              });
-                            },
-                            icon: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                            color: isFavorite ? Colors.red : Colors.red,
+                        CarouselSlider(
+                          items: images
+                              .map(
+                                (e) => Image(
+                              image: AssetImage('${e}'),
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                              .toList(),
+                          options: CarouselOptions(
+                            height: 200,
+                            // aspectRatio: 10/6,
+                            viewportFraction: 0.8,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration: Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.3,
+                            // onPageChanged: callbackFunction,
+                            scrollDirection: Axis.horizontal,
+                            onPageChanged: (index, reason) =>
+                                setState(() => activatedIndex = index),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        buildIndicator(),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 15, bottom: 15),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                for (int i = 0; i < items.length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        indexItems = i;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 7, horizontal: 12),
+                                      decoration: BoxDecoration(
+                                          color: indexItems == i
+                                              ? Color(0xFF320C72).withOpacity(1)
+                                              : Colors.white70,
+                                          borderRadius: BorderRadius.circular(6)),
+                                      child: Text(
+                                        items[i],
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          color: items[i] == items[indexItems]
+                                              ? Colors.white
+                                              : Colors.blueGrey.shade900
+                                              .withOpacity(1),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                              ],
                             ),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              navigators.navigateTo(context, Detail());
-                            });
-                          },
-                        );
-                      }),
-                ],
-              ),
+                        ),
+
+                        MasonryGridView.count(
+                            physics: BouncingScrollPhysics(),
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 1,
+                            mainAxisSpacing: 5,
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: cubit.products.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              if (index >= cubit.products.length) {
+                                return SizedBox
+                                    .shrink(); // Return an empty widget if index is out of bounds
+                              }
+                              return cardFlippers(
+                                cubit.products[index],
+                                IconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      isFavorite=!isFavorite;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                    color: isFavorite ? Colors.red : Colors.red,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    navigators.navigateTo(context, Detail());
+                                  });
+                                },
+                              );
+                            }),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        },
+        listener: (context, state){});
   }
 
 
