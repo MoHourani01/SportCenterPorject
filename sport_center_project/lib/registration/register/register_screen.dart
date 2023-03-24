@@ -213,16 +213,16 @@ class RegisterScreen extends StatelessWidget {
                                       showToast(text: 'Registered Success', state: ToastStates.Success);
                                       navigators.navigateTo(context, MainNavigationBar());
                                     }
-                                    else if(phoneController.text==''){
+                                    else if(phoneController.text.isEmpty){
                                       showToast(text: 'Please enter your phone number', state: ToastStates.Warning);
                                     }
-                                    else if(passwordController.text==''){
+                                    else if(passwordController.text.isEmpty){
                                       showToast(text: 'Please enter your password', state: ToastStates.Warning);
                                     }
-                                    else if(userController.text==''){
+                                    else if(userController.text.isEmpty){
                                       showToast(text: 'Please enter your username', state: ToastStates.Warning);
                                     }
-                                    else if(emailController.text==''){
+                                    else if(emailController.text.isEmpty){
                                       showToast(text: 'Please enter your email address', state: ToastStates.Warning);
                                     }
                                     // navigators.navigateTo(context, MainNavigationBar());

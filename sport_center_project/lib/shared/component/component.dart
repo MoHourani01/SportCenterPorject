@@ -5,7 +5,7 @@ Widget defaultLoginFormField({
   required TextEditingController controller,
   required TextInputType type,
   Function(dynamic)? onSubmit,
-  Function(String)? onChanged,
+  Function(dynamic)? onChanged,
   //Function? onTap,
   required String hintText,
   required String labelText,

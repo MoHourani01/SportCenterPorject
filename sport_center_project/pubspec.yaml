@@ -51,6 +51,8 @@ dependencies:
   http:
   fluttertoast:
   conditional_builder_null_safety: ^0.0.6
+  connectivity_plus:
+  flutter_spinkit:
 
   #firebase
   firebase_core: ^2.7.1

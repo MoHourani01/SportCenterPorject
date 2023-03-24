@@ -29,6 +29,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
               name: name,
               email: email,
               phone: phone,
+              password: password,
               uId: value.user!.uid);
           emit(UserRegisterSuccessState());
     }).catchError((error){
@@ -41,6 +42,8 @@ class RegisterCubit extends Cubit<RegisterStates>{
     required String email,
     required String phone,
     required String uId,
+    required String password,
+
   }) {
     UserModel model = UserModel(
       name: name,
@@ -49,6 +52,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
       uId: uId,
       image: 'https://www.freepik.com/free-vector/premier-soccer-football-tournament-background_7151643.jpg',
       isEmailVerified: false,
+      password: password,
     );
     FirebaseFirestore.instance
         .collection('users')
