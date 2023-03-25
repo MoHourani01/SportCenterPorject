@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sport_center_project/Screens/onBoarding_Screen/onBoarding.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     new Timer(const Duration(milliseconds: 2000), (){
       setState(() {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+            MaterialPageRoute(builder: (context) => OnBoardingScreen()), (route) => false);
       });
     });
 
