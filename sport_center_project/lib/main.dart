@@ -21,7 +21,7 @@ void main() async{
   await DioHelper.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setBool('productsAddedToFirebase', false);
-  ProductService.addProducts(products);
+  ProductService.addProducts(ProductInfo.products);
   runApp(MyApp());
 }
 List<ProductsModel> products=[
@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context)  => LoginCubit(),
         ),
-        BlocProvider(create: (BuildContext context) => SportCenterCubit(),
-        ),
+        // BlocProvider(create: (BuildContext context) => SportCenterCubit(),
+        // ),
       ],
       child: BlocConsumer<LoginCubit,LoginStates>(
         listener: (context,state){},
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
             // home: SplashScreen(title:'login'),
-            home:LoginScreen(),
+            home:SplashScreen(title: 'onBoarding'),
           );
         },
       ),
