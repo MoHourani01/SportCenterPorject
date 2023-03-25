@@ -4,6 +4,7 @@ class ProductsModel{
   String? name;
   String? productId;
   String? description;
+  bool isFavorite = false;
 
   ProductsModel({
     this.price,
@@ -11,6 +12,7 @@ class ProductsModel{
     this.name,
     this.productId,
     this.description,
+    bool isFavorite = false,
   });
 
   ProductsModel.fromJson(Map<String, dynamic> json){

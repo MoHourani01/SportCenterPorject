@@ -9,4 +9,26 @@ class FirestoreService {
   Future<void> addToFavorites(ProductsModel product) async {
     await _favoritesCollectionReference.doc(product.productId).set(product.toProductMap());
   }
+
+  Future<void> removeFromFavorites(ProductsModel product) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('favorites')
+          .doc(product.productId)
+          .delete();
+    } catch (e) {
+      print('Error removing product from favorites: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> toggleFavoriteStatus(ProductsModel product) async {
+    product.isFavorite = !product.isFavorite;
+    if (product.isFavorite) {
+      await addToFavorites(product);
+    } else {
+      await removeFromFavorites(product);
+    }
+  }
+
 }

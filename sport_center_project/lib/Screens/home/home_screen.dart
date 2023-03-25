@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
@@ -53,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
   var formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  ProductsModel? product;
+  // ProductsModel? product;
+  List<ProductsModel> products = ProductInfo.products;
 
   @override
   Widget build(BuildContext context) {
@@ -237,11 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return cardFlippers(
                           ProductInfo.products[index],
                           IconButton(
-                            onPressed: (){
-                              setState(() {
-                                isFavorite=!isFavorite;
-                              });
-                            },
+                            onPressed: () => toggleFavoriteStatus(index),
                             icon: Icon(
                               isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
                               color: isFavorite ? Colors.red : Colors.red,
@@ -280,4 +278,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void animateToSlide(int index) => carouselController.animateToPage(index);
 
+  Future<void> toggleFavoriteStatus(int index) async{
+    final product=products[index];
+    setState(() {
+      product.isFavorite=!product.isFavorite;
+    });
+    if (product.isFavorite){
+      await favoritesCollection.add(product.toProductMap());
+    }
+  }
+
+  late CollectionReference favoritesCollection;
+  @override
+  void initState() {
+    super.initState();
+    favoritesCollection = FirebaseFirestore.instance.collection('favorites');
+  }
 }
