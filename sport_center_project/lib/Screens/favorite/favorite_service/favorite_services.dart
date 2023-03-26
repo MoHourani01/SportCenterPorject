@@ -22,13 +22,14 @@ class FirestoreService {
     }
   }
 
-  Future<void> toggleFavoriteStatus(ProductsModel product) async {
-    product.isFavorite = !product.isFavorite;
-    if (product.isFavorite) {
-      await addToFavorites(product);
-    } else {
-      await removeFromFavorites(product);
-    }
-  }
+  // Future<void> toggleFavoriteStatus(ProductsModel product) async {
+  //   product.isFavorite = !product.isFavorite;
+  //   if (product.isFavorite) {
+  //     await addToFavorites(product);
+  //   } else {
+  //     final snapshot = await _favoritesCollectionReference.where('productId', isEqualTo: product.productId).get();
+  //     snapshot.docs.forEach((doc) => doc.reference.delete());
+  //   }
+  // }
 
 }
