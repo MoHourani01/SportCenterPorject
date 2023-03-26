@@ -6,6 +6,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
@@ -49,13 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int activatedIndex = 0;
   bool isBottomSheet = false;
 
-  bool isFavorite = false;
-
   var formKey = GlobalKey<FormState>();
-  var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // ProductsModel? product;
-  List<ProductsModel> products = ProductInfo.products;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isFavorite = false;
+  ProductsModel? product;
+
+  List<ProductsModel> products = ProductsModel.products;
 
   @override
   Widget build(BuildContext context) {
@@ -230,19 +231,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisSpacing: 5,
                       primary: false,
                       shrinkWrap: true,
-                      itemCount: ProductInfo.products.length,
+                      itemCount: products.length,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index >= ProductInfo.products.length) {
+                        if (index >= products.length) {
                           return SizedBox
                               .shrink(); // Return an empty widget if index is out of bounds
                         }
                         return cardFlippers(
-                          ProductInfo.products[index],
+                          products[index],
                           IconButton(
-                            onPressed: () => toggleFavoriteStatus(index),
+                            onPressed: () {
+                              toggleFavoriteStatus(index);
+                            },
                             icon: Icon(
-                              isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                              color: isFavorite ? Colors.red : Colors.red,
+                              products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                              color: products[index].isFavorite ? Colors.red : Colors.red,
                             ),
                           ),
                           onPressed: () {
@@ -278,13 +281,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void animateToSlide(int index) => carouselController.animateToPage(index);
 
-  Future<void> toggleFavoriteStatus(int index) async{
-    final product=products[index];
+  Future<void> toggleFavoriteStatus(int index) async {
+    final product = products[index];
     setState(() {
-      product.isFavorite=!product.isFavorite;
+      product.isFavorite = !product.isFavorite;
     });
-    if (product.isFavorite){
+
+    if (product.isFavorite) {
       await favoritesCollection.add(product.toProductMap());
+      showToast(
+        text: 'Product ${product.name} added to favorites', state: ToastStates.Success
+      );    } else {
+      final snapshot =
+      await favoritesCollection.where('productId', isEqualTo: product.productId).get();
+      snapshot.docs.forEach((doc) => doc.reference.delete());
+      showToast(
+          text: 'Product ${product.name} deleted from favorites', state: ToastStates.Error
+      );
     }
   }
 

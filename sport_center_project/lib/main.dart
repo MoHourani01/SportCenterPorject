@@ -21,7 +21,7 @@ void main() async{
   await DioHelper.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setBool('productsAddedToFirebase', false);
-  ProductService.addProducts(ProductInfo.products);
+  ProductService.addProducts(ProductsModel.products);
   runApp(MyApp());
 }
 List<ProductsModel> products=[
