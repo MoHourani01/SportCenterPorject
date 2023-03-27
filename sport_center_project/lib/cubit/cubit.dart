@@ -9,7 +9,6 @@ import 'package:sport_center_project/models/product_model.dart';
 
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/news/news_screen.dart';
-import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
 import 'package:sport_center_project/cubit/states.dart';
 import 'package:sport_center_project/models/login_model.dart';
 import 'package:sport_center_project/shared/component/constants.dart';

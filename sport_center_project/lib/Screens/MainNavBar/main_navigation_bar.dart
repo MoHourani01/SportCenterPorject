@@ -4,7 +4,8 @@ import 'package:sport_center_project/Screens/cart/Cart_Screen.dart';
 import 'package:sport_center_project/Screens/news/News_Screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
-import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
+import 'package:sport_center_project/Screens/profile/profile_screen.dart';
+import 'package:sport_center_project/main.dart';
 
 class MainNavigationBar extends StatefulWidget {
   @override
