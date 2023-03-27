@@ -57,6 +57,7 @@ dependencies:
   line_awesome_flutter:
   flutter_screenutil:
   animated_theme_switcher:
+  image_picker:
 
 
 
