@@ -1,15 +1,28 @@
+import 'dart:collection';
+import 'dart:developer';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
+import 'package:sport_center_project/Utilities/Services/connectivity_service.dart';
+import 'package:sport_center_project/registration/UserService/user_service.dart';
+import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/registration/register/register_cubit/register_cubit.dart';
 import 'package:sport_center_project/registration/register/register_cubit/register_states.dart';
 import 'package:sport_center_project/shared/component/component.dart';
+import 'package:sport_center_project/shared/network/internet_connection_dialog.dart';
+import 'package:sport_center_project/shared/network/loader.dart';
 
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   // const RegisterScreen({Key? key}) : super(key: key);
   var emailController = TextEditingController();
@@ -29,254 +42,274 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context)=>RegisterCubit(),
-      child: BlocConsumer<RegisterCubit,RegisterStates>(
-          builder: (context, state){
-          var signUpModel=RegisterCubit.get(context);
-        return SafeArea(
-          child: Scaffold(
-            body: Stack(
-              children: [
-                ShaderMask(
-                  shaderCallback: (bounds) => LinearGradient(
-                    colors:[Colors.black,Colors.black38],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ).createShader(bounds),blendMode: BlendMode.darken,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/login2.jpg'),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                          Colors.black26,
-                          BlendMode.darken,
-                        ),
-                      ),
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => LinearGradient(
+                colors:[Colors.black,Colors.black38],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              ).createShader(bounds),blendMode: BlendMode.darken,
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/login2.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black26,
+                      BlendMode.darken,
                     ),
                   ),
                 ),
-                Center(
-                  child: Container(
-                    height: 550,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Form(
-                          key: formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ),
+            Center(
+              child: Container(
+                height: 550,
+                width: 350,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'SignUp',
+                            style: TextStyle(
+                                fontSize: 26.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFD040842).withOpacity(0.9)),
+                          ),
+                          SizedBox(
+                            height: 7.0,
+                          ),
+                          Text(
+                            'Welcome to Sport Center',
+                            style: TextStyle(color: Colors.black54, fontSize: 17.0),
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          defaultLoginFormField(
+                            controller: userController,
+                            type: TextInputType.text,
+                            hintText: 'Username',
+                            validate: (String value) {
+                              if(value!.isEmpty)
+                              {
+                                return'please enter your username!';
+                              }
+                              return null;
+                            },
+                            prefix: Icons.person,
+                            // backgroundHintColor: Colors.white,
+                            prefixIconColor: Color(0xFD040842),
+                            // hintStyleColor: Colors.black26,
+                            labelText: 'Username',
+                            labilStyleColor: Color(0xFD040842),
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          defaultLoginFormField(
+                            controller: emailController,
+                            type: TextInputType.emailAddress,
+                            hintText: 'Email Address',
+                            validate: (String value) {
+                              if(value!.isEmpty)
+                              {
+                                return'please enter email address!';
+                              }
+                              return null;
+                            },
+                            prefix: Icons.email,
+                            // backgroundHintColor: Colors.white,
+                            prefixIconColor: Color(0xFD040842),
+                            // hintStyleColor: Colors.black26,
+                            labelText: 'Email Address',
+                            labilStyleColor: Color(0xFD040842),
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          defaultLoginFormField(
+                              controller: passwordController,
+                              type: TextInputType.visiblePassword,
+                              hintText: 'Password',
+                              prefix: Icons.lock,
+                              suffixIconColor: Color(0xFD040842),
+                              // suffix: showPassword ? Icons.visibility : Icons.visibility_off,
+                              suffix: showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                              isPassword: showPassword,
+                              suffixPressed: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                              validate: (String value) {
+                                if(value!.isEmpty)
+                                {
+                                  return'please enter your password!';
+                                }
+                                return null;
+                              },
+                              prefixIconColor: Color(0xFD040842),
+                              // hintStyleColor: Colors.black26,
+                              // backgroundHintColor: Color(0xFCF8D2E7),
+                              labelText: 'Password',
+                              labilStyleColor: Color(0xFD040842),
+                              // onSubmit: (value){
+                              //   if (formKey.currentState!.validate()){
+                              //     signUpModel.signUp(
+                              //         email: emailController.text,
+                              //         name: userController.text,
+                              //         password: passwordController.text,
+                              //         phone: phoneController.text
+                              //     );
+                              //   }
+                              // }
+                            onChanged: (value){
+                              passwordController=value;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          defaultLoginFormField(
+                            controller: phoneController,
+                            type: TextInputType.phone,
+                            hintText: 'Phone',
+                            validate: (String value) {
+                              if(value!.isEmpty)
+                              {
+                                return'please enter your phone number!';
+                              }
+                              return null;
+                            },
+                            prefix: Icons.phone_android_outlined,
+                            // backgroundHintColor: Colors.white,
+                            prefixIconColor: Color(0xFD040842),
+                            // hintStyleColor: Colors.black26,
+                            labelText: 'Phone',
+                            labilStyleColor: Color(0xFD040842),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          defaultLoginButton(
+                            width: double.infinity,
+                            //backround: Colors.blue,
+                            function: () {
+                              validateAndSubmit(context);
+                              print("Email: ${emailController.text}, Password: ${passwordController.text}");
+                              // if (formKey.currentState!.validate()){
+                              //   LoginCubit.get(context).userLogin(emailController.text, passwordController.text);
+                              //   showToast(text: 'Login Success', state: ToastStates.Success);
+                              //   // navigators.navigateTo(context, MainNavigationBar());
+                              // }
+                              // else if(passwordController.text.isEmpty && emailController.text.isEmpty){
+                              //   showToast(text: 'Login Failed', state: ToastStates.Error);
+                              // }
+                              // else if(emailController.text.isEmpty && passwordController.text.isNotEmpty){
+                              //   showToast(text: 'Please enter your email address', state: ToastStates.Warning);
+                              // }
+                              // else if(emailController.text.isNotEmpty && passwordController.text.isEmpty){
+                              //   showToast(text: 'Please enter your password', state: ToastStates.Warning);
+                              // }
+                              // else{
+                              //   showToast(text: 'Login Failed', state: ToastStates.Error);
+                              // }
+                              // else{
+                              //   Fluttertoast.showToast(msg: 'Login failed');
+                              // }
+                              // navigators.navigateTo(context, MainNavigationBar());
+                            },
+                            text: 'SignUp',
+                            radius: 8.0,
+                            backround: Color(0xFD040842),
+                            textButtonColor: Colors.white,
+                            fontSize: 18.0,
+                          ),
+                          SizedBox(height: 12.0,),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'SignUp',
+                                'Back to Login',
                                 style: TextStyle(
-                                    fontSize: 26.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFD040842).withOpacity(0.9)),
-                              ),
-                              SizedBox(
-                                height: 7.0,
-                              ),
-                              Text(
-                                'Welcome to Sport Center',
-                                style: TextStyle(color: Colors.black54, fontSize: 17.0),
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              defaultLoginFormField(
-                                controller: userController,
-                                type: TextInputType.text,
-                                hintText: 'Username',
-                                validate: (String value) {
-                                  if(value!.isEmpty)
-                                  {
-                                    return'please enter your username!';
-                                  }
-                                  return null;
-                                },
-                                prefix: Icons.person,
-                                // backgroundHintColor: Colors.white,
-                                prefixIconColor: Color(0xFD040842),
-                                // hintStyleColor: Colors.black26,
-                                labelText: 'Username',
-                                labilStyleColor: Color(0xFD040842),
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              defaultLoginFormField(
-                                controller: emailController,
-                                type: TextInputType.emailAddress,
-                                hintText: 'Email Address',
-                                validate: (String value) {
-                                  if(value!.isEmpty)
-                                  {
-                                    return'please enter email address!';
-                                  }
-                                  return null;
-                                },
-                                prefix: Icons.email,
-                                // backgroundHintColor: Colors.white,
-                                prefixIconColor: Color(0xFD040842),
-                                // hintStyleColor: Colors.black26,
-                                labelText: 'Email Address',
-                                labilStyleColor: Color(0xFD040842),
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              defaultLoginFormField(
-                                controller: passwordController,
-                                type: TextInputType.visiblePassword,
-                                hintText: 'Password',
-                                prefix: Icons.lock,
-                                suffixIconColor: Color(0xFD040842),
-                                // suffix: showPassword ? Icons.visibility : Icons.visibility_off,
-                                suffix: signUpModel.suffix,
-                                isPassword: signUpModel.isPassword,
-                                suffixPressed: () {
-                                  // log('$showPassword');
-                                  // setState(() {
-                                  //   showPassword = !showPassword;
-                                  // });
-                                  signUpModel.changePasswordVisibilty();
-                                },
-                                validate: (String value) {
-                                  if(value!.isEmpty)
-                                  {
-                                    return'please enter your password!';
-                                  }
-                                  return null;
-                                },
-                                prefixIconColor: Color(0xFD040842),
-                                // hintStyleColor: Colors.black26,
-                                // backgroundHintColor: Color(0xFCF8D2E7),
-                                labelText: 'Password',
-                                labilStyleColor: Color(0xFD040842),
-                                onSubmit: (value){
-                                  if (formKey.currentState!.validate()){
-                                    signUpModel.signUp(
-                                        email: emailController.text,
-                                        name: userController.text,
-                                        password: passwordController.text,
-                                        phone: phoneController.text
-                                    );
-                                  }
-                                }
-                              ),
-                              SizedBox(
-                                height: 15.0,
-                              ),
-                              defaultLoginFormField(
-                                controller: phoneController,
-                                type: TextInputType.phone,
-                                hintText: 'Email Address',
-                                validate: (String value) {
-                                  if(value!.isEmpty)
-                                  {
-                                    return'please enter your phone number!';
-                                  }
-                                  return null;
-                                },
-                                prefix: Icons.phone_android_outlined,
-                                // backgroundHintColor: Colors.white,
-                                prefixIconColor: Color(0xFD040842),
-                                // hintStyleColor: Colors.black26,
-                                labelText: 'Phone',
-                                labilStyleColor: Color(0xFD040842),
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              ConditionalBuilder(
-                                condition: state is! UserRegisterLoadingState,
-                                builder: (context)=>defaultLoginButton(
-                                  width: double.infinity,
-                                  //backround: Colors.blue,
-                                  function: () {
-                                    // validateAndSubmit(context);
-                                    if (formKey.currentState!.validate()){
-                                      signUpModel.signUp(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          name: userController.text,
-                                          phone: phoneController.text,
-                                      );
-                                      showToast(text: 'Registered Success', state: ToastStates.Success);
-                                      navigators.navigateTo(context, MainNavigationBar());
-                                    }
-                                    else if(phoneController.text.isEmpty){
-                                      showToast(text: 'Please enter your phone number', state: ToastStates.Warning);
-                                    }
-                                    else if(passwordController.text.isEmpty){
-                                      showToast(text: 'Please enter your password', state: ToastStates.Warning);
-                                    }
-                                    else if(userController.text.isEmpty){
-                                      showToast(text: 'Please enter your username', state: ToastStates.Warning);
-                                    }
-                                    else if(emailController.text.isEmpty){
-                                      showToast(text: 'Please enter your email address', state: ToastStates.Warning);
-                                    }
-                                    // navigators.navigateTo(context, MainNavigationBar());
-                                    else{
-                                      showToast(text: 'Registered Failed', state: ToastStates.Error);
-                                    }
-                                  },
-                                  text: 'SignUp',
-                                  radius: 8.0,
-                                  backround: Color(0xFD040842),
-                                  textButtonColor: Colors.white,
-                                  fontSize: 18.0,
+                                  fontSize: 15.0,
+                                  // fontWeight: FontWeight.bold,
                                 ),
-                                fallback: (context)=>Center(child: CircularProgressIndicator()),
                               ),
-                              SizedBox(height: 12.0,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Back to Login',
-                                    style: TextStyle(
-                                      fontSize: 15.0,
-                                      // fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Icon(Icons.arrow_forward),
-                                  SizedBox(
-                                    width: 3.0,
-                                  ),
-                                  defaultTextButton(
-                                    function: () {
-                                      navigators.navigateTo(context, LoginScreen());
-                                    },
-                                    text: 'Login',
-                                    textButtonColor: Color(0xFD040842),
-                                    fontSize: 16.0,
-                                  ),
-                                ],
+                              Icon(Icons.arrow_forward),
+                              SizedBox(
+                                width: 3.0,
+                              ),
+                              defaultTextButton(
+                                function: () {
+                                  navigators.navigateTo(context, LoginScreen());
+                                },
+                                text: 'Login',
+                                textButtonColor: Color(0xFD040842),
+                                fontSize: 16.0,
                               ),
                             ],
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        );
-      },
-          listener: (context, state){}
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> validateAndSubmit(BuildContext context) async {
+    if (formKey.currentState!.validate()) {
+      if (await ConnectivityService.checkInternetConnectivity()) {
+        Loader.showLoadingScreen(context, _keyLoader);
+        log('email : ${emailController.text.trim()} | password : ${passwordController.text.trim()}');
+
+        var userValues = HashMap();
+        userValues['name'] = userController.text.trim();
+        userValues['email'] = emailController.text.trim();
+        userValues['phone'] = phoneController.text.trim();
+        userValues['password'] = passwordController.text.trim();
+        // userValues['userType'] = SignUpAsA;
+
+        var result = await LoginCubit.get(context).signUp(userValues);
+        log(result);
+        Navigator.of(_keyLoader.currentContext ?? context, rootNavigator: true)
+            .pop();
+        if (result == 'The password provided is too weak.') {
+          Fluttertoast.showToast(msg: result);
+        } else if (result == 'The account already exists for that email.') {
+          showToast(text: result, state: ToastStates.Warning);
+        } else if (result == "This isn't an email") {
+          showToast(text: result, state: ToastStates.Warning);
+        } else if (result.isEmpty) {
+          showToast(text: result, state: ToastStates.Error);
+        } else {
+          showToast(text: 'Registered Success', state: ToastStates.Success);
+          log('uid2 : $result');
+          navigators.navigateTo(context, MainNavigationBar());
+        }
+      } else {
+        internetConnectionDialog(context);
+      }
+    }
   }
 }

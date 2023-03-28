@@ -259,16 +259,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   saveUserData(String uid) async {
-    await userService.getUser(uid).then((value) {
-        VariablesUtils.uid = value.uId!;
-        VariablesUtils.userName = value.name!;
-        VariablesUtils.email = value.email!;
-        VariablesUtils.phone = value.phone!;
-        VariablesUtils.password = value.password!;
-        VariablesUtils.imageUrl = value.image!;
-
-    }).whenComplete(() {
+    try {
+      var value = await userService.getUser(uid);
+      VariablesUtils.uid = value?.uId ?? '';
+      VariablesUtils.userName = value?.name ?? '';
+      VariablesUtils.email = value?.email ?? '';
+      VariablesUtils.phone = value?.phone ?? '';
+      VariablesUtils.password = value?.password ?? '';
+      VariablesUtils.imageUrl = value?.image ?? '';
       navigators.navigateTo(context, MainNavigationBar());
-    });
+    } catch (e) {
+      // Handle the case where an exception is thrown.
+      print('Error saving user data: $e');
+    }
   }
 }
