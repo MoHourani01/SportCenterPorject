@@ -8,6 +8,8 @@ class ProductsModel{
   String? description;
   int? quantity;
   bool isFavorite = false;
+  List<String>? favories;
+  String? uId;
 
   ProductsModel({
     this.price,
@@ -16,7 +18,9 @@ class ProductsModel{
     this.productId,
     this.description,
     this.quantity,
+    this.uId,
     bool isFavorite = false,
+    this.favories
   });
 
   static List<ProductsModel> products=[
@@ -46,15 +50,15 @@ class ProductsModel{
     ),
   ];
 
-  ProductsModel.fromJson(Map<String, dynamic> json){
-    price=json['price'];
-    image=json['image'];
-    name=json['name'];
-    productId=json['productId'];
-    description=json['description'];
-    isFavorite= json['isFavorite'] ?? false;
-    quantity=json['quantity'];
-  }
+  // ProductsModel.fromJson(Map<String, dynamic> json){
+  //   price=json['price'];
+  //   image=json['image'];
+  //   name=json['name'];
+  //   productId=json['productId'];
+  //   description=json['description'];
+  //   isFavorite= json['isFavorite'] ?? false;
+  //   quantity=json['quantity'];
+  // }
 
   Map<String, dynamic> toProductMap(){
     return {
@@ -90,6 +94,18 @@ class ProductsModel{
       isFavorite: isFavorite ?? this.isFavorite,
     );
   }
+
+  factory ProductsModel.fromJson(Map<String, dynamic> map, {String? productId}) => ProductsModel(
+      productId: productId,
+      name: map["name"],
+      image: map["image"],
+      price: map["price"],
+      uId: map["uid"],
+      quantity: map["quantity"],
+      favories: map["favories"] == null
+          ? []
+          : map["favories"].map<String>((i) => i as String).toList(),);
+
 }
 
 // class ProductInfo{

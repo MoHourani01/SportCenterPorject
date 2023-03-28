@@ -307,4 +307,21 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     favoritesCollection = FirebaseFirestore.instance.collection('favorites');
   }
+  // List<ProductsModel> favorites=[];
+  // List<String> userId=[];
+  // void getFavorite(){
+  //   FirebaseFirestore.instance.collection('users').get().then((value) {
+  //       value.docs.forEach((element) {
+  //         element.reference.collection('favorties').get().then((value) {
+  //           userId.add(element.id);
+  //           favorites.add(ProductsModel.fromJson(element.data()));
+  //         }).catchError((error){
+  //           print(error.toString());
+  //         });
+  //       });
+  //     }
+  //   ).catchError((error){
+  //     print(error.toString());
+  //   });
+  // }
 }
