@@ -6,7 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/models/login_model.dart';
+import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
+import 'package:sport_center_project/shared/component/component.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -14,8 +16,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   // ImagePicker picker = ImagePicker();
 
   // File? imageFile;
@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   clipper: CustomShape(),
                   child: Container(
                     height: 200.0,
-                    color:  Color(0xFF130359).withOpacity(0.8),
+                    color: Color(0xFF130359).withOpacity(0.8),
                   ),
                 ),
                 Center(
@@ -64,8 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: CircleAvatar(
                                 radius: 60.0,
                                 backgroundImage: NetworkImage(VariablesUtils
-                                    .imageUrl !=
-                                    ''
+                                            .imageUrl !=
+                                        ''
                                     ? VariablesUtils.imageUrl
                                     : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
                               ),
@@ -152,41 +152,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.grey.shade300,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                        //   child: InkWell(
-                        //     onTap: () {},
-                        //     child: ListTile(
-                        //       trailing: Icon(
-                        //         Icons.navigate_next,
-                        //       ),
-                        //       title: Text('Payment'),
-                        //       leading: Icon(Icons.payment_outlined),
-                        //     ),
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 10.0,
+                          //   child: InkWell(
+                          //     onTap: () {},
+                          //     child: ListTile(
+                          //       trailing: Icon(
+                          //         Icons.navigate_next,
+                          //       ),
+                          //       title: Text('Payment'),
+                          //       leading: Icon(Icons.payment_outlined),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 10.0,
                         ),
                         VariablesUtils.userType == 'vendor'
                             ? Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              // mUtils.navigatorWithBack(
-                              //     context, AdminDashboard());
-                            },
-                            child: ListTile(
-                              trailing: Icon(
-                                Icons.navigate_next,
-                              ),
-                              title: Text('insights'),
-                              leading: Icon(
-                                  Icons.insert_chart_outlined_outlined),
-                            ),
-                          ),
-                        )
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    // mUtils.navigatorWithBack(
+                                    //     context, AdminDashboard());
+                                  },
+                                  child: ListTile(
+                                    trailing: Icon(
+                                      Icons.navigate_next,
+                                    ),
+                                    title: Text('insights'),
+                                    leading: Icon(
+                                        Icons.insert_chart_outlined_outlined),
+                                  ),
+                                ),
+                              )
                             : Container(),
                         // Container(
                         //   decoration: BoxDecoration(
@@ -211,11 +211,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // ),
                         VariablesUtils.userType == 'vendor'
                             ? SizedBox(
-                          height: 10,
-                        )
+                                height: 10,
+                              )
                             : SizedBox(
-                          height: 0,
-                        ),
+                                height: 0,
+                              ),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.grey.shade300,
@@ -237,7 +237,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               title: Text('Chat Bot'),
                               leading: Icon(Icons.chat_bubble),
-                              iconColor:Colors.blueGrey.shade900 ,
+                              iconColor: Colors.blueGrey.shade900,
                             ),
                           ),
                         ),
@@ -280,6 +280,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // });
                             },
                             child: ListTile(
+                              onTap: () {
+                                LoginCubit.get(context).logout().then((value) =>
+                                    navigators.navigateTo(
+                                        context, LoginScreen()
+                                    )
+                                ).whenComplete(() => showToast(text: 'Logged out', state: ToastStates.Success));
+                              },
                               trailing: Icon(
                                 Icons.navigate_next,
                               ),
@@ -302,27 +309,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // chooseSubjectImage(ImageSource source) async {
-  //   final pickedFile = await picker.pickImage(source: source);
-  //   if (pickedFile!.path.isEmpty) {
-  //     retrieveLostData();
-  //   } else {
-  //     setState(() {
-  //       // imageFile = File(pickedFile.path);
-  //     });
-  //   }
-  // }
+// chooseSubjectImage(ImageSource source) async {
+//   final pickedFile = await picker.pickImage(source: source);
+//   if (pickedFile!.path.isEmpty) {
+//     retrieveLostData();
+//   } else {
+//     setState(() {
+//       // imageFile = File(pickedFile.path);
+//     });
+//   }
+// }
 
-  // Future<void> retrieveLostData() async {
-  //   final LostData response = await picker.getLostData();
-  //   if (response.file != null) {
-  //     setState(() {
-  //       imageFile = File(response.file!.path);
-  //     });
-  //   } else {
-  //     // log('response.file : ${response.file}');
-  //   }
-  // }
+// Future<void> retrieveLostData() async {
+//   final LostData response = await picker.getLostData();
+//   if (response.file != null) {
+//     setState(() {
+//       imageFile = File(response.file!.path);
+//     });
+//   } else {
+//     // log('response.file : ${response.file}');
+//   }
+// }
 }
 
 class CustomShape extends CustomClipper<Path> {

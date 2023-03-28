@@ -1,7 +1,10 @@
+import 'dart:collection';
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_center_project/registration/UserService/user_service.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sport_center_project/models/login_model.dart';
@@ -100,6 +103,50 @@ class LoginCubit extends Cubit<LoginStates> {
     return userModel;
   }
 
+  Future<String> signUp(HashMap userValues) async {
+    var msg = '';
+    try {
+      var user = (await _firebaseAuth.createUserWithEmailAndPassword(
+          email: userValues['email'], password: userValues['password']))
+          .user;
+      var model = UserModel(
+        uId: user!.uid,
+        name: userValues['name'] ?? '',
+        email: userValues['email'],
+        // userType: userValues['userType'],
+        phone: userValues['phone'] ?? '',
+        password: userValues['password'] ?? '',
+        // rePassword: userValues['rePassword'] ?? '',
+        image: userValues['image'] ?? '',
+        // loginState: true,
+        // state: true,
+        isEmailVerified: true,
+      );
+      await addUser(model);
+      msg = user.uid;
+
+      // add all user data to SharedPerfs
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        msg = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        msg = 'The account already exists for that email.';
+      } else if (e.code == 'invalid-email') {
+        msg = "This isn't an email";
+      }
+    } catch (e) {
+      msg = '$e';
+    }
+    return msg;
+  }
+
+  Future<void> addUser(UserModel model) async {
+    await collection.add(model.toMap()).catchError((error) {
+      UserService().handleAuthErrors(error);
+    });
+  }
+
+
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
@@ -109,5 +156,9 @@ class LoginCubit extends Cubit<LoginStates> {
     suffix =
     isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(ChangePasswordVisibilityStates());
+  }
+
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
   }
 }
