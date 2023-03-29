@@ -23,6 +23,8 @@ void main() async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setBool('productsAddedToFirebase', false);
   ProductService.addProducts(ProductsModel.products);
+  ProductsModel().addProductIds(products);
+  print(products);
   runApp(MyApp());
 }
 List<ProductsModel> products=[

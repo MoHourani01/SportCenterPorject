@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -240,9 +241,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         return cardFlippers(
                           products[index],
                           IconButton(
-                            onPressed: () {
-                              toggleFavoriteStatus(index);
-                            },
+                            onPressed: user == null ? null : () async {
+                              // toggle the isFavorite flag
+                              setState(() {
+                                products[index].isFavorite = !products[index].isFavorite;
+                              });
+
+                              // update the favorites collection
+                              if (products[index].productId != null) {
+                                await FavoriteService().toggleFavorite(products[index]);
+                                }else{
+                                print('error');
+                                }
+                              },
                             icon: Icon(
                               products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
                               color: products[index].isFavorite ? Colors.red : Colors.red,
@@ -281,47 +292,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void animateToSlide(int index) => carouselController.animateToPage(index);
 
-  Future<void> toggleFavoriteStatus(int index) async {
-    final product = products[index];
-    setState(() {
-      product.isFavorite = !product.isFavorite;
-    });
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? user;
 
-    if (product.isFavorite) {
-      await favoritesCollection.add(product.toProductMap());
-      showToast(
-        text: 'Product ${product.name} added to favorites', state: ToastStates.Success
-      );    } else {
-      final snapshot =
-      await favoritesCollection.where('productId', isEqualTo: product.productId).get();
-      snapshot.docs.forEach((doc) => doc.reference.delete());
-      showToast(
-          text: 'Product ${product.name} deleted from favorites', state: ToastStates.Error
-      );
-    }
-  }
-
-  late CollectionReference favoritesCollection;
   @override
   void initState() {
     super.initState();
-    favoritesCollection = FirebaseFirestore.instance.collection('favorites');
+    user = auth.currentUser;
+    auth.authStateChanges().listen((User? firebaseUser) {
+      setState(() {
+        user = firebaseUser;
+      });
+    });
   }
-  // List<ProductsModel> favorites=[];
-  // List<String> userId=[];
-  // void getFavorite(){
-  //   FirebaseFirestore.instance.collection('users').get().then((value) {
-  //       value.docs.forEach((element) {
-  //         element.reference.collection('favorties').get().then((value) {
-  //           userId.add(element.id);
-  //           favorites.add(ProductsModel.fromJson(element.data()));
-  //         }).catchError((error){
-  //           print(error.toString());
-  //         });
-  //       });
-  //     }
-  //   ).catchError((error){
-  //     print(error.toString());
-  //   });
-  // }
 }
