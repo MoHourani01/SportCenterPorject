@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 class ProductsModel{
   String? price;
@@ -17,7 +18,7 @@ class ProductsModel{
     this.description,
     this.quantity,
     bool isFavorite = false,
-  });
+  }){productId = Uuid().v4();}
 
   static List<ProductsModel> products=[
     ProductsModel(
@@ -45,6 +46,12 @@ class ProductsModel{
       isFavorite: false,
     ),
   ];
+
+  void addProductIds(List<ProductsModel> products) {
+    for (var product in products) {
+      product.productId = Uuid().v4();
+    }
+  }
 
   ProductsModel.fromJson(Map<String, dynamic> json){
     price=json['price'];

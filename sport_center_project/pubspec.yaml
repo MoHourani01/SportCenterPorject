@@ -58,7 +58,7 @@ dependencies:
   flutter_screenutil:
   animated_theme_switcher:
   image_picker:
-
+  uuid:
 
 
   #firebase
