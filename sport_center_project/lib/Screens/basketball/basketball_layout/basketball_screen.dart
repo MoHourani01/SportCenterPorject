@@ -145,7 +145,10 @@ class _basketState extends State<basket> {
                     //   ),
                     // ),
                     Container(
-                      color:  Colors.brown,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:  Colors.brown,
+                      ),
                       child: Icon(
                         Icons.sports_basketball,
                         size: 40.0,
