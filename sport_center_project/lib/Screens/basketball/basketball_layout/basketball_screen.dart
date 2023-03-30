@@ -55,7 +55,7 @@ class _basketState extends State<basket> {
           Text(
             title,
             style: TextStyle(
-              color: Color(0xffadafaf),
+              color: Colors.deepOrange,
             ),
           )
         ],
@@ -116,11 +116,11 @@ class _basketState extends State<basket> {
                 Column(
                   children: [
                     Text(
-                      "Discover",
+                      "Basket ball",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Colors.orangeAccent,
                       ),
                     ),
                     SizedBox(
@@ -130,7 +130,7 @@ class _basketState extends State<basket> {
                       padding: const EdgeInsets.only(left: 14),
                       child: Text(
                         "Explore Our Collections",
-                        style: TextStyle(color: Color(0xffa3a3a3)),
+                        style: TextStyle(color:Colors.brown),
                       ),
                     ),
                   ],
@@ -138,7 +138,7 @@ class _basketState extends State<basket> {
                 Row(
                   children: [
                     Text(
-                      "Shot by",
+                      "Sort by",
                       style: TextStyle(
                         color: Color(0xff8275b3),
                       ),
