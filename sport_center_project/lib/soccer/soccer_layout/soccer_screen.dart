@@ -8,11 +8,11 @@ import 'package:sport_center_project/Screens/product_component/product_component
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class soccer extends StatefulWidget {
+  const soccer({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _soccerState createState() => _soccerState();
 }
 
 class flipWidget{
@@ -25,7 +25,7 @@ class flipWidget{
   });
 }
 
-class _HomeState extends State<Home> {
+class _soccerState extends State<soccer> {
   Widget buildDisCoverCircle({image, title}) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Color(0xff8275b3),
+            color: Colors.brown,
           ),
           onPressed: () {
             navigators.navigateTo(context, MainNavigationBar());
@@ -109,14 +109,14 @@ class _HomeState extends State<Home> {
         physics: BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.symmetric(horizontal:12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: [
                     Text(
-                      "Discover",
+                      "Soccer",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -129,23 +129,27 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: const EdgeInsets.only(left: 14),
                       child: Text(
-                        "Explore Our Collections",
-                        style: TextStyle(color: Color(0xffa3a3a3)),
+                        "Explore Our Soccer Collections",
+                        style: TextStyle(color:Colors.grey),
                       ),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    Text(
-                      "Shot by",
-                      style: TextStyle(
-                        color: Color(0xff8275b3),
+                    // Text(
+                    //   "Shot by",
+                    //   style: TextStyle(
+                    //     color: Color(0xff8275b3),
+                    //   ),
+                    // ),
+                    Container(
+                      color: Colors.grey,
+                      child: Icon(
+                        Icons.sports_soccer_rounded,
+                        color: Colors.black,
+                        size: 40,
                       ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Color(0xff8275b3),
                     )
                   ],
                 ),
@@ -197,11 +201,11 @@ class _HomeState extends State<Home> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Color(0xffb3a5de),
+                  color: Colors.black,
                 ),
                 hintText: "Search for products",
                 hintStyle: TextStyle(
-                  color: Color(0xffb3a5de),
+                  color: Colors.grey,
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -237,7 +241,7 @@ class _HomeState extends State<Home> {
                     ),
                     onPressed: () {
                       setState(() {
-                        navigators.navigateTo(context, Detail());
+                        navigators.navigateTo(context, sDetail());
                       });
                     },
                   );

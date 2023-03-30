@@ -4,6 +4,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
+import 'package:sport_center_project/Screens/basketball/basketball_products/basketball_product_details/basketball_details.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
@@ -55,7 +56,7 @@ class _basketState extends State<basket> {
           Text(
             title,
             style: TextStyle(
-              color: Colors.deepOrange,
+              color: Colors.orangeAccent.shade400,
             ),
           )
         ],
@@ -80,7 +81,7 @@ class _basketState extends State<basket> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Color(0xff8275b3),
+            color: Colors.brown,
           ),
           onPressed: () {
             navigators.navigateTo(context, MainNavigationBar());
@@ -129,7 +130,7 @@ class _basketState extends State<basket> {
                     Padding(
                       padding: const EdgeInsets.only(left: 14),
                       child: Text(
-                        "Explore Our Collections",
+                        "Explore Our Basketball Collections",
                         style: TextStyle(color:Colors.brown),
                       ),
                     ),
@@ -137,15 +138,19 @@ class _basketState extends State<basket> {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "Sort by",
-                      style: TextStyle(
-                        color: Color(0xff8275b3),
+                    // Text(
+                    //   "Sort by",
+                    //   style: TextStyle(
+                    //     color: Color(0xff8275b3),
+                    //   ),
+                    // ),
+                    Container(
+                      color:  Colors.brown,
+                      child: Icon(
+                        Icons.sports_basketball,
+                        size: 40.0,
+                        color: Colors.orangeAccent.shade400,
                       ),
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Color(0xff8275b3),
                     )
                   ],
                 ),
@@ -237,7 +242,7 @@ class _basketState extends State<basket> {
                     ),
                     onPressed: () {
                       setState(() {
-                        navigators.navigateTo(context, Detail());
+                        navigators.navigateTo(context, BDetail());
                       });
                     },
                   );

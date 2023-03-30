@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
 
-class Detail extends StatefulWidget {
-  const Detail({Key? key}) : super(key: key);
+class sDetail extends StatefulWidget {
+  const sDetail({Key? key}) : super(key: key);
 
   @override
-  _DetailState createState() => _DetailState();
+  _sDetailState createState() => _sDetailState();
 }
 
-class _DetailState extends State<Detail> {
+class _sDetailState extends State<sDetail> {
   List<String> images = [
-    'assets/images/basketball.jpg',
-    'assets/images/basketball.jpg',
-    'assets/images/basketball.jpg',
-    'assets/images/basketball.jpg',
+    'assets/images/Soccer.jpg',
+    'assets/images/Soccer.jpg',
+    'assets/images/Soccer.jpg',
+    'assets/images/Soccer.jpg',
      ];
 
   Widget buildSizeButton({title, isSeleted}) {
@@ -23,7 +23,7 @@ class _DetailState extends State<Detail> {
       height: 40,
       minWidth: 40,
       elevation: 0,
-      color: isSeleted ? Color(0xff8f7fc4) : Color(0xffe8e8e8),
+      color: isSeleted ? Colors.black : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(7),
       ),
@@ -96,7 +96,7 @@ class _DetailState extends State<Detail> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => Home(),
+                                    builder: (context) => soccer(),
                                   ),
                                 );
                               },
@@ -104,7 +104,7 @@ class _DetailState extends State<Detail> {
                                 backgroundColor: Colors.white,
                                 child: Icon(
                                   Icons.arrow_back,
-                                  color: Color(0xffae9fe0),
+                                  color: Colors.brown,
                                 ),
                               ),
                             ),
@@ -114,7 +114,7 @@ class _DetailState extends State<Detail> {
                                 backgroundColor: Colors.white,
                                 child: Icon(
                                   Icons.shopping_bag_rounded,
-                                  color: Color(0xffae9fe0),
+                                  color: Colors.grey,
                                 ),
                               ),
                             )
@@ -144,7 +144,7 @@ class _DetailState extends State<Detail> {
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xff39393b),
+                            color:Colors.black,
                           ),
                         ),
                         Text(
@@ -160,7 +160,7 @@ class _DetailState extends State<Detail> {
                     Text(
                       "Price Incluslve of all Texes",
                       style: TextStyle(
-                        color: Color(0xff979797),
+                        color: Colors.grey.shade500,
                       ),
                     ),
                     Row(
@@ -173,10 +173,10 @@ class _DetailState extends State<Detail> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundColor: Color(0xffac9ddd),
-                        )
+                        // CircleAvatar(
+                        //   radius: 15,
+                        //   backgroundColor: Color(0xffac9ddd),
+                        // )
                       ],
                     ),
                     Row(
@@ -198,7 +198,7 @@ class _DetailState extends State<Detail> {
                                         vertical: 7, horizontal: 12),
                                     decoration: BoxDecoration(
                                         color: activatedIndex == i
-                                            ? Color(0xff9985cc).withOpacity(1)
+                                            ?Colors.grey.withOpacity(1)
                                             : Colors.white70,
                                         borderRadius: BorderRadius.circular(6)),
                                     child:Text(
@@ -217,26 +217,26 @@ class _DetailState extends State<Detail> {
                             ],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CircleAvatar(
-                              radius: 15,
-                              backgroundColor: Color(0xff317aaf),
-                            )
-                          ],
-                        )
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     CircleAvatar(
+                        //       radius: 15,
+                        //       backgroundColor: Color(0xff317aaf),
+                        //     )
+                        //   ],
+                        // )
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundColor: Color(0xfff19a9c),
-                        )
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     CircleAvatar(
+                    //       radius: 15,
+                    //       backgroundColor: Color(0xfff19a9c),
+                    //     )
+                    //   ],
+                    // ),
                     Row(
                       children: [
                         Column(
@@ -247,7 +247,7 @@ class _DetailState extends State<Detail> {
                               width: 50,
                               child: Divider(
                                   thickness: 3,
-                                  color: Color(0xff6b648f)
+                                  color:Colors.black,
                               ),
                             )
                           ],
@@ -321,8 +321,8 @@ class _DetailState extends State<Detail> {
                             borderRadius: BorderRadius.circular(20.0),
                             gradient: LinearGradient(
                               colors: [
-                                Color(0xff9f91cc),
-                                Color(0xff8471bb),
+                                Colors.grey.shade500,
+                                Colors.black,
                               ],
                             ),
                           ),
@@ -357,7 +357,7 @@ class _DetailState extends State<Detail> {
       effect: SlideEffect(
           dotWidth: 10,
           dotHeight: 10,
-          activeDotColor: Color(0xff8471bb),
+          activeDotColor: Colors.black87,
           dotColor: Colors.grey),
     );
   }
