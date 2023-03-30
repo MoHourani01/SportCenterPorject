@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onPressed: () {
                             setState(() {
-                              navigators.navigateTo(context, Detail());
+                              navigators.navigateTo(context, sDetail());
                             });
                           },
                         );

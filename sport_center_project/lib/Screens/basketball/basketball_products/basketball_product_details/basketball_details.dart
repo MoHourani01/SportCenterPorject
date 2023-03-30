@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/basketball/basketball_layout/basketball_screen.dart';
 import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
 
 class BDetail extends StatefulWidget {
@@ -96,7 +97,7 @@ class _BDetailState extends State<BDetail> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => Home(),
+                                    builder: (context) => basket(),
                                   ),
                                 );
                               },

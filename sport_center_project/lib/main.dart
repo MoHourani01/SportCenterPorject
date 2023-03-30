@@ -14,6 +14,8 @@ import 'package:sport_center_project/registration/login/login_cubit/login_cubit.
 import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/shared/network/shared.network.remote/dio_helper.dart';
+import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
+import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
 import 'Screens/onBoarding_Screen/onBoarding.dart';
@@ -77,7 +79,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
             //home: SplashScreen(title:'login'),
-            home: BDetail(),
+            home: basket(),
             // home:SplashScreen(title: 'onBoarding'),
               // home:MainNavigationBar(),
           );

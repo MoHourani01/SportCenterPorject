@@ -71,7 +71,7 @@ class FavoriteScreen extends StatelessWidget {
                         color: Colors.red,
                       ),),
                       onPressed: () {
-                          navigators.navigateTo(context, Detail());
+                          navigators.navigateTo(context, sDetail());
                       },
                     );
                   },
