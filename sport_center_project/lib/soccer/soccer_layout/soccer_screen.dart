@@ -144,7 +144,10 @@ class _soccerState extends State<soccer> {
                     //   ),
                     // ),
                     Container(
-                      color: Colors.grey,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey.shade500,
+                      ),
                       child: Icon(
                         Icons.sports_soccer_rounded,
                         color: Colors.black,
