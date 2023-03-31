@@ -26,7 +26,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   bool isLast=false;
   List<BoardingModel> boarding=[
     BoardingModel(
-      image: 'assets/images/Soccer.jpg',
+      image: 'assets/images/chatbot.jpg',
       title: 'hello mahmoud ',
       description: 'i live in jordan',),
     BoardingModel(
@@ -85,7 +85,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   image: AssetImage(model.image),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                      Colors.black54,
+                      Colors.grey,
                       BlendMode.darken
                   )
               )

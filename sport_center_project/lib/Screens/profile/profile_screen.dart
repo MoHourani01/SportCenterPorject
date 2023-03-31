@@ -31,110 +31,207 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'My Profile',
+        ),
         elevation: 0.0,
-        backgroundColor: Color(0xFF130359),
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF130359),
+                Color(0xFF121879),
+                Color(0xFF2931A8),
+              ],
+              begin: AlignmentDirectional.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
-          SizedBox(
-            // height: 175.0,
-            child: Stack(
-              children: [
-                ClipPath(
-                  clipper: CustomShape(),
-                  child: Container(
-                    height: 200.0,
-                    color: Color(0xFF130359),
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Stack(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 60.0,
-                            ),
+          Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 60.0,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 65.0,
                             child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 65.0,
-                              child: CircleAvatar(
-                                radius: 60.0,
-                                backgroundImage: NetworkImage(VariablesUtils
-                                            .imageUrl !=
-                                        ''
-                                    ? VariablesUtils.imageUrl
-                                    : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
-                              ),
+                              radius: 60.0,
+                              backgroundImage: NetworkImage(VariablesUtils
+                                          .imageUrl !=
+                                      ''
+                                  ? VariablesUtils.imageUrl
+                                  : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 60.0,
-                            ),
-                            child: CircleAvatar(
-                              radius: 20.0,
-                              backgroundColor:  Color(0xF717217A),
-                              child: IconButton(
-                                onPressed: () async {
-                                  // await chooseSubjectImage(ImageSource.gallery);
-                                  // if (imageFile != null) {
-                                  //   subjectImageUrl = await _filesUploadService
-                                  //       .fileUpload(imageFile!, 'UsersImage')
-                                  //       .then((value) async {
-                                  //     if (value != '') {
-                                  //       var model = UserModel(
-                                  //         uid: VariablesUtils.uid,
-                                  //         email: VariablesUtils.email,
-                                  //         userType: VariablesUtils.userType,
-                                  //         rePassword: VariablesUtils.password,
-                                  //         userName: VariablesUtils.userName,
-                                  //         imageUrl: value,
-                                  //         loginState: VariablesUtils.loginState,
-                                  //         password: VariablesUtils.password,
-                                  //         phone: VariablesUtils.phone,
-                                  //         state: VariablesUtils.state,
-                                  //       );
-                                  //
-                                  //       await _profileService.updateProfile(
-                                  //           VariablesUtils.uid, model);
-                                  //       VariablesUtils.imageUrl = value;
-                                  //       setState(() {});
-                                  //       log(VariablesUtils.imageUrl);
-                                  //     } else {
-                                  //       log('cant do this');
-                                  //     }
-                                  //     return '';
-                                  //   });
-                                  // }
-                                },
-                                icon: Icon(
-                                  Icons.settings,
-                                  size: 20.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        VariablesUtils.userName,
-                        style: TextStyle(
-                          // fontFamily: 'Georgia',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color:Color(0xFF130359),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 60.0,
+                          ),
+                          child: CircleAvatar(
+                            radius: 20.0,
+                            backgroundColor: Color(0xF717217A),
+                            child: IconButton(
+                              onPressed: () async {
+                                // await chooseSubjectImage(ImageSource.gallery);
+                                // if (imageFile != null) {
+                                //   subjectImageUrl = await _filesUploadService
+                                //       .fileUpload(imageFile!, 'UsersImage')
+                                //       .then((value) async {
+                                //     if (value != '') {
+                                //       var model = UserModel(
+                                //         uid: VariablesUtils.uid,
+                                //         email: VariablesUtils.email,
+                                //         userType: VariablesUtils.userType,
+                                //         rePassword: VariablesUtils.password,
+                                //         userName: VariablesUtils.userName,
+                                //         imageUrl: value,
+                                //         loginState: VariablesUtils.loginState,
+                                //         password: VariablesUtils.password,
+                                //         phone: VariablesUtils.phone,
+                                //         state: VariablesUtils.state,
+                                //       );
+                                //
+                                //       await _profileService.updateProfile(
+                                //           VariablesUtils.uid, model);
+                                //       VariablesUtils.imageUrl = value;
+                                //       setState(() {});
+                                //       log(VariablesUtils.imageUrl);
+                                //     } else {
+                                //       log('cant do this');
+                                //     }
+                                //     return '';
+                                //   });
+                                // }
+                              },
+                              icon: Icon(
+                                Icons.settings,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      VariablesUtils.userName,
+                      style: TextStyle(
+                        // fontFamily: 'Georgia',
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF130359),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Stack(
+                      alignment: AlignmentDirectional.bottomEnd,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 60.0,
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 65.0,
+                            child: CircleAvatar(
+                              radius: 60.0,
+                              backgroundImage: NetworkImage(VariablesUtils
+                                          .imageUrl !=
+                                      ''
+                                  ? VariablesUtils.imageUrl
+                                  : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 60.0,
+                          ),
+                          child: CircleAvatar(
+                            radius: 20.0,
+                            backgroundColor: Color(0xF717217A),
+                            child: IconButton(
+                              onPressed: () async {
+                                // await chooseSubjectImage(ImageSource.gallery);
+                                // if (imageFile != null) {
+                                //   subjectImageUrl = await _filesUploadService
+                                //       .fileUpload(imageFile!, 'UsersImage')
+                                //       .then((value) async {
+                                //     if (value != '') {
+                                //       var model = UserModel(
+                                //         uid: VariablesUtils.uid,
+                                //         email: VariablesUtils.email,
+                                //         userType: VariablesUtils.userType,
+                                //         rePassword: VariablesUtils.password,
+                                //         userName: VariablesUtils.userName,
+                                //         imageUrl: value,
+                                //         loginState: VariablesUtils.loginState,
+                                //         password: VariablesUtils.password,
+                                //         phone: VariablesUtils.phone,
+                                //         state: VariablesUtils.state,
+                                //       );
+                                //
+                                //       await _profileService.updateProfile(
+                                //           VariablesUtils.uid, model);
+                                //       VariablesUtils.imageUrl = value;
+                                //       setState(() {});
+                                //       log(VariablesUtils.imageUrl);
+                                //     } else {
+                                //       log('cant do this');
+                                //     }
+                                //     return '';
+                                //   });
+                                // }
+                              },
+                              icon: Icon(
+                                Icons.settings,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      VariablesUtils.userName,
+                      style: TextStyle(
+                        // fontFamily: 'Georgia',
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF130359),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: 20.0,
@@ -169,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         VariablesUtils.userType == 'vendor'
                             ? Container(
                                 decoration: BoxDecoration(
-                                  color:Color(0xFF130359),
+                                  color: Color(0xFF130359),
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: InkWell(
@@ -281,11 +378,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                             child: ListTile(
                               onTap: () {
-                                LoginCubit.get(context).logout().then((value) =>
-                                    navigators.navigateTo(
-                                        context, LoginScreen()
-                                    )
-                                ).whenComplete(() => showToast(text: 'Logged out', state: ToastStates.Success));
+                                LoginCubit.get(context)
+                                    .logout()
+                                    .then((value) => navigators.navigateTo(
+                                        context, LoginScreen()))
+                                    .whenComplete(() => showToast(
+                                        text: 'Logged out',
+                                        state: ToastStates.Success));
                               },
                               trailing: Icon(
                                 Icons.navigate_next,
