@@ -1,21 +1,23 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/basketball/basketball_layout/basketball_screen.dart';
 import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
 
-class sDetail extends StatefulWidget {
-  const sDetail({Key? key}) : super(key: key);
+class SDetail extends StatefulWidget {
+  const SDetail({Key? key}) : super(key: key);
 
   @override
-  _sDetailState createState() => _sDetailState();
+  _SDetailState createState() => _SDetailState();
+
 }
 
-class _sDetailState extends State<sDetail> {
+class _SDetailState extends State<SDetail> {
   List<String> images = [
-    'assets/images/Soccer.jpg',
-    'assets/images/Soccer.jpg',
-    'assets/images/Soccer.jpg',
-    'assets/images/Soccer.jpg',
+    'assets/images/basketball.jpg',
+    'assets/images/basketball.jpg',
+    'assets/images/basketball.jpg',
+    'assets/images/basketball.jpg',
      ];
 
   Widget buildSizeButton({title, isSeleted}) {
@@ -23,7 +25,7 @@ class _sDetailState extends State<sDetail> {
       height: 40,
       minWidth: 40,
       elevation: 0,
-      color: isSeleted ? Colors.black : Colors.white,
+      color: isSeleted ? Colors.orangeAccent : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(7),
       ),
@@ -104,7 +106,7 @@ class _sDetailState extends State<sDetail> {
                                 backgroundColor: Colors.white,
                                 child: Icon(
                                   Icons.arrow_back,
-                                  color: Colors.brown,
+                                  color:  Color(0xF717217A),
                                 ),
                               ),
                             ),
@@ -114,7 +116,7 @@ class _sDetailState extends State<sDetail> {
                                 backgroundColor: Colors.white,
                                 child: Icon(
                                   Icons.shopping_bag_rounded,
-                                  color: Colors.grey,
+                                  color: Color(0xF717217A),
                                 ),
                               ),
                             )
@@ -144,7 +146,7 @@ class _sDetailState extends State<sDetail> {
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color:Colors.black,
+                            color: Colors.black87,
                           ),
                         ),
                         Text(
@@ -160,7 +162,7 @@ class _sDetailState extends State<sDetail> {
                     Text(
                       "Price Incluslve of all Texes",
                       style: TextStyle(
-                        color: Colors.grey.shade500,
+                        color: Colors.grey,
                       ),
                     ),
                     Row(
@@ -169,13 +171,13 @@ class _sDetailState extends State<sDetail> {
                         Text(
                           "Choose Size",
                           style: TextStyle(
-                            color: Color(0xff979797),
+                            color: Colors.grey,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         // CircleAvatar(
                         //   radius: 15,
-                        //   backgroundColor: Color(0xffac9ddd),
+                        //   backgroundColor: Colors.brown,
                         // )
                       ],
                     ),
@@ -198,7 +200,7 @@ class _sDetailState extends State<sDetail> {
                                         vertical: 7, horizontal: 12),
                                     decoration: BoxDecoration(
                                         color: activatedIndex == i
-                                            ?Colors.grey.withOpacity(1)
+                                            ?  Color(0xF717217A)
                                             : Colors.white70,
                                         borderRadius: BorderRadius.circular(6)),
                                     child:Text(
@@ -247,7 +249,7 @@ class _sDetailState extends State<sDetail> {
                               width: 50,
                               child: Divider(
                                   thickness: 3,
-                                  color:Colors.black,
+                                  color:Color(0xFF130359),
                               ),
                             )
                           ],
@@ -291,7 +293,7 @@ class _sDetailState extends State<sDetail> {
                           "This is test product of our graduation project",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xff989494),
+                            color: Colors.grey.shade600,
                           ),
                         ),
                         SizedBox(
@@ -301,7 +303,7 @@ class _sDetailState extends State<sDetail> {
                           "sport product to test the project.",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xff989494),
+                            color: Colors.grey.shade400,
                           ),
                         )
                       ],
@@ -321,8 +323,10 @@ class _sDetailState extends State<sDetail> {
                             borderRadius: BorderRadius.circular(20.0),
                             gradient: LinearGradient(
                               colors: [
-                                Colors.grey.shade500,
-                                Colors.black,
+
+                                Color(0xFF1D2EA8),
+                                Color(0xFF130359),
+                                Color(0xF717217A),
                               ],
                             ),
                           ),
@@ -357,7 +361,7 @@ class _sDetailState extends State<sDetail> {
       effect: SlideEffect(
           dotWidth: 10,
           dotHeight: 10,
-          activeDotColor: Colors.black87,
+          activeDotColor:  Color(0xF717217A),
           dotColor: Colors.grey),
     );
   }

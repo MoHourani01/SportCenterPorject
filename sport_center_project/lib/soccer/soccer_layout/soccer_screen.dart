@@ -4,6 +4,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
+import 'package:sport_center_project/Screens/basketball/basketball_products/basketball_product_details/basketball_details.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
@@ -55,7 +56,7 @@ class _soccerState extends State<soccer> {
           Text(
             title,
             style: TextStyle(
-              color: Color(0xffadafaf),
+              color:Colors.black26,
             ),
           )
         ],
@@ -80,7 +81,7 @@ class _soccerState extends State<soccer> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.brown,
+            color:  Color(0xF717217A),
           ),
           onPressed: () {
             navigators.navigateTo(context, MainNavigationBar());
@@ -109,7 +110,7 @@ class _soccerState extends State<soccer> {
         physics: BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -120,7 +121,7 @@ class _soccerState extends State<soccer> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Color(0xFF130359),
                       ),
                     ),
                     SizedBox(
@@ -130,7 +131,7 @@ class _soccerState extends State<soccer> {
                       padding: const EdgeInsets.only(left: 14),
                       child: Text(
                         "Explore Our Soccer Collections",
-                        style: TextStyle(color:Colors.grey),
+                        style: TextStyle(color: Color(0xF717217A)),
                       ),
                     ),
                   ],
@@ -138,7 +139,7 @@ class _soccerState extends State<soccer> {
                 Row(
                   children: [
                     // Text(
-                    //   "Shot by",
+                    //   "Sort by",
                     //   style: TextStyle(
                     //     color: Color(0xff8275b3),
                     //   ),
@@ -146,12 +147,12 @@ class _soccerState extends State<soccer> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey.shade500,
+                        color:  Colors.grey,
                       ),
                       child: Icon(
-                        Icons.sports_soccer_rounded,
+                        Icons.sports_soccer_outlined,
+                        size: 40.0,
                         color: Colors.black,
-                        size: 40,
                       ),
                     )
                   ],
@@ -204,11 +205,11 @@ class _soccerState extends State<soccer> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Colors.black,
+                  color:Color(0xF717217A),
                 ),
                 hintText: "Search for products",
                 hintStyle: TextStyle(
-                  color: Colors.grey,
+                  color:Colors.grey,
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -244,7 +245,7 @@ class _soccerState extends State<soccer> {
                     ),
                     onPressed: () {
                       setState(() {
-                        navigators.navigateTo(context, sDetail());
+                        navigators.navigateTo(context, SDetail());
                       });
                     },
                   );
