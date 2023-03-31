@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
             //home: SplashScreen(title:'login'),
-            home: basket(),
+            home: ProfileScreen(),
             // home:SplashScreen(title: 'onBoarding'),
               // home:MainNavigationBar(),
           );

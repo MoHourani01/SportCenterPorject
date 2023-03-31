@@ -105,7 +105,7 @@ class _BDetailState extends State<BDetail> {
                                 backgroundColor: Colors.white,
                                 child: Icon(
                                   Icons.arrow_back,
-                                  color: Colors.brown,
+                                  color:  Color(0xF717217A),
                                 ),
                               ),
                             ),
@@ -115,7 +115,7 @@ class _BDetailState extends State<BDetail> {
                                 backgroundColor: Colors.white,
                                 child: Icon(
                                   Icons.shopping_bag_rounded,
-                                  color:Colors.orangeAccent,
+                                  color: Color(0xF717217A),
                                 ),
                               ),
                             )
@@ -145,7 +145,7 @@ class _BDetailState extends State<BDetail> {
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orangeAccent,
+                            color: Colors.black87,
                           ),
                         ),
                         Text(
@@ -161,7 +161,7 @@ class _BDetailState extends State<BDetail> {
                     Text(
                       "Price Incluslve of all Texes",
                       style: TextStyle(
-                        color: Colors.brown,
+                        color: Colors.grey,
                       ),
                     ),
                     Row(
@@ -170,7 +170,7 @@ class _BDetailState extends State<BDetail> {
                         Text(
                           "Choose Size",
                           style: TextStyle(
-                            color: Colors.orangeAccent.shade700,
+                            color: Colors.grey,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -199,7 +199,7 @@ class _BDetailState extends State<BDetail> {
                                         vertical: 7, horizontal: 12),
                                     decoration: BoxDecoration(
                                         color: activatedIndex == i
-                                            ? Colors.brown.withOpacity(1)
+                                            ?  Color(0xF717217A)
                                             : Colors.white70,
                                         borderRadius: BorderRadius.circular(6)),
                                     child:Text(
@@ -248,7 +248,7 @@ class _BDetailState extends State<BDetail> {
                               width: 50,
                               child: Divider(
                                   thickness: 3,
-                                  color: Colors.orangeAccent
+                                  color:Color(0xFF130359),
                               ),
                             )
                           ],
@@ -292,7 +292,7 @@ class _BDetailState extends State<BDetail> {
                           "This is test product of our graduation project",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xff989494),
+                            color: Colors.grey.shade600,
                           ),
                         ),
                         SizedBox(
@@ -302,7 +302,7 @@ class _BDetailState extends State<BDetail> {
                           "sport product to test the project.",
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xff989494),
+                            color: Colors.grey.shade400,
                           ),
                         )
                       ],
@@ -322,8 +322,10 @@ class _BDetailState extends State<BDetail> {
                             borderRadius: BorderRadius.circular(20.0),
                             gradient: LinearGradient(
                               colors: [
-                                Colors.orangeAccent,
-                                Colors.orange,
+
+                                Color(0xFF1D2EA8),
+                                Color(0xFF130359),
+                                Color(0xF717217A),
                               ],
                             ),
                           ),
@@ -358,7 +360,7 @@ class _BDetailState extends State<BDetail> {
       effect: SlideEffect(
           dotWidth: 10,
           dotHeight: 10,
-          activeDotColor: Colors.brown,
+          activeDotColor:  Color(0xF717217A),
           dotColor: Colors.grey),
     );
   }

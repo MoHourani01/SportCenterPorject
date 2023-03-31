@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Color(0xFF130359).withOpacity(0.8),
+        backgroundColor: Color(0xFF130359),
       ),
       body: Column(
         children: [
@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   clipper: CustomShape(),
                   child: Container(
                     height: 200.0,
-                    color: Color(0xFF130359).withOpacity(0.8),
+                    color: Color(0xFF130359),
                   ),
                 ),
                 Center(
@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             child: CircleAvatar(
                               radius: 20.0,
-                              backgroundColor: Colors.blueGrey.shade700,
+                              backgroundColor:  Color(0xF717217A),
                               child: IconButton(
                                 onPressed: () async {
                                   // await chooseSubjectImage(ImageSource.gallery);
@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           // fontFamily: 'Georgia',
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blueGrey.shade700,
+                          color:Color(0xFF130359),
                         ),
                       ),
                     ],
@@ -169,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         VariablesUtils.userType == 'vendor'
                             ? Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade300,
+                                  color:Color(0xFF130359),
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: InkWell(

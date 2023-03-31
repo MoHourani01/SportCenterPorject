@@ -56,7 +56,7 @@ class _basketState extends State<basket> {
           Text(
             title,
             style: TextStyle(
-              color: Colors.orangeAccent.shade400,
+              color:Colors.black26,
             ),
           )
         ],
@@ -81,7 +81,7 @@ class _basketState extends State<basket> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.brown,
+            color:  Color(0xF717217A),
           ),
           onPressed: () {
             navigators.navigateTo(context, MainNavigationBar());
@@ -121,7 +121,7 @@ class _basketState extends State<basket> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.orangeAccent,
+                        color: Color(0xFF130359),
                       ),
                     ),
                     SizedBox(
@@ -131,7 +131,7 @@ class _basketState extends State<basket> {
                       padding: const EdgeInsets.only(left: 14),
                       child: Text(
                         "Explore Our Basketball Collections",
-                        style: TextStyle(color:Colors.brown),
+                        style: TextStyle(color: Color(0xF717217A)),
                       ),
                     ),
                   ],
@@ -205,11 +205,11 @@ class _basketState extends State<basket> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Color(0xffb3a5de),
+                  color:Color(0xF717217A),
                 ),
                 hintText: "Search for products",
                 hintStyle: TextStyle(
-                  color: Color(0xffb3a5de),
+                  color:Colors.grey,
                 ),
                 fillColor: Colors.white,
                 filled: true,
