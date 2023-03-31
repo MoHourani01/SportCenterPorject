@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: new BoxDecoration(
         gradient: new LinearGradient(
-          colors: [Theme.of(context).accentColor, Theme.of(context).primaryColor],
+          colors: [Theme.of(context).accentColor, Color(0xFF130359),],
           begin: const FractionalOffset(0, 0),
           end: const FractionalOffset(1.0, 0.0),
           stops: [0.0, 1.0],
@@ -57,18 +57,22 @@ class _SplashScreenState extends State<SplashScreen> {
             width: 140.0,
             child: Center(
               child: ClipOval(
-                child: Icon(Icons.sports_gymnastics_rounded, size: 128,), //put your logo here
+                child: Icon(
+                  Icons.sports_soccer,
+                  color: Colors.white,
+                  size: 128,
+                ), //put your logo here
               ),
             ),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: Colors.black38,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.3),
                     blurRadius: 2.0,
                     offset: Offset(5.0, 3.0),
-                    spreadRadius: 2.0,
+                    spreadRadius: 3.0,
                   )
                 ]
             ),
