@@ -59,7 +59,10 @@ dependencies:
   animated_theme_switcher:
   image_picker:
   uuid:
-
+  velocity_x:
+  chat_gpt_sdk:
+#  here run the program and take a look at the error ,its an flutter sdk error
+  flutter_dotenv:
 
   #firebase
   firebase_core: ^2.7.1

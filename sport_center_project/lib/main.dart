@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/basketball/basketball_layout/basketball_screen.dart';
 import 'package:sport_center_project/Screens/basketball/basketball_products/basketball_product_details/basketball_details.dart';
+import 'package:sport_center_project/Screens/chatbot/chat_screen.dart';
+import 'package:sport_center_project/Screens/chatbot/chatmessage.dart';
+import 'package:sport_center_project/Screens/chatbot/threedots.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
@@ -79,7 +82,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
             // home: SplashScreen(title:'login'),
-            home: OnBoardingScreen(),
+            home: ChatScreen(),
             // home:SplashScreen(title: 'onBoarding'),
             //   home:MainNavigationBar(),
           );
