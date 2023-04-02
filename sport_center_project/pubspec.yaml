@@ -59,15 +59,12 @@ dependencies:
   animated_theme_switcher:
   image_picker:
   uuid:
-  bubble:
-  flutter_dialogflow: ^0.1.0
-  intl:
 
   #firebase
   firebase_core: ^2.7.1
-  firebase_auth:
+  firebase_auth: ^4.4.0
   cloud_firestore:
-  firebase_storage:
+  firebase_storage: ^11.1.0
   firebase_messaging:
 
 dev_dependencies:
