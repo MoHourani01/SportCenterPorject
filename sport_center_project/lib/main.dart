@@ -8,7 +8,6 @@ import 'package:sport_center_project/Screens/basketball/basketball_products/bask
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
-import 'package:sport_center_project/Screens/profile/chatbot/chatbot.dart';
 // import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
 import 'package:sport_center_project/models/product_model.dart';
@@ -80,9 +79,9 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
-            // home: SplashScreen(title:'login'),
+            home: SplashScreen(title:'login'),
             // home:SplashScreen(title: 'onBoarding'),
-              home:chatbot(),
+            //   home:chatbot(),
           );
         },
       ),
