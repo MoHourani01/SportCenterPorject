@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-
 class ChabotScreen extends StatefulWidget {
   @override
   State<ChabotScreen> createState() => _ChabotScreenState();
@@ -21,7 +20,9 @@ class _ChabotScreenState extends State<ChabotScreen> {
     messages.add('Me: $message');
     setState(() {});
 
-    var response = await http.get(Uri.parse('http://localhost:5000/get?msg=$message'));
+    var response = await http.post(Uri.parse('http://127.0.0.1:5000/chatbot'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'message': message}));
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -49,7 +50,7 @@ class _ChabotScreenState extends State<ChabotScreen> {
                 backgroundImage: AssetImage('assets/images/chatbott.jpg'),
               ),
               SizedBox(width: 15.0,),
-              Text('ChatBot'),
+              Text('Chatbot'),
             ],
           ),
         ),
@@ -126,8 +127,9 @@ class _ChabotScreenState extends State<ChabotScreen> {
                         //   text: messageController.text,
                         //   }
                         // )
+                        // messageController.text='';
                         sendMessage(messageController.text);
-                        messageController.text='';
+                        messageController.clear();
                       },
                       child: Icon(
                         Icons.send,
@@ -167,7 +169,7 @@ class _ChabotScreenState extends State<ChabotScreen> {
     ),
   );
 
-  Widget buildMyMessage(String message)=>Align(
+  Widget buildMyMessage(String message) => Align(
     alignment: AlignmentDirectional.centerEnd,
     child: Container(
       decoration: BoxDecoration(
