@@ -9,16 +9,7 @@ class Loader{
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context){
-          return WillPopScope(
-              onWillPop: () async => false,
-              child: Container(
-                key: key,
-                child:  SpinKitChasingDots(
-                  color: Colors.blueGrey.shade900,
-                  size: 50.0,
-                ),
-              )
-          );
+          return Center(child: CircularProgressIndicator(),);
         }
     );
   }

@@ -238,22 +238,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void validateAndSubmit(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      log('email : ${emailController.text.trim()} | password : ${passwordController.text.trim()}');
-      var result = await LoginCubit.get(context).userLogin(
-          emailController.text.trim(), passwordController.text.trim());
-      // Navigator.of(_keyLoader.currentContext ?? context, rootNavigator: true)
-      //     .pop();
-      if (result == 'No user found for that email.') {
-        showToast(text: result, state: ToastStates.Warning);
-      } else if (result == 'Wrong password provided for that user.') {
-        showToast(text: result, state: ToastStates.Warning);
-      } else if (result == "This isn't an email") {
-        showToast(text: result, state: ToastStates.Warning);
-      } else if (result.isEmpty) {
-        showToast(text: 'Enter your email and password', state: ToastStates.Error);
-      } else {
-        showToast(text: 'Login Successfully', state: ToastStates.Success);
-        saveUserData(result);
+      if(await ConnectivityService.checkInternetConnectivity()){
+        Loader.showLoadingScreen(context, _keyLoader);
+        log('email : ${emailController.text.trim()} | password : ${passwordController.text.trim()}');
+        var result = await LoginCubit.get(context).userLogin(
+            emailController.text.trim(), passwordController.text.trim());
+        Navigator.of(_keyLoader.currentContext ?? context, rootNavigator: true)
+            .pop();
+        if (result == 'No user found for that email.') {
+          showToast(text: result, state: ToastStates.Warning);
+        } else if (result == 'Wrong password provided for that user.') {
+          showToast(text: result, state: ToastStates.Warning);
+        } else if (result == "This isn't an email") {
+          showToast(text: result, state: ToastStates.Warning);
+        } else if (result.isEmpty) {
+          showToast(text: 'Enter your email and password', state: ToastStates.Error);
+        } else {
+          showToast(text: 'Login Successfully', state: ToastStates.Success);
+          saveUserData(result);
+        }
       }
     }
   }

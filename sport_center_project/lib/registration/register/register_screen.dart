@@ -295,13 +295,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.of(_keyLoader.currentContext ?? context, rootNavigator: true)
             .pop();
         if (result == 'The password provided is too weak.') {
-          Fluttertoast.showToast(msg: result);
+          showToast(text: result, state: ToastStates.Warning);
         } else if (result == 'The account already exists for that email.') {
           showToast(text: result, state: ToastStates.Warning);
         } else if (result == "This isn't an email") {
           showToast(text: result, state: ToastStates.Warning);
         } else if (result.isEmpty) {
-          showToast(text: result, state: ToastStates.Error);
+          showToast(text: 'Registration Failed', state: ToastStates.Error);
         } else {
           showToast(text: 'Registered Success', state: ToastStates.Success);
           log('uid2 : $result');
