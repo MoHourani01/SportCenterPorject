@@ -55,8 +55,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late CollectionReference collection;
-  final collectionName = 'users';
+  CollectionReference _collection = FirebaseFirestore.instance.collection('users');
   Future<String> getCurrentUID() async {
     return (_firebaseAuth.currentUser!).uid;
   }
@@ -90,7 +89,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   Future<UserModel> getUser(String id) async {
-    QuerySnapshot result = await collection.where('uId', isEqualTo: id).get();
+    QuerySnapshot result = await _collection.where('uId', isEqualTo: id).get();
     var data = result.docs[0];
     Map<String, dynamic> userMap = {};
     userMap['uId'] = data.get('uId');
@@ -122,6 +121,7 @@ class LoginCubit extends Cubit<LoginStates> {
         // state: true,
         isEmailVerified: true,
       );
+      print(model.toMap()); // debugging statement
       await addUser(model);
       msg = user.uid;
 
@@ -141,11 +141,12 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   Future<void> addUser(UserModel model) async {
-    await collection.add(model.toMap()).catchError((error) {
-      UserService().handleAuthErrors(error);
+    print(_collection.path); // debugging statement
+    print(model.toMap()); // debugging statement
+    await _collection.add(model.toMap()).catchError((error) {
+      userService.handleAuthErrors(error);
     });
   }
-
 
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
