@@ -250,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               // update the favorites collection
                               if (products[index].productId != null) {
                                 await FavoriteService().toggleFavorite(products[index]);
+                                // FavoriteService().addFavorite(products[index]);
                                 }else{
                                 print('error');
                                 }

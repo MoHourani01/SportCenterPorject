@@ -145,5 +145,41 @@ class FavoriteService {
       return snapshot.docs.map((doc) => doc.data()['productId'].toString()).toList();
     });
   }
+
+  static List<ProductsModel> favorites=[];
+
+  void addFavorite(ProductsModel product) {
+    favorites.add(product);
+  }
+
+  void removeFavorite(ProductsModel product) {
+    favorites.remove(product);
+  }
+
+  static List<ProductsModel> getFavorites() {
+    return favorites;
+  }
+
+  Future<void> setFavorites(List<ProductsModel> favorites) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      CollectionReference favoritesRef = _firestore.collection('favorites').doc(user.uid).collection('items');
+      WriteBatch batch = _firestore.batch();
+
+      // Remove all previous favorites from Firestore
+      QuerySnapshot favoritesSnapshot = await favoritesRef.get();
+      favoritesSnapshot.docs.forEach((doc) {
+        batch.delete(doc.reference);
+      });
+
+      // Add new favorites to Firestore
+      favorites.forEach((product) {
+        batch.set(favoritesRef.doc(product.productId), product.toProductMap());
+      });
+
+      await batch.commit();
+    }
+  }
+
 }
 
