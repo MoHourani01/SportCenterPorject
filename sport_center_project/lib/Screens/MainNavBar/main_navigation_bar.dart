@@ -18,7 +18,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
   List<Widget> screens = [
     HomeScreen(),
     NewsScreen(),
-    FavoriteScreen(),
+    // FavoriteScreen(),
     CartScreen(),
     ProfileScreen(),
 
@@ -47,10 +47,10 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
             Icons.newspaper,
             color: Colors.white,
           ),
-          Icon(
-            Icons.favorite,
-            color: Colors.white,
-          ),
+          // Icon(
+          //   Icons.favorite,
+          //   color: Colors.white,
+          // ),
           Icon(
             Icons.shopping_cart,
             color: Colors.white,
