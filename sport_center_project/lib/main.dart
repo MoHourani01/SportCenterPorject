@@ -30,12 +30,14 @@ void main() async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setBool('productsAddedToFirebase', false);
   ProductService.addProducts(ProductsModel.products);
-  // ProductService.addSoccerProducts(ProductsModel.soccer_products);
-  // ProductService.addBasketballProducts(ProductsModel.basket_products);
-  // ProductsModel().addProductIds(ProductsModel.soccer_products);
-  // ProductsModel().addProductIds(ProductsModel.basket_products);
-  ProductsModel().addProductIds(products);
-  print(products);
+  ProductService.addSoccerProducts(ProductsModel.soccer_products);
+  ProductService.addBasketballProducts(ProductsModel.basket_products);
+  ProductsModel().addProductIds(ProductsModel.soccer_products);
+  ProductsModel().addProductIds(ProductsModel.basket_products);
+  ProductsModel().addProductIds(ProductsModel.products);
+  print('Products Model${ProductsModel.products}');
+  print('Soccer Model${ProductsModel.soccer_products}');
+  print('Basketball Model${ProductsModel.basket_products}');
   runApp(MyApp());
 }
 List<ProductsModel> products=[
@@ -59,12 +61,12 @@ List<ProductsModel> products=[
     price: '60 JD',
     image: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fddec8b1-7aee-4b47-826d-f2ec00ad4e66/miami-heat-association-edition-2022-23-dri-fit-nba-swingman-jersey-gLpkQ8.png',
   ),
-  ProductsModel(
-    name: 'Lakers jersey',
-    price: '50 JD',
-    image: 'https://cdn.shopify.com/s/files/1/0259/7455/products/WhiteLakersJerseyFrontJames_65028160-284f-4bac-ac73-f76021cdc4d2_1800x1800.png',
-    isFavorite: false,
-  ),
+  // ProductsModel(
+  //   name: 'Lakers jersey',
+  //   price: '50 JD',
+  //   image: 'https://cdn.shopify.com/s/files/1/0259/7455/products/WhiteLakersJerseyFrontJames_65028160-284f-4bac-ac73-f76021cdc4d2_1800x1800.png',
+  //   isFavorite: false,
+  // ),
 ];
 class MyApp extends StatelessWidget {
   // const MyApp({super.key});
