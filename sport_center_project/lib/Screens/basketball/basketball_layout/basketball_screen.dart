@@ -1,11 +1,15 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/basketball/basketball_products/basketball_product_details/basketball_details.dart';
+import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
+import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
@@ -27,6 +31,25 @@ class flipWidget{
 }
 
 class _basketState extends State<basket> {
+
+  bool isFavorite = false;
+  ProductsModel? product;
+
+  List<ProductsModel> products = ProductsModel.products;
+
+  List<ProductsModel> favorites = [];
+
+  void toggleFavorite(int index) {
+    setState(() {
+      if (products[index].isFavorite) {
+        favorites.add(products[index]);
+      } else {
+        favorites.remove(products[index]);
+      }
+      FavoriteScreen(favorites: favorites,);
+    });
+  }
+
   Widget buildDisCoverCircle({image, title}) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -221,191 +244,68 @@ class _basketState extends State<basket> {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: MasonryGridView.count(
-                crossAxisCount: 2,
-                // crossAxisSpacing: 5.0,
-                mainAxisSpacing: 5,
-                itemCount: 10,
-                primary: false,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index >= flipper.length) {
-                    return SizedBox
-                        .shrink(); // Return an empty widget if index is out of bounds
-                  }
-                  return cardFlippers(
-                    flipper[index],
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_border_outlined,
-                        color: Colors.red,
-                      ),
-                    ),
-                    onPressed: () {
+            padding: const EdgeInsets.all(12.0),
+            child: MasonryGridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 5,
+              itemCount: products.length, // use products length here
+              primary: false,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                if (index >= products.length) { // check if index is out of range
+                  return Container(); // Return an empty widget if index is out of bounds
+                }
+                return cardFlippers(
+                  products[index],
+                  IconButton(
+                    onPressed: user == null ? null : () async {
+                      // toggle the isFavorite flag
                       setState(() {
-                        navigators.navigateTo(context, BDetail());
+                        products[index].isFavorite = !products[index].isFavorite;
                       });
+
+                      // update the favorites collection
+                      if (products[index].productId != null) {
+                        await FavoriteService().toggleFavorite(products[index]);
+                        toggleFavorite(index);
+                        if (favorites.length > 0) {
+                          print(favorites);
+                        }
+                        print(favorites.length);
+                      } else {
+                        print('error');
+                      }
                     },
-                  );
-                },
-                // staggeredTileBuilder:
-                // mainAxisSpacing: 20.0,
-                // gridDelegate: null,),
-              )),
+                    icon: Icon(
+                      products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                      color: Colors.red,
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      navigators.navigateTo(context, SDetail());
+                    });
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
   }
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? user;
 
-  var flipController = PageController();
-
-  List<flipWidget> flipper = [
-    flipWidget(
-      image: 'assets/images/Soccer.jpg',
-      title: 'Price JD',
-    ),
-    flipWidget(
-      image: 'assets/images/basketball.jpg',
-      title: 'hello',
-    ),
-    flipWidget(
-      image: 'assets/images/Soccer.jpg',
-      title: 'Price JD',
-    ),
-    flipWidget(
-      image: 'assets/images/basketball.jpg',
-      title: 'hello',
-    ),
-    flipWidget(
-      image: 'assets/images/basketball.jpg',
-      title: 'hello',
-    ),
-    flipWidget(
-      image: 'assets/images/basketball.jpg',
-      title: 'hello',
-    ),
-    flipWidget(
-      image: 'assets/images/basketball.jpg',
-      title: 'hello',
-    ),
-  ];
-
-  Widget cardFlippers(flipWidget flipper, IconButton icon,
-      {required Function() onPressed}) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: FlipCard(
-        fill: Fill.fillFront,
-        // Fill the back side of the card to make in the same size as the front.
-        direction: FlipDirection.HORIZONTAL,
-        // default
-        side: CardSide.FRONT,
-        // The side to initially display.
-        front: Stack(
-          children: [
-            Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Colors.grey,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(6)),
-              ),
-              child: Container(
-                // height: 160,
-                width: 220,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6.0),
-                    image: DecorationImage(
-                        image: AssetImage('${flipper.image}'),
-                        fit: BoxFit.cover)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6.0),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
-                        child: Container(
-                          height: 36,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.3)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10, bottom: 3),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                icon,
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 3),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Text(
-                                      '${flipper.title}',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Icon(
-                                      Icons.shopping_cart_outlined,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                onPressed: onPressed,
-                icon: Icon(Icons.arrow_forward),
-              ),
-            ),
-          ],
-        ),
-        back: Card(
-          color: Colors.transparent,
-          elevation: 0,
-          // shape: RoundedRectangleBorder(
-          //   side: BorderSide(
-          //     color: Colors.grey,
-          //   ),
-          // ),
-          child: Container(
-            height: 160,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.grey,
-            ),
-            child: Center(
-              child: Text(
-                'Sport Center',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    user = auth.currentUser;
+    auth.authStateChanges().listen((User? firebaseUser) {
+      setState(() {
+        user = firebaseUser;
+      });
+    });
   }
+
 }

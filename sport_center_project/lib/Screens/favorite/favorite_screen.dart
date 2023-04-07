@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
+import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
@@ -13,7 +15,9 @@ import 'package:sport_center_project/soccer/soccer_products/soccer_product_detai
 
 
 class FavoriteScreen extends StatefulWidget {
-  List<ProductsModel> favorites=[];
+  // List<ProductsModel> favorites=[]
+  final List<ProductsModel> favorites;
+  FavoriteScreen({Key? key, required this.favorites}) : super(key: key);
   @override
   State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
@@ -29,6 +33,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          navigators.navigatorWithBack(context, MainNavigationBar());
+        }, icon: Icon(Icons.arrow_back),),
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
@@ -59,7 +66,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               SizedBox(
                 height: 20,
               ),
-              FavoriteScreen().favorites.isEmpty
+              widget.favorites.isEmpty
                   ? Center(
                       child: Text(
                       'Your Wishlist Is Empty',
@@ -73,37 +80,38 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       mainAxisSpacing: 5,
                       primary: false,
                       shrinkWrap: true,
-                      itemCount: FavoriteScreen().favorites.length,
+                      itemCount: widget.favorites.length,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index >= FavoriteScreen().favorites.length) {
+                        if (index >= widget.favorites.length) {
                           return Container(); // Return an empty widget if index is out of bounds
                         }
                         return cardFlippers(
-                          FavoriteScreen().favorites[index],
+                          widget.favorites[index],
                           IconButton(
                             onPressed: user == null
                                 ? null
                                 : () async {
                                     // toggle the isFavorite flag
                                     setState(() {
-                                      FavoriteScreen().favorites[index].isFavorite =
-                                          !FavoriteScreen().favorites[index].isFavorite;
+                                      widget.favorites[index].isFavorite =
+                                          !widget.favorites[index].isFavorite;
                                     });
 
                                     // update the favorites collection
-                                    if (FavoriteScreen().favorites[index].productId != null) {
+                                    if (widget.favorites[index].productId != null) {
                                       await FavoriteService()
-                                          .toggleFavorite(FavoriteScreen().favorites[index]);
+                                          .toggleFavorite(widget.favorites[index]);
                                       // FavoriteService().addFavorite(products[index]);
+                                      widget.favorites.removeAt(index);
                                     } else {
                                       print('error');
                                     }
                                   },
                             icon: Icon(
-                              products[index].isFavorite
+                              widget.favorites[index].isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border_outlined,
-                              color: products[index].isFavorite
+                              color: widget.favorites[index].isFavorite
                                   ? Colors.red
                                   : Colors.red,
                             ),

@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
       } else {
         favorites.remove(products[index]);
       }
-      FavoriteScreen().favorites.add(favorites[index]);
+      FavoriteScreen(favorites: favorites,);
     });
   }
 
@@ -123,9 +123,11 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  navigators.navigateTo(context, FavoriteScreen(favorites: favorites));
+                },
                 icon: Icon(
-                  Icons.search,
+                  Icons.favorite_border_outlined,
                   color: Colors.white,
                 ),
               ),
