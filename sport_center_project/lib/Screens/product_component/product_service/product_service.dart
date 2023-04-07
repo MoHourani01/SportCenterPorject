@@ -45,4 +45,40 @@ class ProductService {
       }
     }
   }
+  static Future<void> addSoccerProducts(List<ProductsModel> products) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference productsCollection = firestore.collection('soccer_products');
+
+    // Query Firestore for all products
+    QuerySnapshot snapshot = await productsCollection.get();
+
+    // Extract the names of all existing products from the snapshot
+    List<String> existingProductNames = snapshot.docs.map((doc) => doc['name'] as String).toList();
+
+    // Add only new products to Firestore
+    for (ProductsModel product in products) {
+      if (!existingProductNames.contains(product.name)) {
+        DocumentReference docRef = await productsCollection.add(product.toProductMap());
+        await docRef.update({'productId': docRef.id});
+      }
+    }
+  }
+  static Future<void> addBasketballProducts(List<ProductsModel> products) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference productsCollection = firestore.collection('basketball_products');
+
+    // Query Firestore for all products
+    QuerySnapshot snapshot = await productsCollection.get();
+
+    // Extract the names of all existing products from the snapshot
+    List<String> existingProductNames = snapshot.docs.map((doc) => doc['name'] as String).toList();
+
+    // Add only new products to Firestore
+    for (ProductsModel product in products) {
+      if (!existingProductNames.contains(product.name)) {
+        DocumentReference docRef = await productsCollection.add(product.toProductMap());
+        await docRef.update({'productId': docRef.id});
+      }
+    }
+  }
 }

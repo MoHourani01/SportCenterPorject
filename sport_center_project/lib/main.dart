@@ -21,6 +21,7 @@ import 'package:sport_center_project/soccer/soccer_products/soccer_product_detai
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
 import 'Screens/onBoarding_Screen/onBoarding.dart';
+import 'Screens/profile/about_us.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,10 @@ void main() async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setBool('productsAddedToFirebase', false);
   ProductService.addProducts(ProductsModel.products);
+  // ProductService.addSoccerProducts(ProductsModel.soccer_products);
+  // ProductService.addBasketballProducts(ProductsModel.basket_products);
+  // ProductsModel().addProductIds(ProductsModel.soccer_products);
+  // ProductsModel().addProductIds(ProductsModel.basket_products);
   ProductsModel().addProductIds(products);
   print(products);
   runApp(MyApp());
@@ -53,6 +58,12 @@ List<ProductsModel> products=[
     name: 'Miami Heat Jersey',
     price: '60 JD',
     image: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fddec8b1-7aee-4b47-826d-f2ec00ad4e66/miami-heat-association-edition-2022-23-dri-fit-nba-swingman-jersey-gLpkQ8.png',
+  ),
+  ProductsModel(
+    name: 'Lakers jersey',
+    price: '50 JD',
+    image: 'https://cdn.shopify.com/s/files/1/0259/7455/products/WhiteLakersJerseyFrontJames_65028160-284f-4bac-ac73-f76021cdc4d2_1800x1800.png',
+    isFavorite: false,
   ),
 ];
 class MyApp extends StatelessWidget {
@@ -82,7 +93,7 @@ class MyApp extends StatelessWidget {
             // title: 'Flutter',
             home: SplashScreen(title:'login'),
             // home:SplashScreen(title: 'onBoarding'),
-            //   home:ChabotScreen(),
+            //   home:about(),
           );
         },
       ),
