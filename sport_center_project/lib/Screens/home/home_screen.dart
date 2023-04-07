@@ -10,6 +10,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
@@ -58,6 +59,19 @@ class _HomeScreenState extends State<HomeScreen> {
   ProductsModel? product;
 
   List<ProductsModel> products = ProductsModel.products;
+
+  List<ProductsModel> favorites = [];
+
+  void toggleFavorite(int index) {
+    setState(() {
+      if (products[index].isFavorite) {
+        favorites.add(products[index]);
+      } else {
+        favorites.remove(products[index]);
+      }
+      FavoriteScreen().favorites.add(favorites[index]);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +265,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (products[index].productId != null) {
                                 await FavoriteService().toggleFavorite(products[index]);
                                 // FavoriteService().addFavorite(products[index]);
+                                toggleFavorite(index);
+                                if(favorites.length>0){
+                                  print(favorites);
+                                  // print(favorites[index]);
+                                }
+                                print(favorites.length);
                                 }else{
                                 print('error');
                                 }

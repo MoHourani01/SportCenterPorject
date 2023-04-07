@@ -59,6 +59,7 @@ dependencies:
   animated_theme_switcher:
   image_picker:
   uuid:
+  equatable:
 
   #firebase
   firebase_core: ^2.7.1
