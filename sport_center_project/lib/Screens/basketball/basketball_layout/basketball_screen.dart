@@ -35,7 +35,7 @@ class _basketState extends State<basket> {
   bool isFavorite = false;
   ProductsModel? product;
 
-  List<ProductsModel> products = ProductsModel.products;
+  List<ProductsModel> products = ProductsModel.basket_products;
 
   List<ProductsModel> favorites = [];
 

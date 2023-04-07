@@ -26,8 +26,7 @@ class _soccerState extends State<soccer> {
   bool isFavorite = false;
   ProductsModel? product;
 
-  List<ProductsModel> products = ProductsModel.products;
-
+  List<ProductsModel> products = ProductsModel.soccer_products;
   List<ProductsModel> favorites = [];
 
   void toggleFavorite(int index) {
