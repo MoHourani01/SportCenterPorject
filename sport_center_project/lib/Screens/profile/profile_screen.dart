@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sport_center_project/Screens/profile/about_us.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/models/login_model.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
@@ -76,8 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: CircleAvatar(
                               radius: 60.0,
                               backgroundImage: NetworkImage(VariablesUtils
-                                          .imageUrl !=
-                                      ''
+                                  .imageUrl !=
+                                  ''
                                   ? VariablesUtils.imageUrl
                                   : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
                             ),
@@ -162,8 +163,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: CircleAvatar(
                               radius: 60.0,
                               backgroundImage: NetworkImage(VariablesUtils
-                                          .imageUrl !=
-                                      ''
+                                  .imageUrl !=
+                                  ''
                                   ? VariablesUtils.imageUrl
                                   : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
                             ),
@@ -265,25 +266,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         VariablesUtils.userType == 'vendor'
                             ? Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF130359),
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    // mUtils.navigatorWithBack(
-                                    //     context, AdminDashboard());
-                                  },
-                                  child: ListTile(
-                                    trailing: Icon(
-                                      Icons.navigate_next,
-                                    ),
-                                    title: Text('insights'),
-                                    leading: Icon(
-                                        Icons.insert_chart_outlined_outlined),
-                                  ),
-                                ),
-                              )
+                          decoration: BoxDecoration(
+                            color: Color(0xFF130359),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              // mUtils.navigatorWithBack(
+                              //     context, AdminDashboard());
+                            },
+                            // child: ListTile(
+                            //   trailing: Icon(
+                            //     Icons.navigate_next,
+                            //   ),
+                            //   title: Text('insights'),
+                            //   leading: Icon(
+                            //       Icons.insert_chart_outlined_outlined),
+                            // ),
+                          ),
+                        )
                             : Container(),
                         // Container(
                         //   decoration: BoxDecoration(
@@ -308,11 +309,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // ),
                         VariablesUtils.userType == 'vendor'
                             ? SizedBox(
-                                height: 10,
-                              )
+                          height: 10,
+                        )
                             : SizedBox(
-                                height: 0,
-                              ),
+                          height: 0,
+                        ),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.grey.shade300,
@@ -349,11 +350,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: InkWell(
                             onTap: () {},
                             child: ListTile(
+                              onTap: () {
+                                LoginCubit.get(context)
+                                    .logout()
+                                    .then((value) =>
+                                    navigators.navigateTo(
+                                        context, about()));
+                              },
                               trailing: Icon(
                                 Icons.navigate_next,
                               ),
                               title: Text('About us'),
-                              leading: Icon(Icons.chat),
+                              leading: Icon(Icons.question_mark_sharp),
                               iconColor: Colors.blueGrey.shade900,
                             ),
                           ),
@@ -380,9 +388,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () {
                                 LoginCubit.get(context)
                                     .logout()
-                                    .then((value) => navigators.navigateTo(
+                                    .then((value) =>
+                                    navigators.navigateTo(
                                         context, LoginScreen()))
-                                    .whenComplete(() => showToast(
+                                    .whenComplete(() =>
+                                    showToast(
                                         text: 'Logged out',
                                         state: ToastStates.Success));
                               },

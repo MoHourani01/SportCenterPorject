@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
@@ -28,16 +29,61 @@ class _aboutState extends State<about> {
     aboutModel(
       image: 'assets/images/soccer_basketballl.jpg',
       title: 'Sport Center',
-      description: 'Welcome to our Sport Center app. Here where you can find the best sport products you need about Soccer and Basketball.',
+      description: 'Our app offers a wide selection of high-quality soccer and basketball products from the best brands, with fast and reliable shipping. Shop now and get everything you need to succeed on the field or court! you will never regret it ',
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFDEDEDE),
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'about us',
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20.0),
+                bottomRight: Radius.circular(20.0),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF130359),
+                  Color(0xFF121879),
+                  Color(0xFF2931A8),
+                ],
+                begin: AlignmentDirectional.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                icon: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color:  Color(0xF717217A),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ),
+        ),
+        body: Column(
           children: [
             Expanded(
               child: PageView.builder(
