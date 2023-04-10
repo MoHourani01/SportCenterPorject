@@ -4,6 +4,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Utilities/Services/connectivity_service.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
@@ -263,13 +264,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   saveUserData(String uid) async {
     try {
-      var value = await userService.getUser(uid);
+      var value = await LoginCubit.get(context).getUser(uid);
       VariablesUtils.uid = value?.uId ?? '';
       VariablesUtils.userName = value?.name ?? '';
       VariablesUtils.email = value?.email ?? '';
       VariablesUtils.phone = value?.phone ?? '';
       VariablesUtils.password = value?.password ?? '';
       VariablesUtils.imageUrl = value?.image ?? '';
+
+      // Store the values in SharedPreferences
+      VariablesUtils.prefs = await SharedPreferences.getInstance();
+      VariablesUtils.prefs.setString('uid', VariablesUtils.uid);
+      VariablesUtils.prefs.setString('name', VariablesUtils.userName);
+      VariablesUtils.prefs.setString('email', VariablesUtils.email);
+      VariablesUtils.prefs.setString('phone', VariablesUtils.phone);
+      VariablesUtils.prefs.setString('password', VariablesUtils.password);
+      VariablesUtils.prefs.setString('imageUrl', VariablesUtils.imageUrl);
+
       navigators.navigateTo(context, MainNavigationBar());
     } catch (e) {
       // Handle the case where an exception is thrown.

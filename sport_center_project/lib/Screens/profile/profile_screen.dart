@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     Text(
-                      '${names}',
+                      '${VariablesUtils.prefs.getString('name')}',
                       style: TextStyle(
                         // fontFamily: 'Georgia',
                         fontSize: 20.0,
