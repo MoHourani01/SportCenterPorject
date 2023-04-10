@@ -267,7 +267,7 @@ class _soccerState extends State<soccer> {
                     ),
                     onPressed: () {
                       setState(() {
-                        navigators.navigateTo(context, SDetail());
+                        navigators.navigatorWithBack(context, SDetail());
                       });
                     },
                   );

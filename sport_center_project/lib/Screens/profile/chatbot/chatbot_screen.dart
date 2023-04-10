@@ -5,33 +5,76 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-class ChabotScreen extends StatefulWidget {
+class ChatbotScreen extends StatefulWidget {
   @override
-  State<ChabotScreen> createState() => _ChabotScreenState();
+  State<ChatbotScreen> createState() => _ChatbotScreenState();
 }
 
-class _ChabotScreenState extends State<ChabotScreen> {
+class _ChatbotScreenState extends State<ChatbotScreen> {
   // const ChatDetailsScreen({Key? key}) : super(key: key);
-  var messageController = TextEditingController();
+  var _textEditingController = TextEditingController();
 
-  List<String> messages = [];
+  List<String> _messages = [];
 
-  void sendMessage(String message) async {
-    messages.add('Me: $message');
-    setState(() {});
+  Future<void> _sendMessage() async {
+    String message = _textEditingController.text.trim();
+    if (message.isNotEmpty) {
+      // Make an HTTP request to the Flask server
+      String url = 'https://a6de-176-29-95-202.eu.ngrok.io/predict';
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+      String body = json.encode({'message': message});
+      http.Response response = await http.post(Uri.parse(url), headers: headers, body: body);
 
-    var response = await http.post(Uri.parse('http://127.0.0.1:5000/chatbot'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'message': message}));
+      // Process the response from the Flask server
+      if (response.statusCode == 200) {
+        dynamic data = json.decode(response.body);
+        if (data is List) {
+          // The response is an array of results
+          if (data.isNotEmpty) {
+            Map<String, dynamic> result = data[0];
+            if (result['intent'] != null && result['probability'] != null) {
+              String intent = result['intent'];
+              String probability = result['probability'];
+              _addMessage('You: $message');
+              _addMessage('Bot: $intent (probability: $probability)');
+            } else {
+              _addMessage('Error: Invalid response from server');
+              print(response.body);
+            }
+          } else {
+            _addMessage('Error: Empty response from server');
+            print(response.body);
+          }
+        } else if (data is Map) {
+          // The response is a single result
+          if (data['intent'] != null && data['probability'] != null) {
+            String intent = data['intent'];
+            String probability = data['probability'];
+            _addMessage('You: $message');
+            _addMessage('Bot: $intent (probability: $probability)');
+          } else {
+            _addMessage('Error: Invalid response from server');
+            print(response.body);
+          }
+        } else {
+          // The response is not in the expected format
+          _addMessage('Error: Invalid response from server');
+          print(response.body);
+        }
+      } else {
+        _addMessage('Error: ${response.reasonPhrase}');
+        print(response.body);
+      }
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      messages.add('ChatBot: ${data['response']}');
-      setState(() {});
-    } else {
-      messages.add('ChatBot: I\'m sorry, I don\'t understand. Could you please be more specific?');
-      setState(() {});
+
+      _textEditingController.clear();
     }
+  }
+
+  void _addMessage(String message) {
+    setState(() {
+      _messages.add(message);
+    });
   }
 
   @override
@@ -87,10 +130,10 @@ class _ChabotScreenState extends State<ChabotScreen> {
                   // var message=SocialCubit.get(context).messages[index];
                   // if(SocialCubit.get(context).socialUserModel!.uId==message.senderId)
                   //   return buildMyMessage();
-                  return buildMessage(messages[index]);
+                  return buildMessage(_messages[index]);
                 },
                 separatorBuilder:(context, index) => SizedBox(height: 15.0,),
-                itemCount: messages.length,
+                itemCount: _messages.length,
               ),
             ),
             Container(
@@ -105,15 +148,14 @@ class _ChabotScreenState extends State<ChabotScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0,),
-                      child: TextFormField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'write your message ...',
-                        ),
+                    child: TextField(
+                      controller: _textEditingController,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Type a message',
                       ),
+                      textInputAction: TextInputAction.send,
+                      onSubmitted: (_) => _sendMessage(),
                     ),
                   ),
                   Container(
@@ -128,8 +170,8 @@ class _ChabotScreenState extends State<ChabotScreen> {
                         //   }
                         // )
                         // messageController.text='';
-                        sendMessage(messageController.text);
-                        messageController.clear();
+                        _sendMessage();
+                        _textEditingController.clear();
                       },
                       child: Icon(
                         Icons.send,

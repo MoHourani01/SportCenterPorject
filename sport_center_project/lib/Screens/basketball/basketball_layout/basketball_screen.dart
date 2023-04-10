@@ -283,7 +283,7 @@ class _basketState extends State<basket> {
                   ),
                   onPressed: () {
                     setState(() {
-                      navigators.navigateTo(context, SDetail());
+                      navigators.navigatorWithBack(context, BDetail());
                     });
                   },
                 );
