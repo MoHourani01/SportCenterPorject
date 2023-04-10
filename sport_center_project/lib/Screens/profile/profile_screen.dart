@@ -1,10 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sport_center_project/Screens/profile/about_us.dart';
+import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
+import 'package:sport_center_project/Screens/profile/profile_services/profile_services.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/models/login_model.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
@@ -17,17 +21,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // ImagePicker picker = ImagePicker();
 
-  // File? imageFile;
-  //
-  // String subjectImageUrl = '';
+  ImagePicker picker = ImagePicker();
 
-  //final FilesUploadService _filesUploadService = FilesUploadService();
+  File? imageFile;
 
-  //final ProfileService _profileService = ProfileService();
+  String subjectImageUrl = '';
 
-  // final List<IconData> icons=[
+  final ProfileService _profileService = ProfileService();
+  final userCollection = FirebaseFirestore.instance.collection('users');
+  dynamic names= ProfileService().getCurrentUserData();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,42 +95,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           child: CircleAvatar(
                             radius: 20.0,
-                            backgroundColor: Color(0xF717217A),
+                            backgroundColor: Color(0xF717217A).withOpacity(0.8),
                             child: IconButton(
                               onPressed: () async {
-                                // await chooseSubjectImage(ImageSource.gallery);
-                                // if (imageFile != null) {
-                                //   subjectImageUrl = await _filesUploadService
-                                //       .fileUpload(imageFile!, 'UsersImage')
-                                //       .then((value) async {
-                                //     if (value != '') {
-                                //       var model = UserModel(
-                                //         uid: VariablesUtils.uid,
-                                //         email: VariablesUtils.email,
-                                //         userType: VariablesUtils.userType,
-                                //         rePassword: VariablesUtils.password,
-                                //         userName: VariablesUtils.userName,
-                                //         imageUrl: value,
-                                //         loginState: VariablesUtils.loginState,
-                                //         password: VariablesUtils.password,
-                                //         phone: VariablesUtils.phone,
-                                //         state: VariablesUtils.state,
-                                //       );
-                                //
-                                //       await _profileService.updateProfile(
-                                //           VariablesUtils.uid, model);
-                                //       VariablesUtils.imageUrl = value;
-                                //       setState(() {});
-                                //       log(VariablesUtils.imageUrl);
-                                //     } else {
-                                //       log('cant do this');
-                                //     }
-                                //     return '';
-                                //   });
-                                // }
+                                await chooseSubjectImage(ImageSource.gallery);
+                                if (imageFile != null) {
+                                  subjectImageUrl = await _profileService
+                                      .fileUpload(imageFile!, 'UsersImage')
+                                      .then((value) async {
+                                    if (value != '') {
+                                      var model = UserModel(
+                                        uId: VariablesUtils.uid,
+                                        email: VariablesUtils.email,
+                                        name: VariablesUtils.userName,
+                                        // imageUrl: value,
+                                        password: VariablesUtils.password,
+                                        phone: VariablesUtils.phone,
+                                      );
+
+                                      await _profileService.updateProfile(
+                                          VariablesUtils.uid, model);
+                                      VariablesUtils.imageUrl = value;
+                                      setState(() {});
+                                      log(VariablesUtils.imageUrl);
+                                    } else {
+                                      log('cant do this');
+                                    }
+                                    return '';
+                                  });
+                                }
                               },
                               icon: Icon(
-                                Icons.settings,
+                                Icons.camera_alt,
                                 size: 20.0,
                                 color: Colors.white,
                               ),
@@ -135,93 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     Text(
-                      VariablesUtils.userName,
-                      style: TextStyle(
-                        // fontFamily: 'Georgia',
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF130359),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Stack(
-                      alignment: AlignmentDirectional.bottomEnd,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 60.0,
-                          ),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 65.0,
-                            child: CircleAvatar(
-                              radius: 60.0,
-                              backgroundImage: NetworkImage(VariablesUtils
-                                  .imageUrl !=
-                                  ''
-                                  ? VariablesUtils.imageUrl
-                                  : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 60.0,
-                          ),
-                          child: CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor: Color(0xF717217A),
-                            child: IconButton(
-                              onPressed: () async {
-                                // await chooseSubjectImage(ImageSource.gallery);
-                                // if (imageFile != null) {
-                                //   subjectImageUrl = await _filesUploadService
-                                //       .fileUpload(imageFile!, 'UsersImage')
-                                //       .then((value) async {
-                                //     if (value != '') {
-                                //       var model = UserModel(
-                                //         uid: VariablesUtils.uid,
-                                //         email: VariablesUtils.email,
-                                //         userType: VariablesUtils.userType,
-                                //         rePassword: VariablesUtils.password,
-                                //         userName: VariablesUtils.userName,
-                                //         imageUrl: value,
-                                //         loginState: VariablesUtils.loginState,
-                                //         password: VariablesUtils.password,
-                                //         phone: VariablesUtils.phone,
-                                //         state: VariablesUtils.state,
-                                //       );
-                                //
-                                //       await _profileService.updateProfile(
-                                //           VariablesUtils.uid, model);
-                                //       VariablesUtils.imageUrl = value;
-                                //       setState(() {});
-                                //       log(VariablesUtils.imageUrl);
-                                //     } else {
-                                //       log('cant do this');
-                                //     }
-                                //     return '';
-                                //   });
-                                // }
-                              },
-                              icon: Icon(
-                                Icons.settings,
-                                size: 20.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      VariablesUtils.userName,
+                      '${names}',
                       style: TextStyle(
                         // fontFamily: 'Georgia',
                         fontSize: 20.0,
@@ -234,6 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ],
           ),
+          SizedBox(height: 8,),
           SizedBox(
             height: 20.0,
           ),
@@ -250,19 +166,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.grey.shade300,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
-                          //   child: InkWell(
-                          //     onTap: () {},
-                          //     child: ListTile(
-                          //       trailing: Icon(
-                          //         Icons.navigate_next,
-                          //       ),
-                          //       title: Text('Payment'),
-                          //       leading: Icon(Icons.payment_outlined),
-                          //     ),
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   height: 10.0,
                         ),
                         VariablesUtils.userType == 'vendor'
                             ? Container(
@@ -328,6 +231,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //   throw 'Could not open the dialler.';
                               // }
                               // navigateTo(context, MyOrdersScreen());
+                              navigators.navigatorWithBack(context, ChatbotScreen());
                             },
                             child: ListTile(
                               trailing: Icon(
@@ -354,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 LoginCubit.get(context)
                                     .logout()
                                     .then((value) =>
-                                    navigators.navigateTo(
+                                    navigators.navigatorWithBack(
                                         context, about()));
                               },
                               trailing: Icon(
@@ -418,27 +322,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-// chooseSubjectImage(ImageSource source) async {
-//   final pickedFile = await picker.pickImage(source: source);
-//   if (pickedFile!.path.isEmpty) {
-//     retrieveLostData();
-//   } else {
-//     setState(() {
-//       // imageFile = File(pickedFile.path);
-//     });
-//   }
-// }
+chooseSubjectImage(ImageSource source) async {
+  final pickedFile = await picker.pickImage(source: source);
+  if (pickedFile!.path.isEmpty) {
+    retrieveLostData();
+  } else {
+    setState(() {
+      // imageFile = File(pickedFile.path);
+    });
+  }
+}
 
-// Future<void> retrieveLostData() async {
-//   final LostData response = await picker.getLostData();
-//   if (response.file != null) {
-//     setState(() {
-//       imageFile = File(response.file!.path);
-//     });
-//   } else {
-//     // log('response.file : ${response.file}');
-//   }
-// }
+Future<void> retrieveLostData() async {
+  final LostData response = await picker.getLostData();
+  if (response.file != null) {
+    setState(() {
+      imageFile = File(response.file!.path);
+    });
+  } else {
+    // log('response.file : ${response.file}');
+  }
+}
 }
 
 class CustomShape extends CustomClipper<Path> {
