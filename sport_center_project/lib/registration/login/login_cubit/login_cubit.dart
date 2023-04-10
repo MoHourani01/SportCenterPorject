@@ -93,7 +93,7 @@ class LoginCubit extends Cubit<LoginStates> {
     var data = result.docs[0];
     Map<String, dynamic> userMap = {};
     userMap['uId'] = data.get('uId');
-    // userMap['userName'] = data.get('userName');
+    userMap['name'] = data.get('name');
     userMap['email'] = data.get('email');
     // userMap['phone'] = data.get('phone');
     userMap['password'] = data.get('password');
