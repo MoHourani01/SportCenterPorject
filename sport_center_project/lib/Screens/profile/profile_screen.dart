@@ -22,15 +22,15 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  ImagePicker picker = ImagePicker();
+  // ImagePicker picker = ImagePicker();
+  //
+  // File? imageFile;
+  //
+  // String subjectImageUrl = '';
 
-  File? imageFile;
-
-  String subjectImageUrl = '';
-
-  final ProfileService _profileService = ProfileService();
-  final userCollection = FirebaseFirestore.instance.collection('users');
-  dynamic names= ProfileService().getCurrentUserData();
+  // final ProfileService _profileService = ProfileService();
+  // final userCollection = FirebaseFirestore.instance.collection('users');
+  // dynamic names= ProfileService().getCurrentUserData();
 
 
   @override
@@ -98,32 +98,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             backgroundColor: Color(0xF717217A).withOpacity(0.8),
                             child: IconButton(
                               onPressed: () async {
-                                await chooseSubjectImage(ImageSource.gallery);
-                                if (imageFile != null) {
-                                  subjectImageUrl = await _profileService
-                                      .fileUpload(imageFile!, 'UsersImage')
-                                      .then((value) async {
-                                    if (value != '') {
-                                      var model = UserModel(
-                                        uId: VariablesUtils.uid,
-                                        email: VariablesUtils.email,
-                                        name: VariablesUtils.userName,
-                                        // imageUrl: value,
-                                        password: VariablesUtils.password,
-                                        phone: VariablesUtils.phone,
-                                      );
-
-                                      await _profileService.updateProfile(
-                                          VariablesUtils.uid, model);
-                                      VariablesUtils.imageUrl = value;
-                                      setState(() {});
-                                      log(VariablesUtils.imageUrl);
-                                    } else {
-                                      log('cant do this');
-                                    }
-                                    return '';
-                                  });
-                                }
+                                // await chooseSubjectImage(ImageSource.gallery);
+                                // if (imageFile != null) {
+                                //   subjectImageUrl = await _profileService
+                                //       .fileUpload(imageFile!, 'UsersImage')
+                                //       .then((value) async {
+                                //     if (value != '') {
+                                //       var model = UserModel(
+                                //         uId: VariablesUtils.uid,
+                                //         email: VariablesUtils.email,
+                                //         name: VariablesUtils.userName,
+                                //         // imageUrl: value,
+                                //         password: VariablesUtils.password,
+                                //         phone: VariablesUtils.phone,
+                                //       );
+                                //
+                                //       await _profileService.updateProfile(
+                                //           VariablesUtils.uid, model);
+                                //       VariablesUtils.imageUrl = value;
+                                //       setState(() {});
+                                //       log(VariablesUtils.imageUrl);
+                                //     } else {
+                                //       log('cant do this');
+                                //     }
+                                //     return '';
+                                //   });
+                                // }
                               },
                               icon: Icon(
                                 Icons.camera_alt,
@@ -167,56 +167,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        VariablesUtils.userType == 'vendor'
-                            ? Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFF130359),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              // mUtils.navigatorWithBack(
-                              //     context, AdminDashboard());
-                            },
-                            // child: ListTile(
-                            //   trailing: Icon(
-                            //     Icons.navigate_next,
-                            //   ),
-                            //   title: Text('insights'),
-                            //   leading: Icon(
-                            //       Icons.insert_chart_outlined_outlined),
-                            // ),
-                          ),
-                        )
-                            : Container(),
-                        // Container(
+                        // VariablesUtils.userType == 'vendor'
+                        //     ? Container(
                         //   decoration: BoxDecoration(
-                        //     color: Colors.grey.shade300,
+                        //     color: Color(0xFF130359),
                         //     borderRadius: BorderRadius.circular(30.0),
                         //   ),
                         //   child: InkWell(
                         //     onTap: () {
-                        //       // navigateTo(context, MyOrdersScreen());
+                        //       // mUtils.navigatorWithBack(
+                        //       //     context, AdminDashboard());
                         //     },
-                        //     child: ListTile(
-                        //       trailing: Icon(
-                        //         Icons.navigate_next,
-                        //       ),
-                        //       title: Text('My Orders'),
-                        //       leading: Icon(Icons.shopping_cart_outlined),
-                        //     ),
+                        //     // child: ListTile(
+                        //     //   trailing: Icon(
+                        //     //     Icons.navigate_next,
+                        //     //   ),
+                        //     //   title: Text('insights'),
+                        //     //   leading: Icon(
+                        //     //       Icons.insert_chart_outlined_outlined),
+                        //     // ),
                         //   ),
+                        // )
+                        //     : Container(),
+                        // // Container(
+                        // //   decoration: BoxDecoration(
+                        // //     color: Colors.grey.shade300,
+                        // //     borderRadius: BorderRadius.circular(30.0),
+                        // //   ),
+                        // //   child: InkWell(
+                        // //     onTap: () {
+                        // //       // navigateTo(context, MyOrdersScreen());
+                        // //     },
+                        // //     child: ListTile(
+                        // //       trailing: Icon(
+                        // //         Icons.navigate_next,
+                        // //       ),
+                        // //       title: Text('My Orders'),
+                        // //       leading: Icon(Icons.shopping_cart_outlined),
+                        // //     ),
+                        // //   ),
+                        // // ),
+                        // // SizedBox(
+                        // //   height: 10.0,
+                        // // ),
+                        // VariablesUtils.userType == 'vendor'
+                        //     ? SizedBox(
+                        //   height: 10,
+                        // )
+                        //     : SizedBox(
+                        //   height: 0,
                         // ),
-                        // SizedBox(
-                        //   height: 10.0,
-                        // ),
-                        VariablesUtils.userType == 'vendor'
-                            ? SizedBox(
-                          height: 10,
-                        )
-                            : SizedBox(
-                          height: 0,
-                        ),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.grey.shade300,
@@ -322,27 +322,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-chooseSubjectImage(ImageSource source) async {
-  final pickedFile = await picker.pickImage(source: source);
-  if (pickedFile!.path.isEmpty) {
-    retrieveLostData();
-  } else {
-    setState(() {
-      // imageFile = File(pickedFile.path);
-    });
-  }
-}
-
-Future<void> retrieveLostData() async {
-  final LostData response = await picker.getLostData();
-  if (response.file != null) {
-    setState(() {
-      imageFile = File(response.file!.path);
-    });
-  } else {
-    // log('response.file : ${response.file}');
-  }
-}
+// chooseSubjectImage(ImageSource source) async {
+//   final pickedFile = await picker.pickImage(source: source);
+//   if (pickedFile!.path.isEmpty) {
+//     retrieveLostData();
+//   } else {
+//     setState(() {
+//       // imageFile = File(pickedFile.path);
+//     });
+//   }
+// }
+//
+// Future<void> retrieveLostData() async {
+//   final LostData response = (await picker.retrieveLostData()) as LostData;
+//   if (response.file != null) {
+//     setState(() {
+//       imageFile = File(response.file!.path);
+//     });
+//   } else {
+//     // log('response.file : ${response.file}');
+//   }
+// }
 }
 
 class CustomShape extends CustomClipper<Path> {
