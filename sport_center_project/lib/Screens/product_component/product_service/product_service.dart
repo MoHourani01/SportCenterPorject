@@ -23,6 +23,8 @@
 //
 //
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sport_center_project/models/product_model.dart';
 
@@ -81,4 +83,64 @@ class ProductService {
       }
     }
   }
+
+  Future<void> add_Products(ProductsModel model, String collection) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    await firestore
+        .collection(collection)
+        .add(model.toProductMap())
+        .whenComplete(() {
+      log('posts data added successful');
+      // statusCode = 200;
+      msg = 'posts data added successful';
+    }).catchError((onError) {
+      handleAuthErrors(onError);
+      log('statusCode : $statusCode , error msg : $msg');
+    });
+  }
+  int statusCode = 0;
+  String msg = '';
+  void handleAuthErrors(ArgumentError error) {
+    String errorCode = error.message;
+    switch (errorCode) {
+      case "ABORTED":
+        {
+          statusCode = 400;
+          msg = "The operation was aborted";
+        }
+        break;
+      case "ALREADY_EXISTS":
+        {
+          statusCode = 400;
+          msg = "Some document that we attempted to create already exists.";
+        }
+        break;
+      case "CANCELLED":
+        {
+          statusCode = 400;
+          msg = "The operation was cancelled";
+        }
+        break;
+      case "DATA_LOSS":
+        {
+          statusCode = 400;
+          msg = "Unrecoverable data loss or corruption.";
+        }
+        break;
+      case "PERMISSION_DENIED":
+        {
+          statusCode = 400;
+          msg =
+          "The caller does not have permission to execute the specified operation.";
+        }
+        break;
+      default:
+        {
+          statusCode = 400;
+          msg = error.message;
+        }
+        break;
+    }
+  }
+
 }
