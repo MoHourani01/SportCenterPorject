@@ -35,7 +35,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
         animationCurve: Curves.easeOut,
         index: 0,
         backgroundColor: Colors.white,
-        color: Color(0xFF130359),
+        color: Color(0xFF030A59),
         height: 60,
         // currentIndex: page,
         items: [

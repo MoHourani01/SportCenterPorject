@@ -49,7 +49,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ),
             gradient: LinearGradient(
               colors: [
-                Color(0xFF130359),
+                Color(0xFF030A59),
                 Color(0xFF121879),
                 Color(0xFF2931A8),
               ],
