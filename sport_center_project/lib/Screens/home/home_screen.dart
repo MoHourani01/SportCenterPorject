@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         tooltip: 'Categories',
-        backgroundColor: Color(0xFF130359).withOpacity(0.8),
+        backgroundColor: Color(0xFF030A59).withOpacity(0.8),
         child: Icon(Icons.category),
       ),
       backgroundColor: Colors.grey.shade300,
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             elevation: 0,
             // expandedHeight: 200,
-            backgroundColor: Color(0xFF130359),
+            backgroundColor: Color(0xFF030A59),
             leading: IconButton(
               onPressed: () {},
               icon: Icon(
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   gradient: LinearGradient(
                     colors: [
-                      Color(0xFF130359),
+                      Color(0xFF030A59),
                       Color(0xF717217A),
                       Color(0xFF1D2EA8),
                     ],
@@ -167,10 +167,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   CarouselSlider(
-                    items: images
+                    items: products
                         .map(
                           (e) => Image(
-                        image: AssetImage('${e}'),
+                        image: NetworkImage('${e.image}'),
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -202,93 +202,130 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 8,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15, bottom: 15),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          for (int i = 0; i < items.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  indexItems = i;
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 7, horizontal: 12),
-                                decoration: BoxDecoration(
-                                    color: indexItems == i
-                                        ? Color(0xFF320C72).withOpacity(1)
-                                        : Colors.white70,
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Text(
-                                  items[i],
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: items[i] == items[indexItems]
-                                        ? Colors.white
-                                        : Colors.blueGrey.shade900
-                                        .withOpacity(1),
-                                  ),
-                                ),
-                              ),
-                            )
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  MasonryGridView.count(
-                      physics: BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 1,
-                      mainAxisSpacing: 5,
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount: products.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index >= products.length) {
-                          return SizedBox
-                              .shrink(); // Return an empty widget if index is out of bounds
-                        }
-                        return cardFlippers(
-                          products[index],
-                          IconButton(
-                            onPressed: user == null ? null : () async {
-                              // toggle the isFavorite flag
-                              setState(() {
-                                products[index].isFavorite = !products[index].isFavorite;
-                              });
-
-                              // update the favorites collection
-                              if (products[index].productId != null) {
-                                await FavoriteService().toggleFavorite(products[index]);
-                                // FavoriteService().addFavorite(products[index]);
-                                toggleFavorite(index);
-                                if(favorites.length>0){
-                                  print(favorites);
-                                  // print(favorites[index]);
-                                }
-                                print(favorites.length);
-                                }else{
-                                print('error');
-                                }
-                              },
-                            icon: Icon(
-                              products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                              color: products[index].isFavorite ? Colors.red : Colors.red,
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            'Categories',
+                            style: TextStyle(
+                              // fontFamily: 'Georgia',
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xF717217A),
                             ),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              navigators.navigatorWithBack(context, SDetail());
-                            });
-                          },
-                        );
-                      }),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15, bottom: 15),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for (int i = 0; i < items.length; i++)
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      indexItems = i;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 7, horizontal: 12),
+                                    decoration: BoxDecoration(
+                                        color: indexItems == i
+                                            ? Color(0xF70A1673).withOpacity(1)
+                                            : Colors.white70,
+                                        borderRadius: BorderRadius.circular(6)),
+                                    child: Text(
+                                      items[i],
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: items[i] == items[indexItems]
+                                            ? Colors.white
+                                            : Colors.blueGrey.shade900
+                                            .withOpacity(1),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8,),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12.0,left:12.0),
+                        child: Text(
+                          'Products',
+                          style: TextStyle(
+                            // fontFamily: 'Georgia',
+                            fontSize: 23.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xF717217A),
+                          ),
+                        ),
+                      ),
+                      MasonryGridView.count(
+                          physics: BouncingScrollPhysics(),
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 1,
+                          mainAxisSpacing: 5,
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: products.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index >= products.length) {
+                              return SizedBox
+                                  .shrink(); // Return an empty widget if index is out of bounds
+                            }
+                            return cardFlippers(
+                              products[index],
+                              IconButton(
+                                onPressed: user == null ? null : () async {
+                                  // toggle the isFavorite flag
+                                  setState(() {
+                                    products[index].isFavorite = !products[index].isFavorite;
+                                  });
+
+                                  // update the favorites collection
+                                  if (products[index].productId != null) {
+                                    await FavoriteService().toggleFavorite(products[index]);
+                                    // FavoriteService().addFavorite(products[index]);
+                                    toggleFavorite(index);
+                                    if(favorites.length>0){
+                                      print(favorites);
+                                      // print(favorites[index]);
+                                    }
+                                    print(favorites.length);
+                                    }else{
+                                    print('error');
+                                    }
+                                  },
+                                icon: Icon(
+                                  products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                  color: products[index].isFavorite ? Colors.red : Colors.red,
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  navigators.navigatorWithBack(context, SDetail());
+                                });
+                              },
+                            );
+                          }),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -303,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildIndicator() {
     return AnimatedSmoothIndicator(
       activeIndex: activatedIndex,
-      count: images.length,
+      count: products.length,
       onDotClicked: animateToSlide,
       effect: SlideEffect(
           dotWidth: 10,

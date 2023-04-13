@@ -22,21 +22,14 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  // ImagePicker picker = ImagePicker();
-  //
-  // File? imageFile;
-  //
-  // String subjectImageUrl = '';
-
-  // final ProfileService _profileService = ProfileService();
-  // final userCollection = FirebaseFirestore.instance.collection('users');
-  // dynamic names= ProfileService().getCurrentUserData();
+  String defaultImage='https://images-platform.99static.com/eEgFxdpfqm4mxTjtP7d5mcBqDUE=/203x203:1829x1829/500x500/top/smart/99designs-contests-attachments/124/124195/attachment_124195589';
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
         centerTitle: true,
         title: Text(
           'My Profile',
@@ -51,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             gradient: LinearGradient(
               colors: [
-                Color(0xFF130359),
+                Color(0xFF030A59),
                 Color(0xFF121879),
                 Color(0xFF2931A8),
               ],
@@ -74,62 +67,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: 60.0,
+                            top: 50.0,
                           ),
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
-                            radius: 65.0,
+                            radius: 70.0,
                             child: CircleAvatar(
-                              radius: 60.0,
-                              backgroundImage: NetworkImage(VariablesUtils
-                                  .imageUrl !=
-                                  ''
-                                  ? VariablesUtils.imageUrl
-                                  : 'https://img.freepik.com/free-photo/portrait-young-girl-red-beret-painting-her-lips-with-bright-lipstick-pink-background_197531-17567.jpg'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 60.0,
-                          ),
-                          child: CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor: Color(0xF717217A).withOpacity(0.8),
-                            child: IconButton(
-                              onPressed: () async {
-                                // await chooseSubjectImage(ImageSource.gallery);
-                                // if (imageFile != null) {
-                                //   subjectImageUrl = await _profileService
-                                //       .fileUpload(imageFile!, 'UsersImage')
-                                //       .then((value) async {
-                                //     if (value != '') {
-                                //       var model = UserModel(
-                                //         uId: VariablesUtils.uid,
-                                //         email: VariablesUtils.email,
-                                //         name: VariablesUtils.userName,
-                                //         // imageUrl: value,
-                                //         password: VariablesUtils.password,
-                                //         phone: VariablesUtils.phone,
-                                //       );
-                                //
-                                //       await _profileService.updateProfile(
-                                //           VariablesUtils.uid, model);
-                                //       VariablesUtils.imageUrl = value;
-                                //       setState(() {});
-                                //       log(VariablesUtils.imageUrl);
-                                //     } else {
-                                //       log('cant do this');
-                                //     }
-                                //     return '';
-                                //   });
-                                // }
-                              },
-                              icon: Icon(
-                                Icons.camera_alt,
-                                size: 20.0,
-                                color: Colors.white,
-                              ),
+                              radius: 65.0,
+                              backgroundImage: NetworkImage('${defaultImage}'),
                             ),
                           ),
                         ),
@@ -139,9 +84,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       '${VariablesUtils.prefs.getString('name')}',
                       style: TextStyle(
                         // fontFamily: 'Georgia',
-                        fontSize: 20.0,
+                        fontSize: 22.0,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF130359),
+                        color: Color(0xF70A2991),
                       ),
                     ),
                   ],
@@ -255,11 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () {},
                             child: ListTile(
                               onTap: () {
-                                LoginCubit.get(context)
-                                    .logout()
-                                    .then((value) =>
-                                    navigators.navigatorWithBack(
-                                        context, about()));
+                                navigators.navigatorWithBack(context, about());
                               },
                               trailing: Icon(
                                 Icons.navigate_next,
@@ -321,28 +262,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
-// chooseSubjectImage(ImageSource source) async {
-//   final pickedFile = await picker.pickImage(source: source);
-//   if (pickedFile!.path.isEmpty) {
-//     retrieveLostData();
-//   } else {
-//     setState(() {
-//       // imageFile = File(pickedFile.path);
-//     });
-//   }
-// }
-//
-// Future<void> retrieveLostData() async {
-//   final LostData response = (await picker.retrieveLostData()) as LostData;
-//   if (response.file != null) {
-//     setState(() {
-//       imageFile = File(response.file!.path);
-//     });
-//   } else {
-//     // log('response.file : ${response.file}');
-//   }
-// }
 }
 
 class CustomShape extends CustomClipper<Path> {
