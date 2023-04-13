@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   CarouselSlider(
-                    items: products
+                    items: products.take(4)
                         .map(
                           (e) => Image(
                         image: NetworkImage('${e.image}'),
@@ -340,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildIndicator() {
     return AnimatedSmoothIndicator(
       activeIndex: activatedIndex,
-      count: products.length,
+      count: 4,
       onDotClicked: animateToSlide,
       effect: SlideEffect(
           dotWidth: 10,
