@@ -9,6 +9,7 @@ import 'package:sport_center_project/Screens/basketball/basketball_products/bask
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/Screens/search/search.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
@@ -39,6 +40,31 @@ class _soccerState extends State<soccer> {
       FavoriteScreen(favorites: favorites,);
     });
   }
+
+  // final List<ProductsModel> products = ProductsModel.soccer_products;
+  List<ProductsModel> filteredItems = [];
+
+  // void filterSearchResults(String query) {
+  //   if (query.isNotEmpty) {
+  //     List<ProductsModel> dummyListData = <ProductsModel>[];
+  //     products.forEach((item) {
+  //       if (item.name!.toLowerCase().contains(query.toLowerCase())) {
+  //         dummyListData.add(item);
+  //       }
+  //     });
+  //     setState(() {
+  //       filteredItems.clear();
+  //       filteredItems.addAll(dummyListData);
+  //     });
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       filteredItems.clear();
+  //       filteredItems.addAll(products);
+  //     });
+  //   }
+  // }
+  TextEditingController searchController=TextEditingController();
   Widget buildDisCoverCircle({image, title}) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -76,7 +102,11 @@ class _soccerState extends State<soccer> {
     );
   }
 
-
+  void filterSearchResults(String query) {
+    setState(() {
+      filteredItems = SearchUtils.filterSearchResults(query, products);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,10 +186,14 @@ class _soccerState extends State<soccer> {
                           borderRadius: BorderRadius.circular(20),
                           color:  Colors.grey,
                         ),
-                        child: Icon(
-                          Icons.sports_soccer_outlined,
-                          size: 40.0,
-                          color: Colors.black,
+                        child: IconButton(
+                          onPressed: () {
+                            navigators.navigateTo(context, FavoriteScreen(favorites: favorites));
+                          },
+                          icon: Icon(
+                            Icons.favorite_border_outlined,
+                            color: Colors.white,
+                          ),
                         ),
                       )
                     ],
@@ -209,6 +243,10 @@ class _soccerState extends State<soccer> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
+                controller: searchController,
+                onChanged: (value) {
+                  filterSearchResults(value);
+                },
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.search,
@@ -232,7 +270,7 @@ class _soccerState extends State<soccer> {
               child: MasonryGridView.count(
                 crossAxisCount: 2,
                 mainAxisSpacing: 5,
-                itemCount: products.length, // use products length here
+                itemCount: filteredItems.length, // use products length here
                 primary: false,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -240,18 +278,19 @@ class _soccerState extends State<soccer> {
                     return Container(); // Return an empty widget if index is out of bounds
                   }
                   return cardFlippers(
-                    products[index],
+                    filteredItems[index],
                     IconButton(
                       onPressed: user == null ? null : () async {
                         // toggle the isFavorite flag
                         setState(() {
-                          products[index].isFavorite = !products[index].isFavorite;
+                          filteredItems[index].isFavorite = !filteredItems[index].isFavorite;
                         });
 
                         // update the favorites collection
-                        if (products[index].productId != null) {
-                          await FavoriteService().toggleFavorite(products[index]);
+                        if (filteredItems[index].productId != null) {
+                          await FavoriteService().toggleFavorite(filteredItems[index]);
                           toggleFavorite(index);
+                          FavoriteScreen(favorites: favorites);
                           if (favorites.length > 0) {
                             print(favorites);
                           }
@@ -261,7 +300,7 @@ class _soccerState extends State<soccer> {
                         }
                       },
                       icon: Icon(
-                        products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                        filteredItems[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
                         color: Colors.red,
                       ),
                     ),
@@ -286,6 +325,7 @@ class _soccerState extends State<soccer> {
   @override
   void initState() {
     super.initState();
+    filteredItems.addAll(products);
     user = auth.currentUser;
     auth.authStateChanges().listen((User? firebaseUser) {
       setState(() {
