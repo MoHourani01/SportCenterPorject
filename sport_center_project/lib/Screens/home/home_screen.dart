@@ -303,6 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     await FavoriteService().toggleFavorite(products[index]);
                                     // FavoriteService().addFavorite(products[index]);
                                     toggleFavorite(index);
+                                    FavoriteScreen(favorites: favorites);
                                     if(favorites.length>0){
                                       print(favorites);
                                       // print(favorites[index]);

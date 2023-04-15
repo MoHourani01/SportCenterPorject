@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:open_app_file/open_app_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sport_center_project/Screens/search/3.dart';
-import 'package:sport_center_project/Screens/search/2.dart';
+import 'package:sport_center_project/Screens/search/custom_dialog.dart';
+import 'package:sport_center_project/Screens/search/subject_view.dart';
 
 
 class SearchScreen extends StatefulWidget {
