@@ -184,7 +184,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                           });
                         }
                       },
-                      text: "done")
+                      text: "Add product")
                 ],
               ),
             ),

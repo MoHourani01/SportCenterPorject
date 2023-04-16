@@ -75,264 +75,281 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            if (isBottomSheet) {
-              Navigator.of(context).pop();
-              isBottomSheet = false;
-            } else {
-              scaffoldKey.currentState!.showBottomSheet(
-                    (context) {
-                  isBottomSheet = true;
-                  return CategoriesInfo();
-                },
-              );
-            }
-          });
-        },
-        tooltip: 'Categories',
-        backgroundColor: Color(0xFF030A59).withOpacity(0.8),
-        child: Icon(Icons.category),
-      ),
-      backgroundColor: Colors.grey.shade300,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar.medium(
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10.0),
-                bottomLeft: Radius.circular(10.0),
-              ),
-            ),
-            elevation: 0,
-            // expandedHeight: 200,
-            backgroundColor: Color(0xFF030A59),
-            leading: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-            title: Text(
-              'Sport Center',
-            ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  navigators.navigateTo(context, FavoriteScreen(favorites: favorites));
-                },
-                icon: Icon(
-                  Icons.favorite_border_outlined,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  // color: Color(0xFF130359),
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10.0),
-                    bottomLeft: Radius.circular(10.0),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF030A59),
-                      Color(0xF717217A),
-                      Color(0xFF1D2EA8),
-                    ],
-                    begin: AlignmentDirectional.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-              title: Text('Sport Center'),
-              centerTitle: true,
-              collapseMode: CollapseMode.pin,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('products').snapshots(),
+        builder: (context, snapshot){
+          // if (snapshot.hasError) {
+          //   // return Text('Error: ${snapshot.error}')Text('Error: ${snapshot.error}');
+          //   return Center(child: CircularProgressIndicator());
+          // }
 
-                  CarouselSlider(
-                    items: products.take(4)
-                        .map(
-                          (e) => Image(
-                        image: NetworkImage('${e.image}'),
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                        .toList(),
-                    options: CarouselOptions(
-                      height: 200,
-                      // aspectRatio: 10/6,
-                      viewportFraction: 0.8,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 3),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
-                      // onPageChanged: callbackFunction,
-                      scrollDirection: Axis.horizontal,
-                      onPageChanged: (index, reason) =>
-                          setState(() => activatedIndex = index),
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return Center(child: CircularProgressIndicator());
+          // }
+          // final productsModel = ProductsModel();
+          // snapshot.data!.docs.forEach((doc) {
+          //   productsModel.addProductFromFirebase(doc);
+          // });
+          return Scaffold(
+            key: scaffoldKey,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  if (isBottomSheet) {
+                    Navigator.of(context).pop();
+                    isBottomSheet = false;
+                  } else {
+                    scaffoldKey.currentState!.showBottomSheet(
+                          (context) {
+                        isBottomSheet = true;
+                        return CategoriesInfo();
+                      },
+                    );
+                  }
+                });
+              },
+              tooltip: 'Categories',
+              backgroundColor: Color(0xFF030A59).withOpacity(0.8),
+              child: Icon(Icons.category),
+            ),
+            backgroundColor: Colors.grey.shade300,
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar.medium(
+                  shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0),
                     ),
                   ),
-                  SizedBox(
-                    height: 8,
+                  elevation: 0,
+                  // expandedHeight: 200,
+                  backgroundColor: Color(0xFF030A59),
+                  leading: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
                   ),
-                  buildIndicator(),
-                  SizedBox(
-                    height: 8,
+                  title: Text(
+                    'Sport Center',
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Categories',
-                            style: TextStyle(
-                              // fontFamily: 'Georgia',
-                              fontSize: 23.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xF717217A),
-                            ),
-                          ),
+                  centerTitle: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        navigators.navigateTo(context, FavoriteScreen(favorites: favorites));
+                      },
+                      icon: Icon(
+                        Icons.favorite_border_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                      decoration: BoxDecoration(
+                        // color: Color(0xFF130359),
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0),
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF030A59),
+                            Color(0xF717217A),
+                            Color(0xFF1D2EA8),
+                          ],
+                          begin: AlignmentDirectional.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 15),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < items.length; i++)
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      indexItems = i;
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 7, horizontal: 12),
-                                    decoration: BoxDecoration(
-                                        color: indexItems == i
-                                            ? Color(0xF70A1673).withOpacity(1)
-                                            : Colors.white70,
-                                        borderRadius: BorderRadius.circular(6)),
-                                    child: Text(
-                                      items[i],
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color: items[i] == items[indexItems]
-                                            ? Colors.white
-                                            : Colors.blueGrey.shade900
-                                            .withOpacity(1),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
+                    title: Text('Sport Center'),
+                    centerTitle: true,
+                    collapseMode: CollapseMode.pin,
                   ),
-                  SizedBox(height: 8,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0,left:12.0),
-                        child: Text(
-                          'Products',
-                          style: TextStyle(
-                            // fontFamily: 'Georgia',
-                            fontSize: 23.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xF717217A),
-                          ),
+                ),
+                SliverToBoxAdapter(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      MasonryGridView.count(
-                          physics: BouncingScrollPhysics(),
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 1,
-                          mainAxisSpacing: 5,
-                          primary: false,
-                          shrinkWrap: true,
-                          itemCount: products.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index >= products.length) {
-                              return SizedBox
-                                  .shrink(); // Return an empty widget if index is out of bounds
-                            }
-                            return cardFlippers(
-                              products[index],
-                              IconButton(
-                                onPressed: user == null ? null : () async {
-                                  // toggle the isFavorite flag
-                                  setState(() {
-                                    products[index].isFavorite = !products[index].isFavorite;
-                                  });
 
-                                  // update the favorites collection
-                                  if (products[index].productId != null) {
-                                    await FavoriteService().toggleFavorite(products[index]);
-                                    // FavoriteService().addFavorite(products[index]);
-                                    toggleFavorite(index);
-                                    FavoriteScreen(favorites: favorites);
-                                    if(favorites.length>0){
-                                      print(favorites);
-                                      // print(favorites[index]);
-                                    }
-                                    print(favorites.length);
-                                    }else{
-                                    print('error');
-                                    }
-                                  },
-                                icon: Icon(
-                                  products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                                  color: products[index].isFavorite ? Colors.red : Colors.red,
+                        CarouselSlider(
+                          items: products.take(4)
+                              .map(
+                                (e) => Image(
+                              image: NetworkImage('${e.image}'),
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                              .toList(),
+                          options: CarouselOptions(
+                            height: 200,
+                            // aspectRatio: 10/6,
+                            viewportFraction: 0.8,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration: Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.3,
+                            // onPageChanged: callbackFunction,
+                            scrollDirection: Axis.horizontal,
+                            onPageChanged: (index, reason) =>
+                                setState(() => activatedIndex = index),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        buildIndicator(),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  'Categories',
+                                  style: TextStyle(
+                                    // fontFamily: 'Georgia',
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xF717217A),
+                                  ),
                                 ),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  navigators.navigatorWithBack(context, SDetail());
-                                });
-                              },
-                            );
-                          }),
-                    ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 15, bottom: 15),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    for (int i = 0; i < items.length; i++)
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            indexItems = i;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 7, horizontal: 12),
+                                          decoration: BoxDecoration(
+                                              color: indexItems == i
+                                                  ? Color(0xF70A1673).withOpacity(1)
+                                                  : Colors.white70,
+                                              borderRadius: BorderRadius.circular(6)),
+                                          child: Text(
+                                            items[i],
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              color: items[i] == items[indexItems]
+                                                  ? Colors.white
+                                                  : Colors.blueGrey.shade900
+                                                  .withOpacity(1),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8,),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12.0,left:12.0),
+                              child: Text(
+                                'Products',
+                                style: TextStyle(
+                                  // fontFamily: 'Georgia',
+                                  fontSize: 23.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xF717217A),
+                                ),
+                              ),
+                            ),
+                            MasonryGridView.count(
+                                physics: BouncingScrollPhysics(),
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 1,
+                                mainAxisSpacing: 5,
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: products.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (index >= products.length) {
+                                    return SizedBox
+                                        .shrink(); // Return an empty widget if index is out of bounds
+                                  }
+                                  return cardFlippers(
+                                    products[index],
+                                    IconButton(
+                                      onPressed: user == null ? null : () async {
+                                        // toggle the isFavorite flag
+                                        setState(() {
+                                          products[index].isFavorite = !products[index].isFavorite;
+                                        });
+
+                                        // update the favorites collection
+                                        if (products[index].productId != null) {
+                                          await FavoriteService().toggleFavorite(products[index]);
+                                          // FavoriteService().addFavorite(products[index]);
+                                          toggleFavorite(index);
+                                          FavoriteScreen(favorites: favorites);
+                                          if(favorites.length>0){
+                                            print(favorites);
+                                            // print(favorites[index]);
+                                          }
+                                          print(favorites.length);
+                                        }else{
+                                          print('error');
+                                        }
+                                      },
+                                      icon: Icon(
+                                        products[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                        color: products[index].isFavorite ? Colors.red : Colors.red,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        navigators.navigatorWithBack(context, SDetail());
+                                      });
+                                    },
+                                  );
+                                }),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
+          );
+        }
     );
   }
 

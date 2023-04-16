@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
+import 'package:collection/collection.dart';
 
 class ProductsModel{
   String? price;
@@ -138,5 +139,33 @@ class ProductsModel{
       productId: this.productId,
       isFavorite: isFavorite ?? this.isFavorite,
     );
+  }
+
+  void addProductFromFirebase(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+
+    // Check if the product is already in the list
+    final existingProduct = ProductsModel.products.firstWhereOrNull((product) => product.productId == doc.id);
+    if (existingProduct != null) {
+      // Update the existing product if it's already in the list
+      existingProduct
+        ..name = data['name']
+        ..description = data['description']
+        ..image = data['image']
+        ..price = data['price']
+        ..quantity = data['quantity']
+        ..isFavorite = data['isFavorite'] ?? false;
+    } else {
+      // Add the new product to the list
+      final newProduct = ProductsModel(
+        name: data['name'],
+        description: data['description'],
+        image: data['image'],
+        price: data['price'],
+        quantity: data['quantity'],
+        isFavorite: data['isFavorite'] ?? false,
+      );
+      products.add(newProduct);
+    }
   }
 }
