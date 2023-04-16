@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sport_center_project/Screens/profile/about_us.dart';
+import 'package:sport_center_project/Screens/profile/add_products_admin/add_products_admin.dart';
 import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/Screens/profile/profile_components/add_products.dart';
 import 'package:sport_center_project/Screens/profile/profile_components/checkout.dart';
@@ -189,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: ListTile(
                                   onTap: () {
                                     navigators.navigatorWithBack(
-                                        context, about());
+                                        context, AddProductsScreen());
                                   },
                                   trailing: Icon(
                                     Icons.navigate_next,

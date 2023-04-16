@@ -7,7 +7,7 @@ Widget defaultLoginFormField({
   Function(dynamic)? onSubmit,
   Function(dynamic)? onChanged,
   //Function? onTap,
-  required String hintText,
+  String? hintText,
   required String labelText,
   required Function validate,
   required IconData prefix,
