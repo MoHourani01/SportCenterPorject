@@ -7,10 +7,11 @@ import 'package:sport_center_project/Screens/basketball/basketball_layout/basket
 import 'package:sport_center_project/Screens/basketball/basketball_products/basketball_product_details/basketball_details.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/news/News_Screen.dart';
-import 'package:sport_center_project/Screens/news/news_2/api_services.dart';
+import 'package:sport_center_project/Screens/news/news_service/news_cubit/cubit.dart';
 import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
 import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
+import 'package:sport_center_project/Screens/search/search.dart';
 import 'package:sport_center_project/Screens/search/search_screen.dart';
 // import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
@@ -26,23 +27,23 @@ import 'package:sport_center_project/splash/Splash_Screen.dart';
 import 'Screens/onBoarding_Screen/onBoarding.dart';
 import 'Screens/profile/about_us.dart';
 
-// void main() async{
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   await DioHelper.init();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   // prefs.setBool('productsAddedToFirebase', false);
-//   ProductService.addProducts(ProductsModel.products);
-//   ProductService.addSoccerProducts(ProductsModel.soccer_products);
-//   ProductService.addBasketballProducts(ProductsModel.basket_products);
-//   ProductsModel().addProductIds(ProductsModel.soccer_products);
-//   ProductsModel().addProductIds(ProductsModel.basket_products);
-//   ProductsModel().addProductIds(ProductsModel.products);
-//   print('Products Model${ProductsModel.products}');
-//   print('Soccer Model${ProductsModel.soccer_products}');
-//   print('Basketball Model${ProductsModel.basket_products}');
-//   runApp(MyApp());
-// }
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await DioHelper.init();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // prefs.setBool('productsAddedToFirebase', false);
+  ProductService.addProducts(ProductsModel.products);
+  ProductService.addSoccerProducts(ProductsModel.soccer_products);
+  ProductService.addBasketballProducts(ProductsModel.basket_products);
+  ProductsModel().addProductIds(ProductsModel.soccer_products);
+  ProductsModel().addProductIds(ProductsModel.basket_products);
+  ProductsModel().addProductIds(ProductsModel.products);
+  print('Products Model${ProductsModel.products}');
+  print('Soccer Model${ProductsModel.soccer_products}');
+  print('Basketball Model${ProductsModel.basket_products}');
+  runApp(MyApp());
+}
 // List<ProductsModel> products=[
 //   ProductsModel(
 //     name: 'Man United Jersey',
@@ -71,92 +72,36 @@ import 'Screens/profile/about_us.dart';
 //   //   isFavorite: false,
 //   // ),
 // ];
-// class MyApp extends StatelessWidget {
-//   // const MyApp({super.key});
-//
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MultiBlocProvider(
-//       providers: [
-//         BlocProvider(
-//           create: (BuildContext context)  => LoginCubit(),
-//         ),
-//         // BlocProvider(create: (BuildContext context) => SportCenterCubit(),
-//         // ),
-//       ],
-//       child: BlocConsumer<LoginCubit,LoginStates>(
-//         listener: (context,state){},
-//         builder: (context,state){
-//           return MaterialApp(
-//             theme: ThemeData(
-//               // primaryColor: _primaryColor,
-//               // accentColor: _accentColor,
-//               // useMaterial3: true,
-//             ),
-//             debugShowCheckedModeBanner: false,
-//             // title: 'Flutter',
-//             // home: SplashScreen(title:'login'),
-//             // home:SplashScreen(title: 'onBoarding'),
-//               home:soccer(),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-// -----------------------------------------------------
-import 'package:flutter/material.dart';
-import 'package:sport_center_project/Screens/news/news_2/customListTile.dart';
-import 'package:sport_center_project/Screens/news/news_2/article_model.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
+  // const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  ApiService client = ApiService();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("News App", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-      ),
-
-      //Now let's call the APi services with futurebuilder wiget
-      body: FutureBuilder(
-        future: client.getArticle(),
-        builder: (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
-          //let's check if we got a response or not
-          if (snapshot.hasData) {
-            //Now let's make a list of articles
-            List<Article> articles = snapshot.data ?? [];
-            return ListView.builder(
-              //Now let's create our custom List tile
-              itemCount: articles.length,
-              itemBuilder: (context, index) =>
-                  customListTile(articles[index], context),
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context)=>NewsCubit()..getSports(),),
+        BlocProvider(
+          create: (BuildContext context)  => LoginCubit(),
+        ),
+        // BlocProvider(create: (BuildContext context) => SportCenterCubit(),
+        // ),
+      ],
+      child: BlocConsumer<LoginCubit,LoginStates>(
+        listener: (context,state){},
+        builder: (context,state){
+          return MaterialApp(
+            theme: ThemeData(
+              // primaryColor: _primaryColor,
+              // accentColor: _accentColor,
+              // useMaterial3: true,
+            ),
+            debugShowCheckedModeBanner: false,
+            // title: 'Flutter',
+            // home: SplashScreen(title:'login'),
+            // home:SplashScreen(title: 'onBoarding'),
+            //   home:NewsLayout(),
+            home: MainNavigationBar(),
           );
         },
       ),

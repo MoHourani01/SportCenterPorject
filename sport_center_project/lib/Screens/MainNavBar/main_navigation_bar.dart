@@ -4,6 +4,7 @@ import 'package:sport_center_project/Screens/cart/Cart_Screen.dart';
 import 'package:sport_center_project/Screens/news/News_Screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
+import 'package:sport_center_project/Screens/news/news_service/sports/sports_screen.dart';
 import 'package:sport_center_project/Screens/profile/profile_screen.dart';
 import 'package:sport_center_project/main.dart';
 
@@ -17,7 +18,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
   int page = 0;
   List<Widget> screens = [
     HomeScreen(),
-    NewsScreen(),
+    SportsScreen(),
     // FavoriteScreen(),
     CartScreen(),
     ProfileScreen(),
