@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -185,3 +186,143 @@ Color? chooseToastColor(ToastStates state){
   }
   return color;
 }
+
+Widget myDivider()=>Padding(
+  padding: const EdgeInsetsDirectional.only(
+    start: 20.0,
+  ),
+  child: Container(
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.grey,
+  ),
+);
+
+Widget buildArticleItem(article,context) => InkWell(
+  child:   Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        Container(
+          width: 120.0,
+          height: 120.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0,),
+            image: DecorationImage(
+              image: NetworkImage('${article['urlToImage']}'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20.0,
+        ),
+        Expanded(
+          child: Container(
+            height: 120.0,
+            child: Column(
+              // mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  '${article['title']}',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  /*TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w600,
+                  ),*/
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  '${article['publishedAt']}',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+Widget buildArticle(article,context) {
+  return Padding(
+    padding: const EdgeInsets.only(left:8.0, right: 8.0, top: 12.0),
+    child: Container(
+      width: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.grey.shade300,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment,
+          children: [
+            Container(
+              width: 150,
+              height: 150,
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                ),
+                child: Container(
+                  // height: 10,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                          image: NetworkImage('${article['urlToImage']}'), fit: BoxFit.cover
+                      )
+                  ),
+
+                ),
+              ),
+            ),
+            SizedBox(width: 15,),
+            // Text('Description',style: TextStyle(fontSize: 20),),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    '${article['title']}',
+                    style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    '${article['publishedAt']}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget articleBuilder(list,context,{isSearch=false}) => ConditionalBuilder(
+  // condition: state is! NewsGetBusinessLoadingChange,
+  condition: list.length>0,
+  builder: (context)=>ListView.builder(
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (context,index)=>buildArticle(list[index],context),
+      itemCount: 10),
+  fallback: (context)=> isSearch ? Container() : Center(child: CircularProgressIndicator()),);
