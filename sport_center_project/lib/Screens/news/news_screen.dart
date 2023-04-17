@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
-
+import 'package:http/http.dart' as http;
 
 
 
