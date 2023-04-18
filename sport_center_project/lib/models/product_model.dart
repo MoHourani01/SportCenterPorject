@@ -8,7 +8,7 @@ class ProductsModel{
   String? name;
   String? productId;
   String? description;
-  int? quantity;
+  int? quantity=0;
   bool isFavorite = false;
 
   ProductsModel({
@@ -27,12 +27,14 @@ class ProductsModel{
       price: '50 JD',
       image: 'https://cdn.shopify.com/s/files/1/0002/6440/5057/products/Home1OG.jpg',
       isFavorite: false,
+      description: 'This is the newest Manchester United jersey season 2023',
     ),
     ProductsModel(
       name: 'Barcelona Jersey',
       price: '50 JD',
       image: 'https://arenajerseys.com/wp-content/uploads/2022/06/download-4.jpg',
       isFavorite: false,
+      description: 'This is the newest Barcelona jersey season 2023',
     ),
     ProductsModel(
       name: 'RealMadrid Jersey',
@@ -45,27 +47,31 @@ class ProductsModel{
       price: '60 JD',
       image: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fddec8b1-7aee-4b47-826d-f2ec00ad4e66/miami-heat-association-edition-2022-23-dri-fit-nba-swingman-jersey-gLpkQ8.png',
       isFavorite: false,
+      description: 'This is the newest Miami Heat jersey season 2023',
     ),
     ProductsModel(
       name: 'Lakers jersey',
       price: '50 JD',
       image: 'https://cdn.shopify.com/s/files/1/0259/7455/products/WhiteLakersJerseyFrontJames_65028160-284f-4bac-ac73-f76021cdc4d2_1800x1800.png',
       isFavorite: false,
+      description: 'This is the newest Lakers jersey season 2023',
     ),
   ];
 
   static List<ProductsModel> basket_products=[
     ProductsModel(
-      name: 'Lakers jersey',
-      price: '50 JD',
-      image: 'https://cdn.shopify.com/s/files/1/0259/7455/products/WhiteLakersJerseyFrontJames_65028160-284f-4bac-ac73-f76021cdc4d2_1800x1800.png',
-      isFavorite: false,
-    ),
-    ProductsModel(
       name: 'Miami Heat Jersey',
       price: '60 JD',
       image: 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fddec8b1-7aee-4b47-826d-f2ec00ad4e66/miami-heat-association-edition-2022-23-dri-fit-nba-swingman-jersey-gLpkQ8.png',
       isFavorite: false,
+      description: 'This is the newest Miami Heat jersey season 2023',
+    ),
+    ProductsModel(
+      name: 'Lakers jersey',
+      price: '50 JD',
+      image: 'https://cdn.shopify.com/s/files/1/0259/7455/products/WhiteLakersJerseyFrontJames_65028160-284f-4bac-ac73-f76021cdc4d2_1800x1800.png',
+      isFavorite: false,
+      description: 'This is the newest Lakers jersey season 2023',
     ),
   ];
 
@@ -75,12 +81,14 @@ class ProductsModel{
       price: '50 JD',
       image: 'https://cdn.shopify.com/s/files/1/0002/6440/5057/products/Home1OG.jpg',
       isFavorite: false,
+      description: 'This is the newest Manchester United jersey season 2023',
     ),
     ProductsModel(
       name: 'Barcelona Jersey',
       price: '50 JD',
       image: 'https://arenajerseys.com/wp-content/uploads/2022/06/download-4.jpg',
       isFavorite: false,
+      description: 'This is the newest Barcelona jersey season 2023',
     ),
     ProductsModel(
       name: 'RealMadrid Jersey',

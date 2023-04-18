@@ -9,16 +9,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
+import 'package:sport_center_project/Screens/product_details/product_details_screen.dart';
+import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
 import 'package:sport_center_project/cubit/states.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
-import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
 // class flipWidget{
 //   final String image;
@@ -56,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
   bool isFavorite = false;
-  ProductsModel? product;
+  // ProductsModel? product;
 
   List<ProductsModel> products = ProductsModel.products;
 
@@ -72,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       FavoriteScreen(favorites: favorites,);
     });
   }
+  ProductService productService=ProductService();
 
   @override
   Widget build(BuildContext context) {
@@ -300,6 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 shrinkWrap: true,
                                 itemCount: products.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  final product = ProductsModel.products[index];
                                   if (index >= products.length) {
                                     return SizedBox
                                         .shrink(); // Return an empty widget if index is out of bounds
@@ -335,7 +340,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        navigators.navigatorWithBack(context, SDetail());
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ProductDetail(product:product),
+                                          ),
+                                        );
                                       });
                                     },
                                   );
@@ -382,5 +392,32 @@ class _HomeScreenState extends State<HomeScreen> {
         user = firebaseUser;
       });
     });
+  }
+
+  saveUserData(String uid) async {
+    try {
+      var value = await productService.getUser(uid);
+      ProductsUtils.productId = value?.productId ?? '';
+      ProductsUtils.name = value?.name ?? '';
+      ProductsUtils.price = value?.price ?? '';
+      ProductsUtils.image = value?.image ?? '';
+      ProductsUtils.description = value?.description ?? '';
+      // ProductsUtils.quantity = value?.quantity ?? '';
+      // ProductsUtils.isFavorite = value?.isFavorite ?? '';
+
+      // Store the values in SharedPreferences
+      ProductsUtils.prefs = await SharedPreferences.getInstance();
+      ProductsUtils.prefs.setString('productId', ProductsUtils.productId);
+      ProductsUtils.prefs.setString('name', ProductsUtils.name);
+      ProductsUtils.prefs.setString('price', ProductsUtils.price);
+      ProductsUtils.prefs.setString('image', ProductsUtils.image);
+      ProductsUtils.prefs.setString('description', ProductsUtils.description);
+      ProductsUtils.prefs.setString('image', ProductsUtils.image);
+
+      // navigators.navigateTo(context, MainNavigationBar());
+    } catch (e) {
+      // Handle the case where an exception is thrown.
+      print('Error saving user data: $e');
+    }
   }
 }

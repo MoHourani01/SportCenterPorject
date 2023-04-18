@@ -128,58 +128,58 @@ class FavoriteService {
     }
   }
 
-  Stream<List<String>> getFavoriteProductIds() {
-    final user = _firebaseAuth.currentUser;
-
-    if (user == null) {
-      // handle the case when no user is signed in
-      return Stream.empty();
-    }
-
-    // get the favorites subcollection for the current user
-    final userDoc = _firestore.collection('users').doc(user.uid);
-    final favoritesCollection = userDoc.collection('favorites');
-
-    // query the favorites subcollection for productIds
-    return favoritesCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => doc.data()['productId'].toString()).toList();
-    });
-  }
-
-  static List<ProductsModel> favorites=[];
-
-  void addFavorite(ProductsModel product) {
-    favorites.add(product);
-  }
-
-  void removeFavorite(ProductsModel product) {
-    favorites.remove(product);
-  }
-
-  static List<ProductsModel> getFavorites() {
-    return favorites;
-  }
-
-  Future<void> setFavorites(List<ProductsModel> favorites) async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      CollectionReference favoritesRef = _firestore.collection('favorites').doc(user.uid).collection('items');
-      WriteBatch batch = _firestore.batch();
-
-      // Remove all previous favorites from Firestore
-      QuerySnapshot favoritesSnapshot = await favoritesRef.get();
-      favoritesSnapshot.docs.forEach((doc) {
-        batch.delete(doc.reference);
-      });
-
-      // Add new favorites to Firestore
-      favorites.forEach((product) {
-        batch.set(favoritesRef.doc(product.productId), product.toProductMap());
-      });
-
-      await batch.commit();
-    }
-  }
+  // Stream<List<String>> getFavoriteProductIds() {
+  //   final user = _firebaseAuth.currentUser;
+  //
+  //   if (user == null) {
+  //     // handle the case when no user is signed in
+  //     return Stream.empty();
+  //   }
+  //
+  //   // get the favorites subcollection for the current user
+  //   final userDoc = _firestore.collection('users').doc(user.uid);
+  //   final favoritesCollection = userDoc.collection('favorites');
+  //
+  //   // query the favorites subcollection for productIds
+  //   return favoritesCollection.snapshots().map((snapshot) {
+  //     return snapshot.docs.map((doc) => doc.data()['productId'].toString()).toList();
+  //   });
+  // }
+  //
+  // static List<ProductsModel> favorites=[];
+  //
+  // void addFavorite(ProductsModel product) {
+  //   favorites.add(product);
+  // }
+  //
+  // void removeFavorite(ProductsModel product) {
+  //   favorites.remove(product);
+  // }
+  //
+  // static List<ProductsModel> getFavorites() {
+  //   return favorites;
+  // }
+  //
+  // Future<void> setFavorites(List<ProductsModel> favorites) async {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     CollectionReference favoritesRef = _firestore.collection('favorites').doc(user.uid).collection('items');
+  //     WriteBatch batch = _firestore.batch();
+  //
+  //     // Remove all previous favorites from Firestore
+  //     QuerySnapshot favoritesSnapshot = await favoritesRef.get();
+  //     favoritesSnapshot.docs.forEach((doc) {
+  //       batch.delete(doc.reference);
+  //     });
+  //
+  //     // Add new favorites to Firestore
+  //     favorites.forEach((product) {
+  //       batch.set(favoritesRef.doc(product.productId), product.toProductMap());
+  //     });
+  //
+  //     await batch.commit();
+  //   }
+  // }
 
 }
 

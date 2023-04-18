@@ -9,10 +9,10 @@ import 'package:sport_center_project/Screens/basketball/basketball_products/bask
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/Screens/product_details/product_details_screen.dart';
 import 'package:sport_center_project/Screens/search/search.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
-import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
 class basket extends StatefulWidget {
   const basket({Key? key}) : super(key: key);
@@ -262,6 +262,7 @@ class _basketState extends State<basket> {
               primary: false,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
+                final product = ProductsModel.products[index];
                 if (index >= products.length) { // check if index is out of range
                   return Container(); // Return an empty widget if index is out of bounds
                 }
@@ -294,7 +295,7 @@ class _basketState extends State<basket> {
                   ),
                   onPressed: () {
                     setState(() {
-                      navigators.navigatorWithBack(context, BDetail());
+                      navigators.navigatorWithBack(context, ProductDetail(product: product));
                     });
                   },
                 );

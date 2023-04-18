@@ -198,57 +198,6 @@ Widget myDivider()=>Padding(
   ),
 );
 
-Widget buildArticleItem(article,context) => InkWell(
-  child:   Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Row(
-      children: [
-        Container(
-          width: 120.0,
-          height: 120.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0,),
-            image: DecorationImage(
-              image: NetworkImage('${article['urlToImage']}'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 20.0,
-        ),
-        Expanded(
-          child: Container(
-            height: 120.0,
-            child: Column(
-              // mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  '${article['title']}',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  /*TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w600,
-                  ),*/
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  '${article['publishedAt']}',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  ),
-);
 Widget buildArticle(article,context) {
   return Padding(
     padding: const EdgeInsets.only(left:8.0, right: 8.0, top: 12.0),
