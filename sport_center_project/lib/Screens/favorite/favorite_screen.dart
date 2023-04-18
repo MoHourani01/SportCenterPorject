@@ -9,9 +9,9 @@ import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/Screens/product_details/product_details_screen.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
-import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 
 
 class FavoriteScreen extends StatefulWidget {
@@ -82,6 +82,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       shrinkWrap: true,
                       itemCount: widget.favorites.length,
                       itemBuilder: (BuildContext context, int index) {
+                        final product = ProductsModel.products[index];
                         if (index >= widget.favorites.length) {
                           return Container(); // Return an empty widget if index is out of bounds
                         }
@@ -117,7 +118,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ),
                           onPressed: () {
-                            navigators.navigateTo(context, SDetail());
+                            navigators.navigateTo(context, ProductDetail(product: product,));
                           },
                         );
                       },

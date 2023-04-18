@@ -98,6 +98,21 @@ class ProductService {
       log('statusCode : $statusCode , error msg : $msg');
     });
   }
+
+  CollectionReference _collection = FirebaseFirestore.instance.collection('products');
+  Future<ProductsModel> getUser(String id) async {
+    QuerySnapshot result = await _collection.where('productId', isEqualTo: id).get();
+    var data = result.docs[0];
+    Map<String, dynamic> userMap = {};
+    userMap['productId'] = data.get('productId');
+    userMap['name'] = data.get('name');
+    userMap['price'] = data.get('price');
+    userMap['image'] = data.get('image');
+    userMap['description'] = data.get('description');
+
+    var userModel = ProductsModel.fromJson(userMap);
+    return userModel;
+  }
   int statusCode = 0;
   String msg = '';
   void handleAuthErrors(ArgumentError error) {

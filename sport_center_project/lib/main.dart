@@ -12,7 +12,6 @@ import 'package:sport_center_project/Screens/product_component/product_service/p
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
 import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/Screens/search/search.dart';
-import 'package:sport_center_project/Screens/search/search_screen.dart';
 // import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
 import 'package:sport_center_project/models/product_model.dart';
@@ -21,7 +20,6 @@ import 'package:sport_center_project/registration/login/login_cubit/login_states
 import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/shared/network/shared.network.remote/dio_helper.dart';
 import 'package:sport_center_project/soccer/soccer_layout/soccer_screen.dart';
-import 'package:sport_center_project/soccer/soccer_products/soccer_product_details/soccer_details.dart';
 import 'package:sport_center_project/splash/Splash_Screen.dart';
 
 import 'Screens/onBoarding_Screen/onBoarding.dart';
@@ -98,10 +96,9 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
-            // home: SplashScreen(title:'login'),
+            home: SplashScreen(title:'login'),
             // home:SplashScreen(title: 'onBoarding'),
-            //   home:NewsLayout(),
-            home: MainNavigationBar(),
+            // home: MainNavigationBar(),
           );
         },
       ),
