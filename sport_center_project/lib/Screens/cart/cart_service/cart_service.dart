@@ -56,4 +56,19 @@ class CartService {
       return 0;
     }
   }
+
+  Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
+    final cartRef = _firestore.collection('users').doc(userId).collection('cart');
+    final productRef = cartRef.doc(product.productId);
+
+    final data = {
+      'name': product.name,
+      'price': product.price,
+      'quantity': quantity,
+      'image': product.image,
+      'productId': product.productId,
+    };
+
+    await productRef.set(data, SetOptions(merge: true));
+  }
 }

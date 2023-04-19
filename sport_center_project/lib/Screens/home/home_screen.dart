@@ -11,6 +11,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_center_project/Screens/cart/Cart_Screen.dart';
+import 'package:sport_center_project/Screens/cart/cart_service/cart_service.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
@@ -23,16 +25,6 @@ import 'package:sport_center_project/cubit/states.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
-// class flipWidget{
-//   final String image;
-//   final String title;
-//
-//   flipWidget({
-//     required this.image,
-//     required this.title,
-//   });
-// }
-
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -40,7 +32,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // const HomeScreen({Key? key}) : super(key: key);
-  // final List<Color> colors = [    Colors.red,    Colors.orange,    Colors.yellow,    Colors.green,    Colors.blue,    Colors.purple,  ];
   final List<String> images = [
     'assets/images/Soccer.jpg',
     'assets/images/basketball.jpg'
@@ -76,6 +67,32 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
   ProductService productService=ProductService();
+
+  Future<void> addToCart(ProductsModel product) async {
+    // get the current user
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // handle the case when no user is signed in
+      return;
+    }
+
+    // add the product to the cart
+    await CartService().addToCart(user.uid, product, 1);
+
+    // show a toast message
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: Colors.black,
+      content: Text('Product added to cart'),
+      duration: Duration(seconds: 2),
+      action: SnackBarAction(
+        label: 'View',
+        onPressed: () {
+          navigators.navigatorWithBack(context, CartScreen());
+        },
+      ),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -348,6 +365,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         );
                                       });
                                     },
+                                    cartOnPressed: () {
+                                      // controleQuantity(1);
+                                      addToCart(product);
+                                    },
                                   );
                                 }),
                           ],
@@ -392,32 +413,5 @@ class _HomeScreenState extends State<HomeScreen> {
         user = firebaseUser;
       });
     });
-  }
-
-  saveUserData(String uid) async {
-    try {
-      var value = await productService.getUser(uid);
-      ProductsUtils.productId = value?.productId ?? '';
-      ProductsUtils.name = value?.name ?? '';
-      ProductsUtils.price = value?.price ?? '';
-      ProductsUtils.image = value?.image ?? '';
-      ProductsUtils.description = value?.description ?? '';
-      // ProductsUtils.quantity = value?.quantity ?? '';
-      // ProductsUtils.isFavorite = value?.isFavorite ?? '';
-
-      // Store the values in SharedPreferences
-      ProductsUtils.prefs = await SharedPreferences.getInstance();
-      ProductsUtils.prefs.setString('productId', ProductsUtils.productId);
-      ProductsUtils.prefs.setString('name', ProductsUtils.name);
-      ProductsUtils.prefs.setString('price', ProductsUtils.price);
-      ProductsUtils.prefs.setString('image', ProductsUtils.image);
-      ProductsUtils.prefs.setString('description', ProductsUtils.description);
-      ProductsUtils.prefs.setString('image', ProductsUtils.image);
-
-      // navigators.navigateTo(context, MainNavigationBar());
-    } catch (e) {
-      // Handle the case where an exception is thrown.
-      print('Error saving user data: $e');
-    }
   }
 }

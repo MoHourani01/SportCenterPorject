@@ -24,21 +24,3 @@ class VariablesUtils {
 }
 
 VariablesUtils vUtils = VariablesUtils();
-
-class ProductsUtils {
-  static late SharedPreferences prefs;
-  static String productId = '';
-  static String name = '';
-  static String price = '';
-  static String image = '';
-  static String description = '';
-
-
-
-  static double customerPercent = 0;
-
-
-  static List<String> totalPrice = [];
-
-}
-ProductsUtils pUtils = ProductsUtils();

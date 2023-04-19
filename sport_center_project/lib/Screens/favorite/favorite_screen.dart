@@ -6,6 +6,8 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
+import 'package:sport_center_project/Screens/cart/Cart_Screen.dart';
+import 'package:sport_center_project/Screens/cart/cart_service/cart_service.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
@@ -28,6 +30,32 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   ProductsModel? product;
 
   List<ProductsModel> products = ProductsModel.products;
+
+  Future<void> addToCart(ProductsModel product) async {
+    // get the current user
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // handle the case when no user is signed in
+      return;
+    }
+
+    // add the product to the cart
+    await CartService().addToCart(user.uid, product, 1);
+
+    // show a toast message
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: Colors.black,
+      content: Text('Product added to cart'),
+      duration: Duration(seconds: 2),
+      action: SnackBarAction(
+        label: 'View',
+        onPressed: () {
+          navigators.navigatorWithBack(context, CartScreen());
+        },
+      ),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +147,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           ),
                           onPressed: () {
                             navigators.navigateTo(context, ProductDetail(product: product,));
+                          }, cartOnPressed: () {
+                          addToCart(product);
                           },
                         );
                       },
