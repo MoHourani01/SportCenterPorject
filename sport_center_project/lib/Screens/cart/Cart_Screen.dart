@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sport_center_project/Screens/cart/cart_service/cart_service.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 
 class CartScreen extends StatefulWidget {
@@ -29,6 +32,8 @@ class _CartScreenState extends State<CartScreen> {
   ];
 
   int counter=0;
+  final CartService _cartService = CartService();
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -219,6 +224,7 @@ class _CartScreenState extends State<CartScreen> {
                           height: 30,
                           width: 30,
                           child: FloatingActionButton(
+                            heroTag: '+',
                             onPressed: (){
                               setState(() {
                                 counter++;
@@ -237,6 +243,7 @@ class _CartScreenState extends State<CartScreen> {
                           height: 30,
                           width: 30,
                           child: FloatingActionButton(
+                            heroTag: '-',
                             onPressed: (){
                               setState(() {
                                 if (counter<=0){

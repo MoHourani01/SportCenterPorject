@@ -39,7 +39,7 @@ List<flipWidget> flipper=[
     image: 'assets/images/basketball.jpg',
     title: 'hello',),
 ];
-Widget cardFlippers(ProductsModel model,IconButton icon, {required Function() onPressed}) {
+Widget cardFlippers(ProductsModel model,IconButton icon,{required Function() onPressed,required Function() cartOnPressed }) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 10),
     child: FlipCard(
@@ -101,7 +101,7 @@ Widget cardFlippers(ProductsModel model,IconButton icon, {required Function() on
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: cartOnPressed,
                                     child: Icon(
                                       Icons.shopping_cart_outlined,
                                       color: Colors.white,
