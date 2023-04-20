@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ProductService productService=ProductService();
 
   Future<void> addToCart(ProductsModel product) async {
+    // CartService.instance.cartItems.add(product);
     // get the current user
     final user = FirebaseAuth.instance.currentUser;
 
@@ -81,18 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
     await CartService().addToCart(user.uid, product, 1);
 
     // show a toast message
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text('Product added to cart'),
-      duration: Duration(seconds: 2),
-      action: SnackBarAction(
-        label: 'View',
-        onPressed: () {
-          navigators.navigatorWithBack(context, CartScreen());
-        },
-      ),
-    ));
   }
+
+  List<ProductsModel> cartItems=[];
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               tooltip: 'Categories',
               backgroundColor: Color(0xFF030A59).withOpacity(0.8),
+              heroTag: 'cate',
               child: Icon(Icons.category),
             ),
             backgroundColor: Colors.grey.shade300,
@@ -367,10 +360,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                     cartOnPressed: () {
                                       // controleQuantity(1);
-                                      addToCart(product);
+                                      if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                                        print('exists=> ${CartService.instance.cartItems.length}');
+                                      }else{
+                                        addToCart(product);
+                                        print('added=> ${CartService.instance.cartItems.length}');
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          backgroundColor: Colors.black,
+                                          content: Text('Product added to cart'),
+                                          duration: Duration(seconds: 2),
+                                          action: SnackBarAction(
+                                            textColor: Colors.white,
+                                            label: 'View',
+                                            onPressed: () {
+                                              navigators.navigatorWithBack(context, CartScreen());
+                                            },
+                                          ),
+                                        ));
+                                      }
                                     },
                                   );
-                                }),
+                                }
+                              ),
                           ],
                         ),
                       ],

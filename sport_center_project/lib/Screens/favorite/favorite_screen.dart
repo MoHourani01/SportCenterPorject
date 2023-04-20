@@ -15,11 +15,12 @@ import 'package:sport_center_project/Screens/product_details/product_details_scr
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
-
 class FavoriteScreen extends StatefulWidget {
   // List<ProductsModel> favorites=[]
   final List<ProductsModel> favorites;
+
   FavoriteScreen({Key? key, required this.favorites}) : super(key: key);
+
   @override
   State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
@@ -61,9 +62,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          navigators.navigatorWithBack(context, MainNavigationBar());
-        }, icon: Icon(Icons.arrow_back),),
+        leading: IconButton(
+          onPressed: () {
+            navigators.navigatorWithBack(context, MainNavigationBar());
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 80,
@@ -91,68 +95,95 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
               widget.favorites.isEmpty
-                  ? Center(
-                      child: Text(
-                      'Your Wishlist Is Empty',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ))
-                  : MasonryGridView.count(
-                      physics: BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      // crossAxisSpacing:1,
-                      mainAxisSpacing: 5,
-                      primary: false,
-                      shrinkWrap: true,
-                      itemCount: widget.favorites.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final product = ProductsModel.products[index];
-                        if (index >= widget.favorites.length) {
-                          return Container(); // Return an empty widget if index is out of bounds
-                        }
-                        return cardFlippers(
-                          widget.favorites[index],
-                          IconButton(
-                            onPressed: user == null
-                                ? null
-                                : () async {
-                                    // toggle the isFavorite flag
-                                    setState(() {
-                                      widget.favorites[index].isFavorite =
-                                          !widget.favorites[index].isFavorite;
-                                    });
-
-                                    // update the favorites collection
-                                    if (widget.favorites[index].productId != null) {
-                                      await FavoriteService()
-                                          .toggleFavorite(widget.favorites[index]);
-                                      // FavoriteService().addFavorite(products[index]);
-                                      widget.favorites.removeAt(index);
-                                    } else {
-                                      print('error');
-                                    }
-                                  },
-                            icon: Icon(
-                              widget.favorites[index].isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_outlined,
-                              color: widget.favorites[index].isFavorite
-                                  ? Colors.red
-                                  : Colors.red,
-                            ),
-                          ),
-                          onPressed: () {
-                            navigators.navigateTo(context, ProductDetail(product: product,));
-                          }, cartOnPressed: () {
-                          addToCart(product);
-                          },
-                        );
-                      },
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: Center(
+                        child: Text(
+                          'Your Wishlist Is Empty',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      height: 20,
                     ),
+              MasonryGridView.count(
+                physics: BouncingScrollPhysics(),
+                crossAxisCount: 2,
+                // crossAxisSpacing:1,
+                mainAxisSpacing: 5,
+                primary: false,
+                shrinkWrap: true,
+                itemCount: widget.favorites.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final product = ProductsModel.products[index];
+                  if (index >= widget.favorites.length) {
+                    return Container(); // Return an empty widget if index is out of bounds
+                  }
+                  return cardFlippers(
+                    widget.favorites[index],
+                    IconButton(
+                      onPressed: user == null
+                          ? null
+                          : () async {
+                              // toggle the isFavorite flag
+                              setState(() {
+                                widget.favorites[index].isFavorite =
+                                    !widget.favorites[index].isFavorite;
+                              });
+
+                              // update the favorites collection
+                              if (widget.favorites[index].productId != null) {
+                                await FavoriteService()
+                                    .toggleFavorite(widget.favorites[index]);
+                                // FavoriteService().addFavorite(products[index]);
+                                widget.favorites.removeAt(index);
+                              } else {
+                                print('error');
+                              }
+                            },
+                      icon: Icon(
+                        widget.favorites[index].isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                        color: widget.favorites[index].isFavorite
+                            ? Colors.red
+                            : Colors.red,
+                      ),
+                    ),
+                    onPressed: () {
+                      navigators.navigateTo(
+                          context,
+                          ProductDetail(
+                            product: product,
+                          ));
+                    },
+                    cartOnPressed: () {
+                      if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                        print('exists=> ${CartService.instance.cartItems.length}');
+                      }else{
+                        addToCart(product);
+                        print('added=> ${CartService.instance.cartItems.length}');
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.black,
+                          content: Text('Product added to cart'),
+                          duration: Duration(seconds: 2),
+                          action: SnackBarAction(
+                            textColor: Colors.white,
+                            label: 'View',
+                            onPressed: () {
+                              navigators.navigatorWithBack(context, CartScreen());
+                            },
+                          ),
+                        ));
+                      }
+                      // addToCart(product);
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -176,4 +207,3 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 }
 
 var flipController = PageController();
-

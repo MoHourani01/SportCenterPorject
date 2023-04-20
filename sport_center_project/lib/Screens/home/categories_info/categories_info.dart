@@ -61,9 +61,9 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                       ),
                     ),
                     Text(
-                      'Soccer',
+                      'Explore Our Soccer Collections',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Color(0xFF000056),
                         fontWeight: FontWeight.bold,
                       ),
@@ -106,9 +106,9 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                       ),
                     ),
                     Text(
-                      'Basketball',
+                      'Explore Our Soccer Collections',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Color(0xFF000056),
                         fontWeight: FontWeight.bold,
                       ),

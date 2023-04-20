@@ -4,21 +4,21 @@ import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
 class CartService {
-  final _firebaseAuth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
+  final firebaseAuth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
 
   Future<void> updateCart(ProductsModel product, int quantity) async {
     if (product.productId == null) {
       return;
     }
 
-    final user = _firebaseAuth.currentUser;
+    final user = firebaseAuth.currentUser;
 
     if (user == null) {
       return;
     }
 
-    final userDoc = _firestore.collection('users').doc(user.uid);
+    final userDoc = firestore.collection('users').doc(user.uid);
     final cartCollection = userDoc.collection('cart');
 
     final doc = await cartCollection.doc(product.productId).get();
@@ -43,11 +43,11 @@ class CartService {
   }
 
   Future<int> getProductQuantityFromCart(String productId) async {
-    final user = _firebaseAuth.currentUser;
+    final user = firebaseAuth.currentUser;
     if (user == null) {
       return 0;
     }
-    final userDoc = _firestore.collection('users').doc(user.uid);
+    final userDoc = firestore.collection('users').doc(user.uid);
     final cartCollection = userDoc.collection('cart');
     final doc = await cartCollection.doc(productId).get();
     if (doc.exists) {
@@ -57,8 +57,38 @@ class CartService {
     }
   }
 
+  // Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
+  //   final cartRef = firestore.collection('users').doc(userId).collection('cart');
+  //   final productRef = cartRef.doc(product.productId);
+  //
+  //   final data = {
+  //     'name': product.name,
+  //     'price': product.price,
+  //     'quantity': quantity,
+  //     'image': product.image,
+  //     'productId': product.productId,
+  //   };
+  //
+  //   await productRef.set(data, SetOptions(merge: true));
+  // }
+
+  List<ProductsModel> cartItems = [];
+
+  static final CartService instance = CartService._internal();
+
+  factory CartService() {
+    return instance;
+  }
+
+  CartService._internal();
+
+  List<ProductsModel> get cartItem => cartItems;
+
+  // void addToCart(ProductsModel product) {
+  // }
   Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
-    final cartRef = _firestore.collection('users').doc(userId).collection('cart');
+    cartItems.add(product);
+    final cartRef = firestore.collection('users').doc(userId).collection('cart');
     final productRef = cartRef.doc(product.productId);
 
     final data = {
@@ -70,5 +100,22 @@ class CartService {
     };
 
     await productRef.set(data, SetOptions(merge: true));
+  }
+
+  void removeFromCart(ProductsModel product) {
+    cartItems.remove(product);
+  }
+
+  void clearCart() {
+    cartItems.clear();
+  }
+
+  Future<void> removeProductCart(String userId, String productId) async {
+    final docRef = firestore
+        .collection('users')
+        .doc(userId)
+        .collection('cart')
+        .doc(productId);
+    await docRef.delete();
   }
 }
