@@ -13,7 +13,7 @@ import 'package:sport_center_project/models/product_model.dart';
 final _firestore = FirebaseFirestore.instance;
 class CartScreen extends StatefulWidget {
   ProductsModel? product;
-
+   //
    CartScreen({this.product});
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -40,6 +40,24 @@ class _CartScreenState extends State<CartScreen> {
   final CartService cartService = CartService();
   List<ProductsModel> cartItems = CartService().cartItems;
   // final auth = FirebaseAuth.instance;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _getProductQuantityFromCart();
+  }
+
+  void _getProductQuantityFromCart() async {
+    if (widget.product == null) {
+      return;
+    }
+    final quantity = await cartService.getProductQuantityFromCart(widget.product!.productId!);
+    setState(() {
+      counter = quantity;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -259,62 +277,15 @@ class _CartScreenState extends State<CartScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 15,),
+                                    SizedBox(width: 12,),
                                     Container(
                                       // color: Colors.blue,
-                                      child: Row(
+                                      child: Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            child: FloatingActionButton(
-                                              heroTag: '+',
-                                              onPressed: (){
-                                                setState(() {
-                                                  counter++;
-                                                  // controleQuantity(1);
-                                                  print(counter);
-                                                });
-                                              },
-                                              mini: true,
-                                              backgroundColor: Color(0xFF17299F),
-                                              child: Icon(Icons.add,color: Colors.white,size: 20,),
-                                            ),
-                                          ),
-                                          SizedBox(width: 8,),
-                                          Text('${cartModel.quantity}'),
-                                          SizedBox(width: 8,),
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            child: FloatingActionButton(
-                                              heroTag: '-',
-                                              onPressed: (){
-                                                setState(() {
-                                                  // if (counter<=0){
-                                                  //   counter=0;
-                                                  //   print(counter);
-                                                  // }
-                                                  // else{
-                                                  //   controleQuantity(-1);
-                                                  //   print(counter);
-                                                  // }
-                                                  counter--;
-                                                  // controleQuantity(1);
-                                                  print(counter);
-                                                }
-                                                );
-                                              },
-                                              mini: true,
-                                              backgroundColor: Color(0xFF17299F),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.minus,
-                                                color: Colors.white,
-                                                size: 20,
-                                              ),
-                                            ),
-                                          ),
+                                          Text('Quantity is:',style: TextStyle(fontSize: 17),),
+                                          // SizedBox(width: 8,),
+                                          Text('${cartModel.quantity}',style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
                                         ],
                                       ),
                                     ),

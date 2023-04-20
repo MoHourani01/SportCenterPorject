@@ -127,226 +127,275 @@ class _basketState extends State<basket> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff6f6f6),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Color(0xfff6f6f6),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color:  Color(0xF717217A),
-          ),
-          onPressed: () {
-            navigators.navigateTo(context, MainNavigationBar());
-          },
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: Container(
-              height: 30,
-              width: 30,
-              child: PhysicalShape(
-                color: Colors.white,
-                shadowColor: Colors.black,
-                elevation: 3,
-                clipper: ShapeBorderClipper(
-                  shape: CircleBorder(),
-                ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Color(0xfff6f6f6),
+      //   leading: IconButton(
+      //     icon: Icon(
+      //       Icons.arrow_back_ios,
+      //       color:  Color(0xF717217A),
+      //     ),
+      //     onPressed: () {
+      //       navigators.navigateTo(context, MainNavigationBar());
+      //     },
+      //   ),
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(right: 10.0),
+      //       child: Container(
+      //         height: 30,
+      //         width: 30,
+      //         child: PhysicalShape(
+      //           color: Colors.white,
+      //           shadowColor: Colors.black,
+      //           elevation: 3,
+      //           clipper: ShapeBorderClipper(
+      //             shape: CircleBorder(),
+      //           ),
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar.medium(
+            shape: OutlineInputBorder(
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(10.0),
+                bottomLeft: Radius.circular(10.0),
               ),
             ),
-          ),
-        ],
-      ),
-      body: ListView(
-        // shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "Basket ball",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF130359),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 14),
-                      child: Text(
-                        "Explore Our Basketball Collections",
-                        style: TextStyle(color: Color(0xF717217A)),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    // Text(
-                    //   "Sort by",
-                    //   style: TextStyle(
-                    //     color: Color(0xff8275b3),
-                    //   ),
-                    // ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color:  Colors.brown,
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          navigators.navigateTo(context, FavoriteScreen(favorites: favorites));
-                        },
-                        icon: Icon(
-                          Icons.favorite_border_outlined,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 12.0),
-          //   child: Text(
-          //     "Explore Our Collections",
-          //     style: TextStyle(color: Color(0xffa3a3a3)),
-          //   ),
-          // ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                buildDisCoverCircle(
-                  image: 'assets/images/basketball.jpg',
-                  title: "Woman",
-                ),
-                buildDisCoverCircle(
-                  image: 'assets/images/basketball.jpg',
-                  title: "Men",
-                ),
-                buildDisCoverCircle(
-                  image: 'assets/images/basketball.jpg',
-                  title: "Kid",
-                ),
-                buildDisCoverCircle(
-                  image: 'assets/images/basketball.jpg',
-                  title: "Shoes",
-                ),
-                buildDisCoverCircle(
-                  image: 'assets/images/basketball.jpg',
-                  title: "Shoes",
-                ),
-                buildDisCoverCircle(
-                  image: 'assets/images/basketball.jpg',
-                  title: "Shoes",
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: TextField(
-              controller: searchController,
-              onChanged: (value) {
-                filterSearchResults(value);
+            elevation: 0,
+            // expandedHeight: 200,
+            backgroundColor: Color(0xFF030A59),
+            leading: IconButton(
+              onPressed: () {
+                navigators.navigateTo(context, MainNavigationBar());
               },
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color:Color(0xF717217A),
-                ),
-                hintText: "Search for products",
-                hintStyle: TextStyle(
-                  color:Colors.grey,
-                ),
-                fillColor: Colors.white,
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                  borderSide: BorderSide.none,
-                ),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
               ),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  navigators.navigateTo(context, FavoriteScreen(favorites: favorites));
+                },
+                icon: Icon(
+                  Icons.favorite_border_outlined,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  // color: Color(0xFF130359),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10.0),
+                    bottomLeft: Radius.circular(10.0),
+                  ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFF030A59),
+                      Color(0xF717217A),
+                      Color(0xFF1D2EA8),
+                    ],
+                    begin: AlignmentDirectional.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
+              title: Text('Basketball'),
+              centerTitle: true,
+              collapseMode: CollapseMode.pin,
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: MasonryGridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 5,
-              itemCount: filteredItems.length, // use products length here
-              primary: false,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                final product = ProductsModel.products[index];
-                if (index >= products.length) { // check if index is out of range
-                  return Container(); // Return an empty widget if index is out of bounds
-                }
-                return cardFlippers(
-                  filteredItems[index],
-                  IconButton(
-                    onPressed: user == null ? null : () async {
-                      // toggle the isFavorite flag
-                      setState(() {
-                        filteredItems[index].isFavorite = !filteredItems[index].isFavorite;
-                      });
-
-                      // update the favorites collection
-                      if (filteredItems[index].productId != null) {
-                        await FavoriteService().toggleFavorite(filteredItems[index]);
-                        toggleFavorite(index);
-                        FavoriteScreen(favorites: favorites);
-                        if (favorites.length > 0) {
-                          print(favorites);
-                        }
-                        print(favorites.length);
-                      } else {
-                        print('error');
-                      }
-                    },
-                    icon: Icon(
-                      filteredItems[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                      color: Colors.red,
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              child: ListView(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 14),
+                              child: Text(
+                                "Explore Our Basketball Collections",
+                                style: TextStyle(color: Color(0xF717217A),fontSize: 17.0,),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            // Text(
+                            //   "Sort by",
+                            //   style: TextStyle(
+                            //     color: Color(0xff8275b3),
+                            //   ),
+                            // ),
+                            Container(
+                              height:50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color:  Colors.brown,
+                              ),
+                              child: Icon(
+                                size: 40,
+                                Icons.sports_basketball_outlined,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      navigators.navigatorWithBack(context, ProductDetail(product: product));
-                    });
-                  }, cartOnPressed: () {
-                  if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
-                    print('exists=> ${CartService.instance.cartItems.length}');
-                  }else{
-                    addToCart(product);
-                    print('added=> ${CartService.instance.cartItems.length}');
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Colors.black,
-                      content: Text('Product added to cart'),
-                      duration: Duration(seconds: 2),
-                      action: SnackBarAction(
-                        textColor: Colors.white,
-                        label: 'View',
-                        onPressed: () {
-                          navigators.navigatorWithBack(context, CartScreen());
-                        },
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 12.0),
+                  //   child: Text(
+                  //     "Explore Our Collections",
+                  //     style: TextStyle(color: Color(0xffa3a3a3)),
+                  //   ),
+                  // ),
+                  SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        buildDisCoverCircle(
+                          image: 'assets/images/basketball.jpg',
+                          title: "All",
+                        ),
+                        buildDisCoverCircle(
+                          image: 'assets/images/basketball.jpg',
+                          title: "Shoes",
+                        ),
+                        buildDisCoverCircle(
+                          image: 'assets/images/basketball.jpg',
+                          title: "Shirts",
+                        ),
+                        buildDisCoverCircle(
+                          image: 'assets/images/basketball.jpg',
+                          title: "Equipments",
+                        ),
+                        buildDisCoverCircle(
+                          image: 'assets/images/basketball.jpg',
+                          title: "Balls",
+                        ),
+                        buildDisCoverCircle(
+                          image: 'assets/images/basketball.jpg',
+                          title: "Shoes",
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextField(
+                      controller: searchController,
+                      onChanged: (value) {
+                        filterSearchResults(value);
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color:Color(0xF717217A),
+                        ),
+                        hintText: "Search for products",
+                        hintStyle: TextStyle(
+                          color:Colors.grey,
+                        ),
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
-                    ));
-                  }
-                  // addToCart(product);
-                  },
-                );
-              },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: MasonryGridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 5,
+                      itemCount: filteredItems.length, // use products length here
+                      primary: false,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        final product = ProductsModel.products[index];
+                        if (index >= products.length) { // check if index is out of range
+                          return Container(); // Return an empty widget if index is out of bounds
+                        }
+                        return cardFlippers(
+                          filteredItems[index],
+                          IconButton(
+                            onPressed: user == null ? null : () async {
+                              // toggle the isFavorite flag
+                              setState(() {
+                                filteredItems[index].isFavorite = !filteredItems[index].isFavorite;
+                              });
+
+                              // update the favorites collection
+                              if (filteredItems[index].productId != null) {
+                                await FavoriteService().toggleFavorite(filteredItems[index]);
+                                toggleFavorite(index);
+                                FavoriteScreen(favorites: favorites);
+                                if (favorites.length > 0) {
+                                  print(favorites);
+                                }
+                                print(favorites.length);
+                              } else {
+                                print('error');
+                              }
+                            },
+                            icon: Icon(
+                              filteredItems[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                              color: Colors.red,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              navigators.navigatorWithBack(context, ProductDetail(product: product));
+                            });
+                          }, cartOnPressed: () {
+                          if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                            print('exists=> ${CartService.instance.cartItems.length}');
+                          }else{
+                            addToCart(product);
+                            print('added=> ${CartService.instance.cartItems.length}');
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.black,
+                              content: Text('Product added to cart'),
+                              duration: Duration(seconds: 2),
+                              action: SnackBarAction(
+                                textColor: Colors.white,
+                                label: 'View',
+                                onPressed: () {
+                                  navigators.navigatorWithBack(context, CartScreen());
+                                },
+                              ),
+                            ));
+                          }
+                          // addToCart(product);
+                        },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
