@@ -58,12 +58,22 @@ class CartService {
     }
   }
 
+  List<ProductsModel> cartItems = [];
+
+  static final CartService instance = CartService._internal();
+
+  factory CartService() {
+    return instance;
+  }
+
+  CartService._internal();
+
   // List<ProductsModel> get cartItem => cartItems;
 
   // void addToCart(ProductsModel product) {
   // }
   Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
-    // cartItems.add(product);
+    cartItems.add(product);
     final cartRef = firestore.collection('users').doc(userId).collection('cart');
     final productRef = cartRef.doc(product.productId);
 
@@ -77,5 +87,13 @@ class CartService {
 
     // await productRef.set(data, SetOptions(merge: true));
     await CartService().updateCart(product, quantity);
+  }
+
+  void removeFromCart(ProductsModel product) {
+    cartItems.remove(product);
+  }
+
+  void clearCart() {
+    cartItems.clear();
   }
 }
