@@ -35,9 +35,10 @@ class CartService {
       await cartCollection.doc(product.productId).update({'quantity': quantity});
     } else {
       await cartCollection.doc(product.productId).set({
-        'productId': product.toProductMap(),
+        // 'productId': product.toProductMap(),
+        ...product.toProductMap(),
         'userId': user.uid,
-        'quantity': quantity
+        'quantity': quantity,
       });
     }
   }
@@ -57,65 +58,24 @@ class CartService {
     }
   }
 
-  // Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
-  //   final cartRef = firestore.collection('users').doc(userId).collection('cart');
-  //   final productRef = cartRef.doc(product.productId);
-  //
-  //   final data = {
-  //     'name': product.name,
-  //     'price': product.price,
-  //     'quantity': quantity,
-  //     'image': product.image,
-  //     'productId': product.productId,
-  //   };
-  //
-  //   await productRef.set(data, SetOptions(merge: true));
-  // }
-
-  List<ProductsModel> cartItems = [];
-
-  static final CartService instance = CartService._internal();
-
-  factory CartService() {
-    return instance;
-  }
-
-  CartService._internal();
-
-  List<ProductsModel> get cartItem => cartItems;
+  // List<ProductsModel> get cartItem => cartItems;
 
   // void addToCart(ProductsModel product) {
   // }
   Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
-    cartItems.add(product);
+    // cartItems.add(product);
     final cartRef = firestore.collection('users').doc(userId).collection('cart');
     final productRef = cartRef.doc(product.productId);
 
-    final data = {
-      'name': product.name,
-      'price': product.price,
-      'quantity': quantity,
-      'image': product.image,
-      'productId': product.productId,
-    };
+    // final data = {
+    //   'name': product.name,
+    //   'price': product.price,
+    //   'quantity': quantity,
+    //   'image': product.image,
+    //   'productId': product.productId,
+    // };
 
-    await productRef.set(data, SetOptions(merge: true));
-  }
-
-  void removeFromCart(ProductsModel product) {
-    cartItems.remove(product);
-  }
-
-  void clearCart() {
-    cartItems.clear();
-  }
-
-  Future<void> removeProductCart(String userId, String productId) async {
-    final docRef = firestore
-        .collection('users')
-        .doc(userId)
-        .collection('cart')
-        .doc(productId);
-    await docRef.delete();
+    // await productRef.set(data, SetOptions(merge: true));
+    await CartService().updateCart(product, quantity);
   }
 }
