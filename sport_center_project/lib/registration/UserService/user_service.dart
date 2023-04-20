@@ -18,151 +18,151 @@ class UserService {
     collection = _firestore.collection(collectionName);
   }
 
-  Future<String> getCurrentUID() async {
-    return (_firebaseAuth.currentUser!).uid;
-  }
-
-  Future<String> signIn(String email, String password) async {
-    var msg = '';
-    var uid = '';
-    try {
-      var user = (await _firebaseAuth.signInWithEmailAndPassword(
-              email: email, password: password))
-          .user;
-      uid = user!.uid;
-
-      log('$user');
-      // add all user data to SharedPerfs
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        msg = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        msg = 'Wrong password provided for that user.';
-      } else if (e.code == 'invalid-email') {
-        msg = "This isn't an email";
-      }
-    }
-    if (msg.isEmpty) {
-      log('uid1 : $uid');
-      return uid;
-    }
-    log('msg : $msg');
-    return msg;
-  }
-
-  Future<String> signUp(HashMap userValues) async {
-    var msg = '';
-    try {
-      var user = (await _firebaseAuth.createUserWithEmailAndPassword(
-              email: userValues['email'], password: userValues['password']))
-          .user;
-      var model = UserModel(
-        uId: user!.uid,
-        name: userValues['name'] ?? '',
-        email: userValues['email'],
-        // userType: userValues['userType'],
-        phone: userValues['phone'] ?? '',
-        password: userValues['password'] ?? '',
-        // rePassword: userValues['rePassword'] ?? '',
-        image: userValues['image'] ?? '',
-        // loginState: true,
-        // state: true,
-        isEmailVerified: true,
-      );
-      await addUser(model);
-      msg = user.uid;
-
-      // add all user data to SharedPerfs
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        msg = 'The password provided is too weak.';
-      } else if (e.code == 'email-already-in-use') {
-        msg = 'The account already exists for that email.';
-      } else if (e.code == 'invalid-email') {
-        msg = "This isn't an email";
-      }
-    } catch (e) {
-      msg = '$e';
-    }
-    return msg;
-  }
-
-  Future<void> addUser(UserModel model) async {
-    await collection.add(model.toMap()).catchError((error) {
-      handleAuthErrors(error);
-    });
-  }
-
-  Future<UserModel?> getUser(String id) async {
-    QuerySnapshot result = await collection.where('uid', isEqualTo: id).get();
-    if (result == null || result.docs.isEmpty) {
-      // Handle the case where there are no documents that match the query.
-      return null;
-    }
-    var data = result.docs[0];
-    Map<String, dynamic> userMap = {};
-    userMap['uid'] = data.get('uid');
-    userMap['userName'] = data.get('userName');
-    userMap['email'] = data.get('email');
-    userMap['phone'] = data.get('phone');
-    userMap['password'] = data.get('password');
-    userMap['userType'] = data.get('userType');
-    userMap['rePassword'] = data.get('rePassword');
-    userMap['loginState'] = data.get('loginState');
-    userMap['state'] = data.get('state');
-    userMap['imageUrl'] = data.get('imageUrl');
-
-    var userModel = UserModel.fromJson(userMap);
-    return userModel;
-  }
-
-
-  // Future<UserList> getVendorUsers() async {
-  //   QuerySnapshot vendorResult = await collection.where('userType',isEqualTo: 'vendor').get();
-  //   List<UserModel> userDataList = [];
-  //   Map<String, dynamic> userMap = {};
-  //   for (var data in vendorResult.docs) {
-  //     userMap['uid'] = data.get('uid');
-  //     userMap['userName'] = data.get('userName');
-  //     userMap['email'] = data.get('email');
-  //     userMap['phone'] = data.get('phone');
-  //     userMap['password'] = data.get('password');
-  //     userMap['userType'] = data.get('userType');
-  //     userMap['rePassword'] = data.get('rePassword');
-  //     userMap['loginState'] = data.get('loginState');
-  //     userMap['state'] = data.get('state');
-  //     userMap['imageUrl'] = data.get('imageUrl');
-  //     var userModel = UserModel.fromJson(userMap);
-  //     userDataList.add(userModel);
-  //   }
-  //   return UserList(users: userDataList);
+  // Future<String> getCurrentUID() async {
+  //   return (_firebaseAuth.currentUser!).uid;
   // }
-
-  // Future<UserList> getCustomerUsers() async {
-  //   QuerySnapshot customerResult = await collection.where('userType',isEqualTo: 'customer').get();
-  //   List<UserModel> userDataList = [];
-  //   Map<String, dynamic> userMap = {};
-  //   for (var data in customerResult.docs) {
-  //     userMap['uid'] = data.get('uid');
-  //     userMap['userName'] = data.get('userName');
-  //     userMap['email'] = data.get('email');
-  //     userMap['phone'] = data.get('phone');
-  //     userMap['password'] = data.get('password');
-  //     userMap['userType'] = data.get('userType');
-  //     userMap['rePassword'] = data.get('rePassword');
-  //     userMap['loginState'] = data.get('loginState');
-  //     userMap['state'] = data.get('state');
-  //     userMap['imageUrl'] = data.get('imageUrl');
-  //     var userModel = UserModel.fromJson(userMap);
-  //     userDataList.add(userModel);
+  //
+  // Future<String> signIn(String email, String password) async {
+  //   var msg = '';
+  //   var uid = '';
+  //   try {
+  //     var user = (await _firebaseAuth.signInWithEmailAndPassword(
+  //             email: email, password: password))
+  //         .user;
+  //     uid = user!.uid;
+  //
+  //     log('$user');
+  //     // add all user data to SharedPerfs
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       msg = 'No user found for that email.';
+  //     } else if (e.code == 'wrong-password') {
+  //       msg = 'Wrong password provided for that user.';
+  //     } else if (e.code == 'invalid-email') {
+  //       msg = "This isn't an email";
+  //     }
   //   }
-  //   return UserList(users: userDataList);
+  //   if (msg.isEmpty) {
+  //     log('uid1 : $uid');
+  //     return uid;
+  //   }
+  //   log('msg : $msg');
+  //   return msg;
   // }
+  //
+  // Future<String> signUp(HashMap userValues) async {
+  //   var msg = '';
+  //   try {
+  //     var user = (await _firebaseAuth.createUserWithEmailAndPassword(
+  //             email: userValues['email'], password: userValues['password']))
+  //         .user;
+  //     var model = UserModel(
+  //       uId: user!.uid,
+  //       name: userValues['name'] ?? '',
+  //       email: userValues['email'],
+  //       // userType: userValues['userType'],
+  //       phone: userValues['phone'] ?? '',
+  //       password: userValues['password'] ?? '',
+  //       // rePassword: userValues['rePassword'] ?? '',
+  //       image: userValues['image'] ?? '',
+  //       // loginState: true,
+  //       // state: true,
+  //       isEmailVerified: true,
+  //     );
+  //     await addUser(model);
+  //     msg = user.uid;
+  //
+  //     // add all user data to SharedPerfs
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'weak-password') {
+  //       msg = 'The password provided is too weak.';
+  //     } else if (e.code == 'email-already-in-use') {
+  //       msg = 'The account already exists for that email.';
+  //     } else if (e.code == 'invalid-email') {
+  //       msg = "This isn't an email";
+  //     }
+  //   } catch (e) {
+  //     msg = '$e';
+  //   }
+  //   return msg;
+  // }
+  //
+  // Future<void> addUser(UserModel model) async {
+  //   await collection.add(model.toMap()).catchError((error) {
+  //     handleAuthErrors(error);
+  //   });
+  // }
+  //
+  // Future<UserModel?> getUser(String id) async {
+  //   QuerySnapshot result = await collection.where('uid', isEqualTo: id).get();
+  //   if (result == null || result.docs.isEmpty) {
+  //     // Handle the case where there are no documents that match the query.
+  //     return null;
+  //   }
+  //   var data = result.docs[0];
+  //   Map<String, dynamic> userMap = {};
+  //   userMap['uid'] = data.get('uid');
+  //   userMap['userName'] = data.get('userName');
+  //   userMap['email'] = data.get('email');
+  //   userMap['phone'] = data.get('phone');
+  //   userMap['password'] = data.get('password');
+  //   userMap['userType'] = data.get('userType');
+  //   userMap['rePassword'] = data.get('rePassword');
+  //   userMap['loginState'] = data.get('loginState');
+  //   userMap['state'] = data.get('state');
+  //   userMap['imageUrl'] = data.get('imageUrl');
+  //
+  //   var userModel = UserModel.fromJson(userMap);
+  //   return userModel;
+  // }
+  //
+  //
+  // // Future<UserList> getVendorUsers() async {
+  // //   QuerySnapshot vendorResult = await collection.where('userType',isEqualTo: 'vendor').get();
+  // //   List<UserModel> userDataList = [];
+  // //   Map<String, dynamic> userMap = {};
+  // //   for (var data in vendorResult.docs) {
+  // //     userMap['uid'] = data.get('uid');
+  // //     userMap['userName'] = data.get('userName');
+  // //     userMap['email'] = data.get('email');
+  // //     userMap['phone'] = data.get('phone');
+  // //     userMap['password'] = data.get('password');
+  // //     userMap['userType'] = data.get('userType');
+  // //     userMap['rePassword'] = data.get('rePassword');
+  // //     userMap['loginState'] = data.get('loginState');
+  // //     userMap['state'] = data.get('state');
+  // //     userMap['imageUrl'] = data.get('imageUrl');
+  // //     var userModel = UserModel.fromJson(userMap);
+  // //     userDataList.add(userModel);
+  // //   }
+  // //   return UserList(users: userDataList);
+  // // }
+  //
+  // // Future<UserList> getCustomerUsers() async {
+  // //   QuerySnapshot customerResult = await collection.where('userType',isEqualTo: 'customer').get();
+  // //   List<UserModel> userDataList = [];
+  // //   Map<String, dynamic> userMap = {};
+  // //   for (var data in customerResult.docs) {
+  // //     userMap['uid'] = data.get('uid');
+  // //     userMap['userName'] = data.get('userName');
+  // //     userMap['email'] = data.get('email');
+  // //     userMap['phone'] = data.get('phone');
+  // //     userMap['password'] = data.get('password');
+  // //     userMap['userType'] = data.get('userType');
+  // //     userMap['rePassword'] = data.get('rePassword');
+  // //     userMap['loginState'] = data.get('loginState');
+  // //     userMap['state'] = data.get('state');
+  // //     userMap['imageUrl'] = data.get('imageUrl');
+  // //     var userModel = UserModel.fromJson(userMap);
+  // //     userDataList.add(userModel);
+  // //   }
+  // //   return UserList(users: userDataList);
+  // // }
 
 
-  Future<void> logout() async {
-    await _firebaseAuth.signOut();
-  }
+  // Future<void> logout() async {
+  //   await _firebaseAuth.signOut();
+  // }
 
   void handleAuthErrors(ArgumentError error) {
     String errorCode = error.message;

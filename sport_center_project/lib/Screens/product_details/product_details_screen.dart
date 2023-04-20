@@ -21,28 +21,7 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
 
-  // Widget buildSizeButton({title, isSeleted}) {
-  //   return MaterialButton(
-  //     height: 40,
-  //     minWidth: 40,
-  //     elevation: 0,
-  //     color: isSeleted ? Colors.orangeAccent : Colors.white,
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(7),
-  //     ),
-  //     child: Center(
-  //       child: Text(
-  //         title,
-  //         style: TextStyle(
-  //           color: isSeleted ? Colors.white : Color(0xff727274),
-  //         ),
-  //       ),
-  //     ),
-  //     onPressed: () {},
-  //   );
-  // }
-
-  final CartService _cartService = CartService();
+  final CartService cartService = CartService();
 
   int activatedIndex = 0;
 
@@ -51,13 +30,28 @@ class _ProductDetailState extends State<ProductDetail> {
 
   void controleQuantity(int quantity) async {
     final updatedQuantity = counter + quantity;
-    await _cartService.updateCart(widget.product, updatedQuantity);
+    await cartService.updateCart(widget.product, updatedQuantity);
     setState(() {
       counter = updatedQuantity;
     });
   }
 
+  // Future<void> addToCart(ProductsModel product) async {
+  //   // get the current user
+  //   final user = FirebaseAuth.instance.currentUser;
+  //
+  //   if (user == null) {
+  //     // handle the case when no user is signed in
+  //     return;
+  //   }
+  //
+  //   // add the product to the cart
+  //   await CartService().updateCart(product, counter);
+  //
+  //
+  // }
   Future<void> addToCart(ProductsModel product) async {
+    // CartService.instance.cartItems.add(product);
     // get the current user
     final user = FirebaseAuth.instance.currentUser;
 
@@ -67,20 +61,8 @@ class _ProductDetailState extends State<ProductDetail> {
     }
 
     // add the product to the cart
+    await CartService().addToCart(user.uid, product, 1);
     await CartService().updateCart(product, counter);
-
-    // show a toast message
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text('Product added to cart'),
-      duration: Duration(seconds: 2),
-      action: SnackBarAction(
-        label: 'View',
-        onPressed: () {
-          navigators.navigatorWithBack(context, CartScreen());
-        },
-      ),
-    ));
   }
 
   @override
@@ -90,7 +72,7 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   void _getProductQuantityFromCart() async {
-    final quantity = await _cartService.getProductQuantityFromCart(widget.product.productId!);
+    final quantity = await cartService.getProductQuantityFromCart(widget.product.productId!);
     setState(() {
       counter = quantity;
     });
@@ -284,7 +266,24 @@ class _ProductDetailState extends State<ProductDetail> {
                         Expanded(
                           child: MaterialButton(
                             onPressed: () {
-                              addToCart(widget.product);
+                              if (CartService.instance.cartItems.any((item) => item.productId == widget.product.productId)){
+                                print('exists=> ${CartService.instance.cartItems.length}');
+                              }else{
+                                addToCart(widget.product);
+                                print('added=> ${CartService.instance.cartItems.length}');
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  backgroundColor: Colors.black,
+                                  content: Text('Product added to cart'),
+                                  duration: Duration(seconds: 2),
+                                  action: SnackBarAction(
+                                    textColor: Colors.white,
+                                    label: 'View',
+                                    onPressed: () {
+                                      navigators.navigatorWithBack(context, CartScreen());
+                                    },
+                                  ),
+                                ));
+                              }
                             },
                             height: 66,
                             shape: RoundedRectangleBorder(
@@ -325,7 +324,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               height: 30,
                               width: 30,
                               child: FloatingActionButton(
-                                heroTag: '++',
+                                heroTag: 'plus',
                                 onPressed: (){
                                   controleQuantity(1);
                                   print(counter);
@@ -342,7 +341,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               height: 30,
                               width: 30,
                               child: FloatingActionButton(
-                                heroTag: '--',
+                                heroTag: 'minus',
                                 onPressed: (){
 
                                     if (counter<=0){

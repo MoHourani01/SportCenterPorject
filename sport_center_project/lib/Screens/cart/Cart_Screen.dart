@@ -8,8 +8,12 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sport_center_project/Screens/cart/cart_service/cart_service.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/models/product_model.dart';
 
 class CartScreen extends StatefulWidget {
+  ProductsModel? product;
+
+   CartScreen({this.product});
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -32,8 +36,9 @@ class _CartScreenState extends State<CartScreen> {
   ];
 
   int counter=0;
-  final CartService _cartService = CartService();
-  final _auth = FirebaseAuth.instance;
+  final CartService cartService = CartService();
+  List<ProductsModel> cartItems = CartService().cartItems;
+  // final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,18 @@ class _CartScreenState extends State<CartScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CartList(),
+            cartItems.isEmpty
+                ? Container(
+              height: MediaQuery.of(context).size.height,
+              child: Center(
+                child: Text(
+                  'Your Cart Is Empty',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ),
+            )
+            :CartList(),
           ],
         ),
       ),
@@ -80,10 +96,11 @@ class _CartScreenState extends State<CartScreen> {
         mainAxisSpacing: 5,
         primary: false,
         shrinkWrap: true,
-        itemCount:myCart.length,
+        itemCount:cartItems.length,
         itemBuilder: (context, index){
-          if (index >= myCart.length) {
-            return SizedBox.shrink(); // Return an empty widget if index is out of bounds
+          if (index >= cartItems.length) {
+            return SizedBox
+                .shrink(); // Return an empty widget if index is out of bounds
           }
           return CartItems(context, index);
     });
@@ -91,12 +108,24 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget CartItems(context, index){
     return Dismissible(
-      key: Key(myCart[index]),
-      onDismissed: (direction){
-        var cartItem=myCart[index];
-        showSnackBar(context, index, cartItem);
+      key: Key(cartItems[index].productId.toString()),
+      onDismissed: (direction) async {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user == null) {
+          // handle the case when no user is signed in
+          return;
+        }
+        final product = widget.product;
+        final cartService = CartService();
+        if (product != null) {
+          await cartService.removeProductCart(user.uid, cartItems[index].productId.toString());
+        }
+
+        // show a snackbar
+        showSnackBar(context, index, cartItems[index]);
+
         setState(() {
-          myCart.removeAt(index);
+          cartItems.removeAt(index);
         });
       },
       background: deleteCartItem(),
@@ -137,7 +166,7 @@ class _CartScreenState extends State<CartScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6.0),
                               image: DecorationImage(
-                                  image: AssetImage('${myCart[index]}'), fit: BoxFit.cover)),
+                                  image: NetworkImage('${cartItems[index].image}'), fit: BoxFit.cover)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -164,22 +193,16 @@ class _CartScreenState extends State<CartScreen> {
                                                 child: Icon(Icons.favorite_border_outlined,color: Colors.red,),
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () {},
-                                              child: Text(
-                                                '${stringCart[index]}',
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w600),
-                                              ),
-                                            ),
                                             Padding(
-                                              padding: const EdgeInsets.only(right: 8),
+                                              padding: const EdgeInsets.only(right:12.0),
                                               child: InkWell(
                                                 onTap: () {},
-                                                child: Icon(
-                                                  Icons.shopping_cart_outlined,
-                                                  color: Colors.white,
+                                                child: Text(
+                                                  '${cartItems[index].price}',
+                                                  style: const TextStyle(
+                                                    fontSize: 15,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w600),
                                                 ),
                                               ),
                                             ),
@@ -203,7 +226,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           child: Center(
                             child: Text(
-                              'Sport Center',
+                              '${cartItems[index].name}',
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
@@ -228,6 +251,7 @@ class _CartScreenState extends State<CartScreen> {
                             onPressed: (){
                               setState(() {
                                 counter++;
+                                // controleQuantity(1);
                                 print(counter);
                               });
                             },
@@ -246,15 +270,19 @@ class _CartScreenState extends State<CartScreen> {
                             heroTag: '-',
                             onPressed: (){
                               setState(() {
-                                if (counter<=0){
-                                  counter=0;
-                                  print(counter);
+                                // if (counter<=0){
+                                //   counter=0;
+                                //   print(counter);
+                                // }
+                                // else{
+                                //   controleQuantity(-1);
+                                //   print(counter);
+                                // }
+                                counter--;
+                                // controleQuantity(1);
+                                print(counter);
                                 }
-                                else{
-                                  counter--;
-                                  print(counter);
-                                }
-                              });
+                              );
                             },
                             mini: true,
                             backgroundColor: Color(0xFF17299F),
@@ -292,7 +320,7 @@ class _CartScreenState extends State<CartScreen> {
 
   undoProduct(index,cartItem){
     setState(() {
-      myCart.insert(index, cartItem);
+      cartItems.insert(index, cartItem);
     });
   }
 

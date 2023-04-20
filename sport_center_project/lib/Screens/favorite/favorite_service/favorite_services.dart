@@ -1,11 +1,11 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloudfirestore/cloudfirestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/material.dart';
 // import 'package:sport_center_project/models/product_model.dart';
 // import 'package:sport_center_project/shared/component/component.dart';
 // class FavoriteService {
-//   final _firebaseAuth = FirebaseAuth.instance;
-//   final _firestore = FirebaseFirestore.instance;
+//   final firebaseAuth = FirebaseAuth.instance;
+//   final firestore = FirebaseFirestore.instance;
 //
 //   Future<void> toggleFavorite(ProductsModel product) async {
 //     if (product.productId == null) {
@@ -13,7 +13,7 @@
 //     }
 //
 //     // get the current user
-//     final user = _firebaseAuth.currentUser;
+//     final user = firebaseAuth.currentUser;
 //
 //     if (user == null) {
 //       // handle the case when no user is signed in
@@ -21,7 +21,7 @@
 //     }
 //
 //     // get the user document
-//     final userDoc = _firestore.collection('users').doc(user!.uid);
+//     final userDoc = firestore.collection('users').doc(user!.uid);
 //
 //     // check if the product is already in favorites
 //     final doc = await userDoc.collection('favorites').doc(product.productId).get();
@@ -45,7 +45,7 @@
 //
 //   Stream<bool> isFavoriteStream(String productId) {
 //     // get the current user
-//     final user = _firebaseAuth.currentUser;
+//     final user = firebaseAuth.currentUser;
 //
 //     if (user == null) {
 //       // handle the case when no user is signed in
@@ -53,7 +53,7 @@
 //     }
 //
 //     // get the user document
-//     final userDoc = _firestore.collection('users').doc(user.uid);
+//     final userDoc = firestore.collection('users').doc(user.uid);
 //
 //     // return a stream of whether the product is in favorites
 //     return userDoc
@@ -65,7 +65,7 @@
 //
 //   Stream<List<ProductsModel>> favoritesStream() {
 //     // get the current user
-//     final user = _firebaseAuth.currentUser;
+//     final user = firebaseAuth.currentUser;
 //
 //     if (user == null) {
 //       // handle the case when no user is signed in
@@ -73,7 +73,7 @@
 //     }
 //
 //     // get the user document
-//     final userDoc = _firestore.collection('users').doc(user.uid);
+//     final userDoc = firestore.collection('users').doc(user.uid);
 //
 //     // return a stream of the user's favorite products
 //     return userDoc.collection('favorites').snapshots().map((snapshot) {
@@ -89,8 +89,8 @@ import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
 class FavoriteService {
-  final _firebaseAuth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
+  final firebaseAuth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
 
   Future<void> toggleFavorite(ProductsModel product) async {
     if (product.productId == null) {
@@ -98,7 +98,7 @@ class FavoriteService {
     }
 
     // get the current user
-    final user = _firebaseAuth.currentUser;
+    final user = firebaseAuth.currentUser;
 
     if (user == null) {
       // handle the case when no user is signed in
@@ -106,7 +106,7 @@ class FavoriteService {
     }
 
     // get the user document and the favorites subcollection
-    final userDoc = _firestore.collection('users').doc(user.uid);
+    final userDoc = firestore.collection('users').doc(user.uid);
     final favoritesCollection = userDoc.collection('favorites');
 
     // check if the product is already in favorites
@@ -129,7 +129,7 @@ class FavoriteService {
   }
 
   // Stream<List<String>> getFavoriteProductIds() {
-  //   final user = _firebaseAuth.currentUser;
+  //   final user = firebaseAuth.currentUser;
   //
   //   if (user == null) {
   //     // handle the case when no user is signed in
@@ -137,7 +137,7 @@ class FavoriteService {
   //   }
   //
   //   // get the favorites subcollection for the current user
-  //   final userDoc = _firestore.collection('users').doc(user.uid);
+  //   final userDoc = firestore.collection('users').doc(user.uid);
   //   final favoritesCollection = userDoc.collection('favorites');
   //
   //   // query the favorites subcollection for productIds
@@ -163,8 +163,8 @@ class FavoriteService {
   // Future<void> setFavorites(List<ProductsModel> favorites) async {
   //   User? user = FirebaseAuth.instance.currentUser;
   //   if (user != null) {
-  //     CollectionReference favoritesRef = _firestore.collection('favorites').doc(user.uid).collection('items');
-  //     WriteBatch batch = _firestore.batch();
+  //     CollectionReference favoritesRef = firestore.collection('favorites').doc(user.uid).collection('items');
+  //     WriteBatch batch = firestore.batch();
   //
   //     // Remove all previous favorites from Firestore
   //     QuerySnapshot favoritesSnapshot = await favoritesRef.get();

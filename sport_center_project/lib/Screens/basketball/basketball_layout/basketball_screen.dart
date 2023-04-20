@@ -325,7 +325,25 @@ class _basketState extends State<basket> {
                       navigators.navigatorWithBack(context, ProductDetail(product: product));
                     });
                   }, cartOnPressed: () {
-                  addToCart(product);
+                  if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                    print('exists=> ${CartService.instance.cartItems.length}');
+                  }else{
+                    addToCart(product);
+                    print('added=> ${CartService.instance.cartItems.length}');
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.black,
+                      content: Text('Product added to cart'),
+                      duration: Duration(seconds: 2),
+                      action: SnackBarAction(
+                        textColor: Colors.white,
+                        label: 'View',
+                        onPressed: () {
+                          navigators.navigatorWithBack(context, CartScreen());
+                        },
+                      ),
+                    ));
+                  }
+                  // addToCart(product);
                   },
                 );
               },
