@@ -35,9 +35,10 @@ class CartService {
       await cartCollection.doc(product.productId).update({'quantity': quantity});
     } else {
       await cartCollection.doc(product.productId).set({
-        'productId': product.toProductMap(),
+        // 'productId': product.toProductMap(),
+        ...product.toProductMap(),
         'userId': user.uid,
-        'quantity': quantity
+        'quantity': quantity,
       });
     }
   }
@@ -57,21 +58,6 @@ class CartService {
     }
   }
 
-  // Future<void> addToCart(String userId, ProductsModel product, int quantity) async {
-  //   final cartRef = firestore.collection('users').doc(userId).collection('cart');
-  //   final productRef = cartRef.doc(product.productId);
-  //
-  //   final data = {
-  //     'name': product.name,
-  //     'price': product.price,
-  //     'quantity': quantity,
-  //     'image': product.image,
-  //     'productId': product.productId,
-  //   };
-  //
-  //   await productRef.set(data, SetOptions(merge: true));
-  // }
-
   List<ProductsModel> cartItems = [];
 
   static final CartService instance = CartService._internal();
@@ -82,7 +68,7 @@ class CartService {
 
   CartService._internal();
 
-  List<ProductsModel> get cartItem => cartItems;
+  // List<ProductsModel> get cartItem => cartItems;
 
   // void addToCart(ProductsModel product) {
   // }
@@ -91,15 +77,16 @@ class CartService {
     final cartRef = firestore.collection('users').doc(userId).collection('cart');
     final productRef = cartRef.doc(product.productId);
 
-    final data = {
-      'name': product.name,
-      'price': product.price,
-      'quantity': quantity,
-      'image': product.image,
-      'productId': product.productId,
-    };
+    // final data = {
+    //   'name': product.name,
+    //   'price': product.price,
+    //   'quantity': quantity,
+    //   'image': product.image,
+    //   'productId': product.productId,
+    // };
 
-    await productRef.set(data, SetOptions(merge: true));
+    // await productRef.set(data, SetOptions(merge: true));
+    await CartService().updateCart(product, quantity);
   }
 
   void removeFromCart(ProductsModel product) {
@@ -108,14 +95,5 @@ class CartService {
 
   void clearCart() {
     cartItems.clear();
-  }
-
-  Future<void> removeProductCart(String userId, String productId) async {
-    final docRef = firestore
-        .collection('users')
-        .doc(userId)
-        .collection('cart')
-        .doc(productId);
-    await docRef.delete();
   }
 }

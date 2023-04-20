@@ -177,3 +177,16 @@ class ProductsModel{
     }
   }
 }
+class ProductsList {
+  List<ProductsModel> posts;
+
+  ProductsList({required this.posts});
+
+  factory ProductsList.fromJson(List<dynamic> data) {
+    List<ProductsModel> dataList = [];
+    dataList = data.map((e) {
+      return ProductsModel.fromJson(Map<String, dynamic>.from(e));
+    }).toList();
+    return ProductsList(posts: dataList);
+  }
+}
