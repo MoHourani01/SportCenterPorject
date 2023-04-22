@@ -362,11 +362,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                       // controleQuantity(1);
                                       if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
                                         print('exists=> ${CartService.instance.cartItems.length}');
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          backgroundColor: Colors.grey.shade800,
+                                          content: Text('Product has already added into cart list'),
+                                          duration: Duration(seconds: 2),
+                                          action: SnackBarAction(
+                                            textColor: Colors.white,
+                                            label: 'View',
+                                            onPressed: () {
+                                              navigators.navigatorWithBack(context, CartScreen());
+                                            },
+                                          ),
+                                        ));
                                       }else{
                                         addToCart(product);
                                         print('added=> ${CartService.instance.cartItems.length}');
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          backgroundColor: Colors.black,
+                                          backgroundColor: Colors.grey.shade800,
                                           content: Text('Product added to cart'),
                                           duration: Duration(seconds: 2),
                                           action: SnackBarAction(
