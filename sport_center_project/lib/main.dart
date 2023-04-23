@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
             // title: 'Flutter',
             home: SplashScreen(title:'login'),
             // home:SplashScreen(title: 'onBoarding'),
-            // home: MainNavigationBar(),
+            // home: OnBoardingScreen(),
           );
         },
       ),
