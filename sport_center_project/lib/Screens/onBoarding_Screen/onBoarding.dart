@@ -41,6 +41,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       description: 'Our AI-powered chatbot is here to make your shopping experience easier and more enjoyable.\n'
           'Whether you need help finding the perfect product.',
     ),
+    BoardingModel(
+      image: 'assets/images/th.jpg',
+      title: 'Sport Center',
+      description: 'Welcome to our Sport Center app. Here where you can find the best sport products you need about Soccer and Basketball.',
+    ),
   ];
 
   @override
