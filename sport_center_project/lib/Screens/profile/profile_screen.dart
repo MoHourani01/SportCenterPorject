@@ -129,57 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          // VariablesUtils.userType == 'vendor'
-                          //     ? Container(
-                          //   decoration: BoxDecoration(
-                          //     color: Color(0xFF130359),
-                          //     borderRadius: BorderRadius.circular(30.0),
-                          //   ),
-                          //   child: InkWell(
-                          //     onTap: () {
-                          //       // mUtils.navigatorWithBack(
-                          //       //     context, AdminDashboard());
-                          //     },
-                          //     // child: ListTile(
-                          //     //   trailing: Icon(
-                          //     //     Icons.navigate_next,
-                          //     //   ),
-                          //     //   title: Text('insights'),
-                          //     //   leading: Icon(
-                          //     //       Icons.insert_chart_outlined_outlined),
-                          //     // ),
-                          //   ),
-                          // )
-                          //     : Container(),
-                          // // Container(
-                          // //   decoration: BoxDecoration(
-                          // //     color: Colors.grey.shade300,
-                          // //     borderRadius: BorderRadius.circular(30.0),
-                          // //   ),
-                          // //   child: InkWell(
-                          // //     onTap: () {
-                          // //       // navigateTo(context, MyOrdersScreen());
-                          // //     },
-                          // //     child: ListTile(
-                          // //       trailing: Icon(
-                          // //         Icons.navigate_next,
-                          // //       ),
-                          // //       title: Text('My Orders'),
-                          // //       leading: Icon(Icons.shopping_cart_outlined),
-                          // //     ),
-                          // //   ),
-                          // // ),
-                          // // SizedBox(
-                          // //   height: 10.0,
-                          // // ),
-                          // VariablesUtils.userType == 'vendor'
-                          //     ? SizedBox(
-                          //   height: 10,
-                          // )
-                          //     : SizedBox(
-                          //   height: 0,
-                          // ),
-                          if( VariablesUtils.userName=='test')
+                          if( VariablesUtils.userName=='Admin')
                             Container(
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade300,
