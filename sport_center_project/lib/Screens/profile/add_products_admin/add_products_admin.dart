@@ -150,7 +150,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                         ),
                       ),
                       SizedBox(
-                        width: 200,
+                        width: 190,
                       ),
                       Icon(
                         selectImageColor == false
@@ -182,6 +182,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                               .whenComplete(() {
                             navigators.navigatorWithBack(context, MainNavigationBar());
                           });
+                          showToast(text: 'Product Added Successfully', state: ToastStates.Success);
                         }
                       },
                       text: "Add product")

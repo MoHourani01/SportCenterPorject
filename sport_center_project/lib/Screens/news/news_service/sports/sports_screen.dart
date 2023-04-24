@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_center_project/Screens/news/news_service/news_cubit/cubit.dart';
 import 'package:sport_center_project/Screens/news/news_service/news_cubit/states.dart';
-import 'package:sport_center_project/Screens/news/news_service/news_search/news_search_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
 class SportsScreen extends StatelessWidget{
@@ -46,16 +45,7 @@ class SportsScreen extends StatelessWidget{
                 ),
               ),
             ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: IconButton(onPressed: (){
-                  navigators.navigatorWithBack(context, NewsSearchScreen());
-                },
-                    icon: Icon(Icons.search)),
-              ),
-            ],
-          ),
+                     ),
           body: articleBuilder(list,context),
         );
       },);

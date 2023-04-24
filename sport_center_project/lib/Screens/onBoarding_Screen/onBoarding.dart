@@ -43,8 +43,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     ),
     BoardingModel(
       image: 'assets/images/th.jpg',
-      title: 'Sport Center',
-      description: 'Welcome to our Sport Center app. Here where you can find the best sport products you need about Soccer and Basketball.',
+      title: 'Flipping & Swiping',
+      description: 'To show the product name and description just click on the product image to flip the product.\n'
+          'Click on the arrow on the top right of the product.\n'
+          'To delete product from your cart list you can swipe to left or right.',
     ),
   ];
 
@@ -84,97 +86,91 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget buildBoardingItem(BoardingModel model) => Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              height: 430,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  image: DecorationImage(
-                      image: AssetImage(model.image),
-                      fit: BoxFit.cover,
-                      colorFilter:
-                          ColorFilter.mode(Colors.grey, BlendMode.darken))),
-            ),
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 25.0,
-                  ),
-                  Text(
-                    '${model.title}',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      color: Colors.blue.shade900.withOpacity(1),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.0,
-                  ),
-                  Text(
-                    '${model.description}',
-                    style: TextStyle(
-                        fontSize: 17.0,
-                        color: Colors.grey.shade700,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 24.0,
-                  ),
-                  Row(
-                    children: [
-                      SmoothPageIndicator(
-                        controller: boardController,
-                        count: boarding.length,
-                        // axisDirection: Axis.horizontal,
-                        effect: ExpandingDotsEffect(
-                          activeDotColor: Colors.blue.shade900.withOpacity(1),
-                          dotColor: Colors.grey.shade700,
-                          dotHeight: 10,
-                          dotWidth: 10,
-                          spacing: 5,
-                          expansionFactor: 4,
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15, right: 3),
-                        child: FloatingActionButton(
-                          backgroundColor: Colors.blue.shade900.withOpacity(1),
-                          onPressed: () {
-                            if (isLast == true) {
-                              navigators.navigateTo(context, LoginScreen());
-                              // VariablesUtils.onBoardingShow = false;
-                              // submit();
-                            } else {
-                              boardController.nextPage(
-                                  duration: Duration(
-                                    milliseconds: 600,
-                                  ),
-                                  curve: Curves.easeInOutCubicEmphasized);
-                            }
-                          },
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          height: 430,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              image: DecorationImage(
+                  image: AssetImage(model.image),
+                  fit: BoxFit.cover,
+                  colorFilter:
+                  ColorFilter.mode(Colors.grey, BlendMode.darken))),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${model.title}',
+              style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.blue.shade900.withOpacity(1),
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
-      );
+            SizedBox(
+              height: 11.0,
+            ),
+            Text(
+              '${model.description}',
+              style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.grey.shade700,
+                  fontWeight: FontWeight.bold),
+            ),
+            // SizedBox(
+            //   height: 10.0,
+            // ),
+            Row(
+              children: [
+                SmoothPageIndicator(
+                  controller: boardController,
+                  count: boarding.length,
+                  // axisDirection: Axis.horizontal,
+                  effect: ExpandingDotsEffect(
+                    activeDotColor: Colors.blue.shade900.withOpacity(1),
+                    dotColor: Colors.grey.shade700,
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    spacing: 5,
+                    expansionFactor: 4,
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15, right: 3),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.blue.shade900.withOpacity(1),
+                    onPressed: () {
+                      if (isLast == true) {
+                        navigators.navigateTo(context, LoginScreen());
+                        // VariablesUtils.onBoardingShow = false;
+                        // submit();
+                      } else {
+                        boardController.nextPage(
+                            duration: Duration(
+                              milliseconds: 600,
+                            ),
+                            curve: Curves.easeInOutCubicEmphasized);
+                      }
+                    },
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }
