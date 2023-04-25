@@ -71,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
     }
 
     // add the product to the cart
-    await CartService().addToCart(user.uid, product, qunatity);
+    await CartService.instance.addToCart(user.uid, product, qunatity);
 
     // show a toast message
   }
@@ -156,6 +156,8 @@ class _CartScreenState extends State<CartScreen> {
                         onDismissed: (direction) async {
                           final product = ProductsModel.products[index];
                           data[index].reference.delete();
+                          cartItems.removeAt(index);
+                          CartService.instance.removeFromCart(product);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.black,
                             content: Text('Your product ${cartModel.name} has been deleted successfully'),

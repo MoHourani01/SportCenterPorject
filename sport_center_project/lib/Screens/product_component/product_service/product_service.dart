@@ -29,6 +29,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sport_center_project/models/product_model.dart';
 
 class ProductService {
+  final firestore = FirebaseFirestore.instance;
+
   static Future<void> addProducts(List<ProductsModel> products) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference productsCollection = firestore.collection('products');
@@ -84,19 +86,35 @@ class ProductService {
     }
   }
 
-  Future<void> add_Products(ProductsModel model, String collection) async {
+  // Future<void> add_Products(ProductsModel model, String collection) async {
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //   await firestore
+  //       .collection(collection)
+  //       .add(model.toProductMap())
+  //       .whenComplete(() {
+  //     log('posts data added successful');
+  //     // statusCode = 200;
+  //     msg = 'posts data added successful';
+  //   }).catchError((onError) {
+  //     handleAuthErrors(onError);
+  //     log('statusCode : $statusCode , error msg : $msg');
+  //   });
+  // }
+  Future<void> addProduct(ProductsModel product) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    await firestore
-        .collection(collection)
-        .add(model.toProductMap())
+    await firestore.collection('products').doc(product.productId).set(product.toProductMap())
         .whenComplete(() {
-      log('posts data added successful');
-      // statusCode = 200;
-      msg = 'posts data added successful';
+      log('Product added successfully');
     }).catchError((onError) {
       handleAuthErrors(onError);
-      log('statusCode : $statusCode , error msg : $msg');
+      log('Error adding product: $onError');
     });
+  }
+  Stream<ProductsList> getPosts(String collection) {
+    return FirebaseFirestore.instance
+        .collection(collection)
+        .snapshots()
+        .map((snapshot) => ProductsList.fromJson(snapshot.docs.map((doc) => doc.data()).toList()));
   }
 
   CollectionReference _collection = FirebaseFirestore.instance.collection('products');

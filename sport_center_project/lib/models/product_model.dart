@@ -115,15 +115,16 @@ class ProductsModel{
   }
 
   Map<String, dynamic> toProductMap(){
-    return {
-      'productId':productId,
-      'price':price,
-      'name':name,
-      'image':image,
-      'description':description,
-      'isFavorite': isFavorite,
-      'quantity': quantity,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['productId'] = productId;
+    data['isFavorite'] = isFavorite;
+    data['description'] = description;
+    data['name'] = name;
+    data['price'] = price;
+    data['quantity'] = quantity;
+    data['image'] = image;
+
+    return data;
   }
 
   factory ProductsModel.fromFirestore(DocumentSnapshot doc) {
