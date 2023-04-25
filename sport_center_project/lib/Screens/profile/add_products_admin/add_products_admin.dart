@@ -34,7 +34,9 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
   bool selectFileColor = false;
 
   final ProfileService _filesUploadService = ProfileService();
-
+  Future<void> add_Products(ProductsModel model) async {
+    await postService.addProduct(model);
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -177,8 +179,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                         if (productDescription.text == '') {
                           Fluttertoast.showToast(msg: 'Fill the description');
                         } else {
-                          await postService
-                              .add_Products(model, 'products')
+                          await add_Products(model)
                               .whenComplete(() {
                             navigators.navigatorWithBack(context, MainNavigationBar());
                           });

@@ -34,7 +34,9 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
   TextEditingController productPriceController = TextEditingController();
 
   TextEditingController productDescriptionController = TextEditingController();
-
+  Future<void> add_Products(ProductsModel model) async {
+    await postService.addProduct(model);
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -170,8 +172,8 @@ class _AddProductBottomSheetState extends State<AddProductBottomSheet> {
                       if (productDescriptionController.text == '') {
                         Fluttertoast.showToast(msg: 'Fill the description');
                       } else {
-                        await postService
-                            .add_Products(model, 'products')
+                        await
+                            add_Products(model)
                             .whenComplete(() {
                           // mUtils.navigator(context, MainNavigationBar());
                         });
