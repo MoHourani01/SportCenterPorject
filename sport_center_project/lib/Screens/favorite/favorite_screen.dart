@@ -11,6 +11,7 @@ import 'package:sport_center_project/Screens/cart/cart_service/cart_service.dart
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/home_screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
+import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/Screens/product_details/product_details_screen.dart';
 import 'package:sport_center_project/models/product_model.dart';
 import 'package:sport_center_project/shared/component/component.dart';
@@ -43,20 +44,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
     // add the product to the cart
     await CartService().addToCart(user.uid, product, 1);
-
-    // show a toast message
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text('Product added to cart'),
-      duration: Duration(seconds: 2),
-      action: SnackBarAction(
-        label: 'View',
-        onPressed: () {
-          navigators.navigatorWithBack(context, CartScreen());
-        },
-      ),
-    ));
   }
+  ProductService productService=ProductService();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -91,12 +81,30 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              widget.favorites.isEmpty
-                  ? Container(
+      body: StreamBuilder(
+          stream: firestore
+              .collection('users')
+              .doc(user!.uid)
+              .collection('favorites')
+              .snapshots(),
+          builder: (context,snapshot){
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final favoriteProducts = snapshot.data!.docs.map((doc) {
+              final product = ProductsModel.fromJson(doc.data()['Product']);
+              product.isFavorite = true;
+              return product;
+            }).toList();
+
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    favoriteProducts.isEmpty
+                        ? Container(
                       height: MediaQuery.of(context).size.height,
                       child: Center(
                         child: Text(
@@ -106,99 +114,100 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         ),
                       ),
                     )
-                  : SizedBox(
+                        :
+                  SizedBox(
                       height: 20,
                     ),
-              MasonryGridView.count(
-                physics: BouncingScrollPhysics(),
-                crossAxisCount: 2,
-                // crossAxisSpacing:1,
-                mainAxisSpacing: 5,
-                primary: false,
-                shrinkWrap: true,
-                itemCount: widget.favorites.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final product = ProductsModel.products[index];
-                  if (index >= widget.favorites.length) {
-                    return Container(); // Return an empty widget if index is out of bounds
-                  }
-                  return cardFlippers(
-                    widget.favorites[index],
-                    IconButton(
-                      onPressed: user == null
-                          ? null
-                          : () async {
+                    MasonryGridView.count(
+                      physics: BouncingScrollPhysics(),
+                      crossAxisCount: 2,
+                      // crossAxisSpacing:1,
+                      mainAxisSpacing: 5,
+                      primary: false,
+                      shrinkWrap: true,
+                      itemCount: favoriteProducts.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        // final product = ProductsModel.products[index];
+                        final product = favoriteProducts[index];
+                        // if (index >= favoriteProducts.length) {
+                        //   return Container(); // Return an empty widget if index is out of bounds
+                        // }
+                        return cardFlippers(
+                          favoriteProducts[index],
+                          IconButton(
+                            onPressed: user == null
+                                ? null
+                                : () async {
                               // toggle the isFavorite flag
                               setState(() {
-                                widget.favorites[index].isFavorite =
-                                    !widget.favorites[index].isFavorite;
+                                favoriteProducts[index].isFavorite = !favoriteProducts[index].isFavorite;
                               });
 
                               // update the favorites collection
-                              if (widget.favorites[index].productId != null) {
-                                await FavoriteService()
-                                    .toggleFavorite(widget.favorites[index]);
-                                // FavoriteService().addFavorite(products[index]);
-                                widget.favorites.removeAt(index);
+                              if (favoriteProducts[index].productId != null) {
+                                await FavoriteService().toggleFavorite(favoriteProducts[index]);
+                                // widget.favorites.remove(product);
                               } else {
                                 print('error');
                               }
                             },
-                      icon: Icon(
-                        widget.favorites[index].isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border_outlined,
-                        color: widget.favorites[index].isFavorite
-                            ? Colors.red
-                            : Colors.red,
-                      ),
+                            icon: Icon(
+                              favoriteProducts[index].isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_outlined,
+                              color: favoriteProducts[index].isFavorite
+                                  ? Colors.red
+                                  : Colors.red,
+                            ),
+                          ),
+                          onPressed: () {
+                            navigators.navigateTo(
+                                context,
+                                ProductDetail(
+                                  product: favoriteProducts[index],
+                                ));
+                          },
+                          cartOnPressed: () {
+                            if (CartService.instance.cartItems.any((item) => item.productId == favoriteProducts[index].productId)){
+                              print('exists=> ${CartService.instance.cartItems.length}');
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.grey.shade800,
+                                content: Text('Product has already into cart list'),
+                                duration: Duration(seconds: 2),
+                                action: SnackBarAction(
+                                  textColor: Colors.white,
+                                  label: 'View',
+                                  onPressed: () {
+                                    navigators.navigatorWithBack(context, CartScreen());
+                                  },
+                                ),
+                              ));
+                            }else{
+                              addToCart(product);
+                              print('added=> ${CartService.instance.cartItems.length}');
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.grey.shade800,
+                                content: Text('Product added to cart'),
+                                duration: Duration(seconds: 2),
+                                action: SnackBarAction(
+                                  textColor: Colors.white,
+                                  label: 'View',
+                                  onPressed: () {
+                                    navigators.navigatorWithBack(context, CartScreen());
+                                  },
+                                ),
+                              ));
+                            }
+                            // addToCart(product);
+                          },
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      navigators.navigateTo(
-                          context,
-                          ProductDetail(
-                            product: product,
-                          ));
-                    },
-                    cartOnPressed: () {
-                      if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
-                        print('exists=> ${CartService.instance.cartItems.length}');
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.grey.shade800,
-                          content: Text('Product has already into cart list'),
-                          duration: Duration(seconds: 2),
-                          action: SnackBarAction(
-                            textColor: Colors.white,
-                            label: 'View',
-                            onPressed: () {
-                              navigators.navigatorWithBack(context, CartScreen());
-                            },
-                          ),
-                        ));
-                      }else{
-                        addToCart(product);
-                        print('added=> ${CartService.instance.cartItems.length}');
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.grey.shade800,
-                          content: Text('Product added to cart'),
-                          duration: Duration(seconds: 2),
-                          action: SnackBarAction(
-                            textColor: Colors.white,
-                            label: 'View',
-                            onPressed: () {
-                              navigators.navigatorWithBack(context, CartScreen());
-                            },
-                          ),
-                        ));
-                      }
-                      // addToCart(product);
-                    },
-                  );
-                },
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
+            );
+          }
       ),
     );
   }
