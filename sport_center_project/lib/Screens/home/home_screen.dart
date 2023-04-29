@@ -49,21 +49,31 @@ class _HomeScreenState extends State<HomeScreen> {
   var formKey = GlobalKey<FormState>();
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  bool isFavorite = false;
-  // ProductsModel? product;
+  // bool isFavorite = false;
 
   List<ProductsModel> products = ProductsModel.products;
 
   List<ProductsModel> favorites = [];
-  ProductsList? productsList;
-  void toggleFavorite(int index) {
+
+  // void toggleFavorite(int index) {
+  //   setState(() {
+  //     if (products[index].isFavorite) {
+  //       favorites.add(products[index]);
+  //     } else {
+  //       favorites.remove(products[index]);
+  //     }
+  //     FavoriteScreen(favorites: favorites,);
+  //   });
+  // }
+  void toggleFavorite(int index, ProductsList productsList) async{
     setState(() {
-      if (products[index].isFavorite) {
-        favorites.add(products[index]);
+      final product = productsList.posts[index];
+      if (product.isFavorite) {
+        favorites.add(product);
       } else {
-        favorites.remove(products[index]);
+        favorites.remove(product);
       }
-      FavoriteScreen(favorites: favorites,);
+      FavoriteScreen(favorites: favorites);
     });
   }
   ProductService productService=ProductService();
@@ -80,19 +90,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // add the product to the cart
     await CartService().addToCart(user.uid, product, 1);
-
-    // show a toast message
   }
 
   // List<ProductsModel> cartItems=[];
-  Future<void> add_Products(ProductsModel model) async {
-    await productService.addProduct(model);
-  }
+  // ProductsList? productsList;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductsList>(
-      stream: productService.getPosts('products'),
+        stream: productService.getPosts('products'),
         builder: (context, snapshot){
           // if (snapshot.hasError) {
           //   // return Text('Error: ${snapshot.error}')Text('Error: ${snapshot.error}');
@@ -325,38 +331,77 @@ class _HomeScreenState extends State<HomeScreen> {
                                   itemCount:productsList.posts.length,
                                   itemBuilder: (BuildContext context, int index) {
                                     // final product = ProductsModel.products[index];
-                                    ProductsModel product = productsList.posts[index];
-                                    // if (index >= products.length) {
-                                    //   return SizedBox
-                                    //       .shrink(); // Return an empty widget if index is out of bounds
-                                    // }
+                                    ProductsModel productt = productsList.posts[index];
+                                    if (index >= productsList.posts.length) {
+                                      return SizedBox
+                                          .shrink(); // Return an empty widget if index is out of bounds
+                                    }
                                     return cardFlippers(
-                                      product,
+                                      productt,
+                                      // IconButton(
+                                      //   onPressed: user == null ? null : () async {
+                                      //     // toggle the isFavorite flag
+                                      //     setState(() {
+                                      //       productt.isFavorite = !productt.isFavorite;
+                                      //     });
+                                      //
+                                      //     // update the favorites collection
+                                      //     if (productt.productId != null) {
+                                      //       await FavoriteService().toggleFavorite(productt);
+                                      //       // FavoriteService().addFavorite(products[index]);
+                                      //       toggleFavorite(index,productsList);
+                                      //       FavoriteScreen(favorites: favorites);
+                                      //       // setState(() {
+                                      //       //   productt.isFavorite = favorites.any((fav) => fav.productId == productt.productId);
+                                      //       // });
+                                      //       bool isFavorite = await FavoriteService().isFavorite(productt);
+                                      //       setState(() {
+                                      //         productt.isFavorite = isFavorite;
+                                      //       });
+                                      //       if(favorites.length>0){
+                                      //         print(favorites);
+                                      //         // print(favorites[index]);
+                                      //       }
+                                      //       print(productsList);
+                                      //       print(favorites.length);
+                                      //     }else{
+                                      //       print('error');
+                                      //     }
+                                      //   },
+                                      //   icon: Icon(
+                                      //     productt.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                      //     color: productt.isFavorite ? Colors.red : Colors.red,
+                                      //   ),
+                                      // ),
                                       IconButton(
                                         onPressed: user == null ? null : () async {
                                           // toggle the isFavorite flag
                                           setState(() {
-                                            product.isFavorite = !product.isFavorite;
+                                            productt.isFavorite = !productt.isFavorite;
                                           });
 
                                           // update the favorites collection
-                                          if (product.productId != null) {
-                                            await FavoriteService().toggleFavorite(product);
-                                            // FavoriteService().addFavorite(products[index]);
-                                            toggleFavorite(index);
+                                          if (productt.productId != null) {
+                                            await FavoriteService().toggleFavorite(productt);
+                                            toggleFavorite(index, productsList);
                                             FavoriteScreen(favorites: favorites);
-                                            if(favorites.length>0){
-                                              print(favorites);
-                                              // print(favorites[index]);
-                                            }
-                                            print(favorites.length);
-                                          }else{
-                                            print('error');
                                           }
                                         },
-                                        icon: Icon(
-                                          product.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                                          color: product.isFavorite ? Colors.red : Colors.red,
+                                        icon: StreamBuilder<bool>(
+                                          stream: FavoriteService().isFavoriteStream(productt),
+                                          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                                            if (snapshot.hasData && snapshot.data == true) {
+                                              return Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              );
+                                            } else {
+                                              return Icon(
+                                                Icons.favorite_border_outlined,
+                                                color: Colors.red,
+                                              );
+                                            }
+                                          },
                                         ),
                                       ),
                                       onPressed: () {
@@ -364,14 +409,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => ProductDetail(product:product),
+                                              builder: (context) => ProductDetail(product:productt),
                                             ),
                                           );
                                         });
                                       },
                                       cartOnPressed: () {
                                         // controleQuantity(1);
-                                        if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                                        if (CartService.instance.cartItems.any((item) => item.productId == productt.productId)){
                                           print('exists=> ${CartService.instance.cartItems.length}');
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                             backgroundColor: Colors.grey.shade800,
@@ -386,11 +431,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ));
                                         }else{
-                                          addToCart(product);
+                                          addToCart(productt);
                                           print('added=> ${CartService.instance.cartItems.length}');
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                             backgroundColor: Colors.grey.shade800,
-                                            content: Text('Product added to cart'),
+                                            content: Text('Product ${productt.name} added to cart'),
                                             duration: Duration(seconds: 2),
                                             action: SnackBarAction(
                                               textColor: Colors.white,
