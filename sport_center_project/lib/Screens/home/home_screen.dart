@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await CartService().addToCart(user.uid, product, 1);
   }
 
-  List<ProductsModel> cartItems=[];
+  // List<ProductsModel> cartItems=[];
   // ProductsList? productsList;
 
   @override
@@ -435,7 +435,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           print('added=> ${CartService.instance.cartItems.length}');
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                             backgroundColor: Colors.grey.shade800,
-                                            content: Text('Product added to cart'),
+                                            content: Text('Product ${productt.name} added to cart'),
                                             duration: Duration(seconds: 2),
                                             action: SnackBarAction(
                                               textColor: Colors.white,

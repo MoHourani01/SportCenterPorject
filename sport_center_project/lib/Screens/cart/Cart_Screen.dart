@@ -71,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
     }
 
     // add the product to the cart
-    await CartService.instance.addToCart(user.uid, product, qunatity);
+    await CartService().addToCart(user.uid, product, qunatity);
 
     // show a toast message
   }
@@ -154,22 +154,17 @@ class _CartScreenState extends State<CartScreen> {
                       return Dismissible(
                         key: Key(data.toString()),
                         onDismissed: (direction) async {
-                          final product = ProductsModel.products[index];
+                          ProductsList productsList = await CartService.getProducts();
+                          // final product = ProductsModel.products[index];
+                          ProductsModel product = productsList.posts[index];
                           data[index].reference.delete();
-                          cartItems.removeAt(index);
-                          CartService.instance.removeFromCart(product);
+                          // cartItems.removeAt(index);
+                          // print(cartItems);
+                          CartService().removeFromCart(product);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.black,
                             content: Text('Your product ${cartModel.name} has been deleted successfully'),
                             duration: Duration(seconds: 2),
-                            action: SnackBarAction(
-                              textColor: Colors.blue,
-                              label: 'Undo',
-                              onPressed: () {
-                                addToCart(product,cartModel.quantity);
-                                // navigators.navigatorWithBack(context, CartScreen());
-                              },
-                            ),
                           ));
                         },
                         background: deleteCartItem(),
@@ -391,24 +386,24 @@ class _CartScreenState extends State<CartScreen> {
       }
     );
   }
-  showSnackBar(context,index,cartItem, name){
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                'Your product ${name} has been deleted successfully',
-            ),
-          action: SnackBarAction(label: 'UNDO', onPressed: (){
-            undoProduct(index, cartItem);
-          }),
-        ),
-    );
-  }
+  // showSnackBar(context,index,cartItem, name){
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //           content: Text(
+  //               'Your product ${name} has been deleted successfully',
+  //           ),
+  //         action: SnackBarAction(label: 'UNDO', onPressed: (){
+  //           undoProduct(index, cartItem);
+  //         }),
+  //       ),
+  //   );
+  // }
 
-  undoProduct(index,cartItem){
-    setState(() {
-      cartItems.insert(index, cartItem);
-    });
-  }
+  // undoProduct(index,cartItem){
+  //   setState(() {
+  //     cartItems.insert(index, cartItem);
+  //   });
+  // }
 
   Widget deleteCartItem(){
     return Padding(
