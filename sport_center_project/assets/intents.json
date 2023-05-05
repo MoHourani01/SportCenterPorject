@@ -1,0 +1,216 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello",
+        "Hi there",
+        "Hey",
+        "Hi",
+        "Greetings"
+      ],
+      "responses": [
+        "Hello! Welcome to our sport center store. How can I assist you today?",
+        "Hi there! How can I help you?",
+        "Hey! What brings you to our sport center store?",
+        "Hi! How can I assist you?",
+        "Greetings! How can I help you today?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Thanks for your help",
+        "Thank you",
+        "Goodbye",
+        "Bye",
+        "See you later"
+      ],
+      "responses": [
+        "You're welcome! Have a great day and come back soon!",
+        "My pleasure! Have a good one!",
+        "No problem! See you soon!",
+        "Thank you for shopping with us! Goodbye!",
+        "Have a great day! See you later!"
+      ]
+    },
+    {
+      "tag": "product_inquiry",
+      "patterns": [
+        "Do you have any running shoes?",
+        "Can you recommend a good tennis racket?",
+        "What types of yoga mats do you have?",
+        "I'm looking for a new soccer ball"
+      ],
+      "responses": [
+        "Absolutely! Our store carries a wide variety of running shoes. Would you like me to recommend a specific pair?",
+        "Sure thing! We have a great selection of tennis rackets. What's your skill level?",
+        "Of course! We carry a range of yoga mats from basic to advanced. What are you looking for?",
+        "Definitely! We have a number of soccer balls to choose from. What's your price range?"
+      ]
+    },
+    {
+      "tag": "product_recommendation",
+      "patterns": [
+        "Can you recommend a good workout shirt?",
+        "What type of weights do you suggest for beginners?",
+        "I'm looking for a new gym bag",
+        "Can you suggest a fitness tracker?"
+      ],
+      "responses": [
+        "Absolutely! We have a range of workout shirts in different styles and sizes. Do you have a preference?",
+        "Sure thing! For beginners, I would suggest starting with a set of dumbbells in a moderate weight range. Would you like me to show you some options?",
+        "Of course! We have a variety of gym bags from different brands and sizes. What are your requirements?",
+        "Definitely! We have a number of fitness trackers to choose from. What's your price range?"
+      ]
+    },
+    {
+      "tag": "membership_inquiry",
+      "patterns": [
+        "How much is a monthly membership?",
+        "Do you offer any discounts for students?",
+        "What are the membership options?",
+        "Is there a family membership package?"
+      ],
+      "responses": [
+        "Great question! Our monthly membership fee is $50. Would you like more information on our membership options?",
+        "Absolutely! We offer a 10% discount for all students with a valid student ID. Would you like to see our membership options?",
+        "Of course! We have a variety of membership options to suit your needs. Would you like me to go over them with you?",
+        "Definitely! We have a family membership package available that includes up to 4 family members. Would you like more information?"
+      ]
+    },
+    {
+      "tag": "membership_signup",
+      "patterns": [
+        "I'm interested in signing up for a membership",
+        "How can I become a member?",
+        "Can I sign up for a membership online?",
+        "What's the process for signing up?"
+      ],
+      "responses": [
+        "Great! We're excited to have you as a member. You can sign up in person at our store or online on our website. Which would you prefer?",
+        "We'd love to have you as a member! You can sign up in person at our store or online on our website. What works best for you?",
+        "Absolutely! You can sign up for a membership on our website or in person at our store. Which would you prefer?",
+        "Excellent! The process for signing up for a membership is easy. You can either sign up in person at our store or online on our website. Would you like me to guide you through the process?"
+      ]
+    },
+    {
+      "tag": "hours_of_operation",
+      "patterns": [
+        "What are your store hours?",
+        "When are you open?",
+        "What time do you close?",
+        "Do you have weekend hours?"
+      ],
+      "responses": [
+        "Our store is open from 8am to 8pm Monday through Friday, and from 9am to 5pm on weekends. Would you like me to confirm specific hours for a certain day?",
+        "We're open Monday through Friday from 8am to 8pm, and on weekends from 9am to 5pm. Is there a specific day you're inquiring about?",
+        "Our store is open from 8am to 8pm Monday through Friday, and from 9am to 5pm on weekends. Is there anything else I can assist you with?",
+        "Absolutely! We're open Monday through Friday from 8am to 8pm, and on weekends from 9am to 5pm. Do you have any other questions?"
+      ]
+    },
+    {
+      "tag": "location_inquiry",
+      "patterns": [
+        "Where are you located?",
+        "What's your address?",
+        "Can you give me directions to your store?",
+        "What's the nearest landmark to your store?"
+      ],
+      "responses": [
+        "We're located at 1234 Main Street. Would you like me to give you directions?",
+        "Our address is 1234 Main Street. Is there anything else I can assist you with?",
+        "Sure thing! We're located at 1234 Main Street. Would you like me to give you directions?",
+        "We're located near the corner of Main Street and First Ave. Is there anything else you'd like to know?"
+      ]
+    },
+    {
+      "tag": "store_policies",
+      "patterns": [
+        "What's your return policy?",
+        "Do you offer exchanges?",
+        "What's your warranty policy?",
+        "Are there any restrictions on using your store coupons?"
+      ],
+      "responses": [
+        "Our return policy allows for returns within 30 days of purchase with a receipt. Would you like more information?",
+        "We do offer exchanges within 30 days of purchase with a receipt. Is there anything else you'd like to know?",
+        "Our warranty policy varies depending on the product. Would you like me to check the warranty for a specific item?",
+        "Our store coupons have some restrictions on use, such as not being able to combine them with other offers. Is there anything else I can assist you with?"
+      ]
+    },
+    {
+      "tag": "payment_methods",
+      "patterns": [
+        "What payment methods do you accept?",
+        "Can I pay with a credit card?",
+        "Do you accept Apple Pay?",
+        "What about payment options?"
+      ],
+      "responses": [
+        "We accept all major credit cards, as well as cash and check. Would you like more information about a specific payment method?",
+        "Yes, we accept credit cards, including Visa, Mastercard, and American Express. Is there anything else I can assist you with?",
+        "Yes, we do accept Apple Pay. Is there anything else you'd like to know?",
+        "We offer a variety of payment options, including credit cards, cash, and check. Is there a specific method you'd like more information about?"
+      ]
+    },
+    {
+      "tag": "product_availability",
+      "patterns": [
+        "Do you have this product in stock?",
+        "Is this item currently available?",
+        "When will you have more of this product?"
+      ],
+      "responses": [
+        "Let me check our inventory for you. What's the name of the product?",
+        "I can look up the availability of that item for you. What's the name of the product?",
+        "Sure thing! Let me check our system for the availability of that product. Can you give me the name of it?",
+        "I'd be happy to check the availability of that product for you. What's the name of it?"
+      ]
+    },
+    {
+      "tag": "product_information",
+      "patterns": [
+        "Can you tell me more about this product?",
+        "What are the specifications of this product?",
+        "Do you have any reviews for this product?"
+      ],
+      "responses": [
+        "Absolutely! What product are you interested in learning more about?",
+        "Sure thing! Which product would you like me to provide more information on?",
+        "I can definitely give you more information about that product. What's the name of it?",
+        "Certainly! What product would you like more information on?"
+      ]
+    },
+    {
+      "tag": "discounts_and_sales",
+      "patterns": [
+        "Do you have any current sales or discounts?",
+        "What's on sale?",
+        "Are there any promotional offers right now?",
+        "Can I use a coupon on sale items?"
+      ],
+      "responses": [
+        "Yes, we have a few items on sale at the moment. Would you like me to tell you about them?",
+        "We do have some current sales and discounts. Is there a specific product you're interested in?",
+        "Yes, we have some promotional offers available right now. Would you like to hear more about them?",
+        "Our coupons cannot be used on sale items, but we do have some other offers available. Would you like me to tell you more?"
+      ]
+    },
+    {
+      "tag": "membership_benefits",
+      "patterns": [
+        "What are the benefits of being a member?",
+        "Why should I become a member?",
+        "What perks do members receive?",
+        "Do members receive any discounts?"
+      ],
+      "responses": [
+        "Members receive discounts on all products, as well as exclusive access to certain sales and events. Would you like more information?",
+        "There are many benefits to becoming a member, including discounts on all products and exclusive access to certain sales and events. Is there anything else you'd like to know?",
+        "Members receive a variety of perks, including discounts on all products and exclusive access to certain sales and events. Would you like more information?",
+        "Yes, members receive discounts on all products, as well as exclusive access to certain sales and events. Is there anything else I can assist you with?"
+      ]
+    }
+  ]
+}
