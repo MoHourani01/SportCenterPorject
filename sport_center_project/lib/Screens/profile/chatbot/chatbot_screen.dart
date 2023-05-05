@@ -15,68 +15,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   var _textEditingController = TextEditingController();
 
   List<String> _messages = [];
-
-  Future<void> _sendMessage() async {
-    String message = _textEditingController.text.trim();
-    if (message.isNotEmpty) {
-      // Make an HTTP request to the Flask server
-      String url = 'https://a6de-176-29-95-202.eu.ngrok.io/predict';
-      Map<String, String> headers = {'Content-Type': 'application/json'};
-      String body = json.encode({'message': message});
-      http.Response response = await http.post(Uri.parse(url), headers: headers, body: body);
-
-      // Process the response from the Flask server
-      if (response.statusCode == 200) {
-        dynamic data = json.decode(response.body);
-        if (data is List) {
-          // The response is an array of results
-          if (data.isNotEmpty) {
-            Map<String, dynamic> result = data[0];
-            if (result['intent'] != null && result['probability'] != null) {
-              String intent = result['intent'];
-              String probability = result['probability'];
-              _addMessage('You: $message');
-              _addMessage('Bot: $intent (probability: $probability)');
-            } else {
-              _addMessage('Error: Invalid response from server');
-              print(response.body);
-            }
-          } else {
-            _addMessage('Error: Empty response from server');
-            print(response.body);
-          }
-        } else if (data is Map) {
-          // The response is a single result
-          if (data['intent'] != null && data['probability'] != null) {
-            String intent = data['intent'];
-            String probability = data['probability'];
-            _addMessage('You: $message');
-            _addMessage('Bot: $intent (probability: $probability)');
-          } else {
-            _addMessage('Error: Invalid response from server');
-            print(response.body);
-          }
-        } else {
-          // The response is not in the expected format
-          _addMessage('Error: Invalid response from server');
-          print(response.body);
-        }
-      } else {
-        _addMessage('Error: ${response.reasonPhrase}');
-        print(response.body);
-      }
-
-
-      _textEditingController.clear();
-    }
-  }
-
-  void _addMessage(String message) {
-    setState(() {
-      _messages.add(message);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +93,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                         hintText: 'Type a message',
                       ),
                       textInputAction: TextInputAction.send,
-                      onSubmitted: (_) => _sendMessage(),
+                      onSubmitted: (_){
+
+                      },
                     ),
                   ),
                   Container(
@@ -170,7 +110,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                         //   }
                         // )
                         // messageController.text='';
-                        _sendMessage();
+                        // _sendMessage();
                         _textEditingController.clear();
                       },
                       child: Icon(

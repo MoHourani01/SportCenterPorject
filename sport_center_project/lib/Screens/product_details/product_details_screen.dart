@@ -110,11 +110,8 @@ class _ProductDetailState extends State<ProductDetail> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => soccer(),
-                            ),
-                          );
+                          // Navigator.pop(context);
+                          navigators.navigatePop(context);
                         },
                         icon: CircleAvatar(
                           backgroundColor: Colors.white,
