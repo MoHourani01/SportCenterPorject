@@ -54,6 +54,7 @@ class _basketState extends State<basket> {
   }
 
   Future<void> addToCart(ProductsModel product) async {
+    // CartService.instance.cartItems.add(product);
     // get the current user
     final user = FirebaseAuth.instance.currentUser;
 
@@ -64,20 +65,8 @@ class _basketState extends State<basket> {
 
     // add the product to the cart
     await CartService().addToCart(user.uid, product, 1);
-
-    // show a toast message
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text('Product added to cart'),
-      duration: Duration(seconds: 2),
-      action: SnackBarAction(
-        label: 'View',
-        onPressed: () {
-          navigators.navigatorWithBack(context, CartScreen());
-        },
-      ),
-    ));
   }
+
   TextEditingController searchController=TextEditingController();
   List<ProductsModel> filteredItems = [];
   void filterSearchResults(String query) {
@@ -274,28 +263,24 @@ class _basketState extends State<basket> {
                     child: Row(
                       children: [
                         buildDisCoverCircle(
-                          image: 'assets/images/basketball.jpg',
+                          image: 'assets/images/basketball-equipment.png',
                           title: "All",
                         ),
                         buildDisCoverCircle(
-                          image: 'assets/images/basketball.jpg',
+                          image: 'assets/images/basket_shoes.jpg',
                           title: "Shoes",
                         ),
                         buildDisCoverCircle(
-                          image: 'assets/images/basketball.jpg',
+                          image: 'assets/images/basket_shirt.jpg',
                           title: "Shirts",
                         ),
                         buildDisCoverCircle(
-                          image: 'assets/images/basketball.jpg',
+                          image: 'assets/images/basket_equipmentss.jpg',
                           title: "Equipments",
                         ),
                         buildDisCoverCircle(
-                          image: 'assets/images/basketball.jpg',
+                          image: 'assets/images/basketball_.jpg',
                           title: "Balls",
-                        ),
-                        buildDisCoverCircle(
-                          image: 'assets/images/basketball.jpg',
-                          title: "Shoes",
                         ),
                       ],
                     ),
@@ -334,7 +319,7 @@ class _basketState extends State<basket> {
                       primary: false,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        final product = ProductsModel.products[index];
+                        final product = ProductsModel.basket_products[index];
                         if (index >= products.length) { // check if index is out of range
                           return Container(); // Return an empty widget if index is out of bounds
                         }
@@ -370,23 +355,23 @@ class _basketState extends State<basket> {
                               navigators.navigatorWithBack(context, ProductDetail(product: product));
                             });
                           }, cartOnPressed: () {
-                          if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
-                            print('exists=> ${CartService.instance.cartItems.length}');
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.grey.shade800,
-                              content: Text('Product has already added into cart list'),
-                              duration: Duration(seconds: 2),
-                              action: SnackBarAction(
-                                textColor: Colors.white,
-                                label: 'View',
-                                onPressed: () {
-                                  navigators.navigatorWithBack(context, CartScreen());
-                                },
-                              ),
-                            ));
-                          }else{
+                          // if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                          //   print('exists=> ${CartService.instance.cartItems.length}');
+                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     backgroundColor: Colors.grey.shade800,
+                          //     content: Text('Product has already added into cart list'),
+                          //     duration: Duration(seconds: 2),
+                          //     action: SnackBarAction(
+                          //       textColor: Colors.white,
+                          //       label: 'View',
+                          //       onPressed: () {
+                          //         navigators.navigatorWithBack(context, CartScreen());
+                          //       },
+                          //     ),
+                          //   ));
+                          // }else{
                             addToCart(product);
-                            print('added=> ${CartService.instance.cartItems.length}');
+                            // print('added=> ${CartService.instance.cartItems.length}');
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.grey.shade800,
                               content: Text('Product added to cart'),
@@ -399,9 +384,9 @@ class _basketState extends State<basket> {
                                 },
                               ),
                             ));
-                          }
+                          },
                           // addToCart(product);
-                        },
+                        // },
                         );
                       },
                     ),
