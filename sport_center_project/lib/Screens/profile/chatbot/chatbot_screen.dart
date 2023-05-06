@@ -15,26 +15,26 @@ class ChatbotScreen extends StatefulWidget {
 class _ChatbotScreenState extends State<ChatbotScreen> {
   // const ChatDetailsScreen({Key? key}) : super(key: key);
 
-  ChatModel _chatModel = ChatModel();
+  ChatModel chatModel = ChatModel();
 
-  List<Map<String, dynamic>> _chatData = [];
+  List<Map<String, dynamic>> chatData = [];
 
-  var _textEditingController = TextEditingController();
+  var textEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _loadChatData();
+    loadChatData();
   }
 
-  void _loadChatData() async {
+  void loadChatData() async {
     String data = await rootBundle.loadString('assets/intents.json');
     Map<String, dynamic> jsonData = json.decode(data);
-    _chatData = List<Map<String, dynamic>>.from(jsonData['intents']);
+    chatData = List<Map<String, dynamic>>.from(jsonData['intents']);
   }
 
-  void _handleSubmitted(String text) {
-    _textEditingController.clear();
+  void handleSubmitted(String text) {
+    textEditingController.clear();
 
     ChatMessage message = ChatMessage(
       text: text,
@@ -42,10 +42,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     );
 
     setState(() {
-      _chatModel.addMessage(message);
+      chatModel.addMessage(message);
     });
 
-    String response = _getChatbotResponse(text);
+    String response = getChatbotResponse(text);
 
     ChatMessage botMessage = ChatMessage(
       text: response,
@@ -54,39 +54,39 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
-        _chatModel.addMessage(botMessage);
+        chatModel.addMessage(botMessage);
       });
     });
   }
 
-  String _getChatbotResponse(String text) {
+  String getChatbotResponse(String text) {
     if (text.toLowerCase() == 'quit') {
-      _chatModel.clearMessages();
+      chatModel.clearMessages();
       return 'Chat ended. Goodbye!';
     }
-    for (var i = 0; i < _chatData.length; i++) {
-      var data = _chatData[i];
+    for (var i = 0; i < chatData.length; i++) {
+      var data = chatData[i];
       var patterns = data['patterns'] as List<dynamic>;
       for (var j = 0; j < patterns.length; j++) {
         var pattern = patterns[j];
         if (text.toLowerCase().contains(pattern.toLowerCase())) {
           var responses = data['responses'] as List<dynamic>;
-          return responses[_getRandomIndex(responses.length)];
+          return responses[getRandomIndex(responses.length)];
         }
       }
     }
     return "I'm sorry, I don't understand. Can you please rephrase your question?";
   }
 
-  int _getRandomIndex(int length) {
+  int getRandomIndex(int length) {
     return (DateTime.now().microsecond % length).toInt();
   }
 
   Widget _buildChatList() {
     return ListView.builder(
-      itemCount: _chatModel.messages.length,
+      itemCount: chatModel.messages.length,
       itemBuilder: (BuildContext context, int index) {
-        final ChatMessage message = _chatModel.messages[index];
+        final ChatMessage message = chatModel.messages[index];
         return Container(
           alignment:
               message.isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -173,13 +173,13 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 children: [
                   Expanded(
                     child: TextField(
-                      controller: _textEditingController,
+                      controller: textEditingController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Type a message',
                       ),
                       textInputAction: TextInputAction.send,
-                      onSubmitted: _handleSubmitted,
+                      onSubmitted: handleSubmitted,
                     ),
                   ),
                   Container(
@@ -187,8 +187,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     color: Colors.blue[900],
                     child: MaterialButton(
                       onPressed: () {
-                        _handleSubmitted(_textEditingController.text);
-                        _textEditingController.clear();
+                        handleSubmitted(textEditingController.text);
+                        textEditingController.clear();
                       },
                       child: Icon(
                         Icons.send,

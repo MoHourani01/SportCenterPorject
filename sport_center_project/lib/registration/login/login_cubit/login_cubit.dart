@@ -162,4 +162,35 @@ class LoginCubit extends Cubit<LoginStates> {
   Future<void> logout() async {
     await _firebaseAuth.signOut();
   }
+
+// Delete the user account from Firebase and any associated data in Firestore
+  Future<void> deleteAccount() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    // Delete the user account from Firebase
+    await currentUser!.delete();
+
+    // Delete any associated data in Firestore
+    final userRef = FirebaseFirestore.instance.collection('users').doc(currentUser.uid);
+
+    // Delete the user document itself
+    await userRef.delete();
+  }
+  // Future<void> deleteAccount() async {
+  //   final currentUser = FirebaseAuth.instance.currentUser;
+  //
+  //   // Listen for changes in the user's authentication state
+  //   FirebaseAuth.instance.authStateChanges().listen((User? firebaseUser) async {
+  //     if (firebaseUser == null) {
+  //       // User account has been fully deleted from Firebase
+  //       final userRef = FirebaseFirestore.instance.collection('users').doc(currentUser!.uid);
+  //
+  //       // Delete any associated data in Firestore
+  //       await userRef.delete();
+  //     }
+  //   });
+  //
+  //   // Delete the user account from Firebase
+  //   await currentUser!.delete();
+  // }
 }
