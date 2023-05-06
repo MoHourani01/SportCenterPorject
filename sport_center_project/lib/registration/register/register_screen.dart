@@ -2,16 +2,18 @@ import 'dart:collection';
 import 'dart:developer';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_center_project/Screens/MainNavBar/main_navigation_bar.dart';
 import 'package:sport_center_project/Utilities/Services/connectivity_service.dart';
+import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/registration/UserService/user_service.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
-import 'package:sport_center_project/registration/register/register_cubit/register_cubit.dart';
-import 'package:sport_center_project/registration/register/register_cubit/register_states.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/shared/network/internet_connection_dialog.dart';
 import 'package:sport_center_project/shared/network/loader.dart';
@@ -304,12 +306,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showToast(text: 'Registration Failed', state: ToastStates.Error);
         } else {
           showToast(text: 'Registered Success', state: ToastStates.Success);
+          saveUserData(result);
           log('uid2 : $result');
-          navigators.navigateTo(context, MainNavigationBar());
+          // navigators.navigateTo(context, MainNavigationBar());
         }
       } else {
         internetConnectionDialog(context);
       }
+    }
+  }
+  saveUserData(String uid) async {
+    try {
+      var value = await LoginCubit.get(context).getUser(uid);
+      VariablesUtils.uid = value?.uId ?? '';
+      VariablesUtils.userName = value?.name ?? '';
+      VariablesUtils.email = value?.email ?? '';
+      VariablesUtils.phone = value?.phone ?? '';
+      VariablesUtils.password = value?.password ?? '';
+      VariablesUtils.imageUrl = value?.image ?? '';
+
+      // Store the values in SharedPreferences
+      VariablesUtils.prefs = await SharedPreferences.getInstance();
+      VariablesUtils.prefs.setString('uid', VariablesUtils.uid);
+      VariablesUtils.prefs.setString('name', VariablesUtils.userName);
+      VariablesUtils.prefs.setString('email', VariablesUtils.email);
+      VariablesUtils.prefs.setString('phone', VariablesUtils.phone);
+      VariablesUtils.prefs.setString('password', VariablesUtils.password);
+      VariablesUtils.prefs.setString('imageUrl', VariablesUtils.imageUrl);
+
+      navigators.navigateTo(context, MainNavigationBar());
+    } catch (e) {
+      // Handle the case where an exception is thrown.
+      print('Error saving user data: $e');
     }
   }
 }

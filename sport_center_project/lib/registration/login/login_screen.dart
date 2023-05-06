@@ -11,7 +11,6 @@ import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/registration/UserService/user_service.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_states.dart';
-import 'package:sport_center_project/registration/register/register_cubit/register_states.dart';
 import 'package:sport_center_project/registration/register/register_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 import 'package:sport_center_project/shared/network/internet_connection_dialog.dart';
