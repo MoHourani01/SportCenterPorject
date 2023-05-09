@@ -16,13 +16,17 @@ import 'package:sport_center_project/Screens/cart/cart_service/cart_service.dart
 import 'package:sport_center_project/Screens/favorite/favorite_screen.dart';
 import 'package:sport_center_project/Screens/favorite/favorite_service/favorite_services.dart';
 import 'package:sport_center_project/Screens/home/categories_info/categories_info.dart';
+import 'package:sport_center_project/Screens/news/News_Screen.dart';
 import 'package:sport_center_project/Screens/product_component/product_component.dart';
 import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/Screens/product_details/product_details_screen.dart';
+import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
+import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
 import 'package:sport_center_project/cubit/states.dart';
 import 'package:sport_center_project/models/product_model.dart';
+import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -121,6 +125,113 @@ class _HomeScreenState extends State<HomeScreen> {
             ProductsList productsList = snapshot.data!;
             return Scaffold(
               key: scaffoldKey,
+              drawer: Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF030A59),
+                      ),
+                      child: Text('hello dear',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      ),
+                    ),
+                    ListTile(
+                      leading:Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color(0xFF030A59),
+                        ),
+                        child: TextButton(
+                          onPressed: (){
+                            navigators.navigateTo(context, ProfileScreen());
+                          },
+                          child: Text(
+                            "Profile",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight:  FontWeight.bold,
+                              color:  Colors.white,
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading:Container(
+                      decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(15),
+                       color: Color(0xFF030A59),
+                      ),
+                         child: TextButton(
+                          onPressed: (){
+                            navigators.navigateTo(context, ChatbotScreen());
+                          },
+                          child: Text(
+                            "ChatBot",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight:  FontWeight.bold,
+                              color:  Colors.white,
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading:Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color(0xFF030A59),
+                        ),
+                        child: TextButton(
+                          onPressed: (){
+                            navigators.navigateTo(context, NewsScreen());
+                          },
+                          child: Text(
+                            "News",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight:  FontWeight.bold,
+                              color:  Colors.white,
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading:Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color(0xEEE7CCD1),
+                        ),
+                        child: TextButton(
+                          onPressed: (){
+                            navigators.navigateTo(context, LoginScreen());
+                          },
+                          child: Text(
+                            "Log out",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight:  FontWeight.bold,
+                              color:  Colors.red.shade800
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
                   setState(() {
@@ -156,7 +267,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     // expandedHeight: 200,
                     backgroundColor: Color(0xFF030A59),
                     leading: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        scaffoldKey.currentState?.openDrawer();
+                      },
                       icon: Icon(
                         Icons.menu,
                         color: Colors.white,
