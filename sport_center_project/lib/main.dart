@@ -96,9 +96,9 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             // title: 'Flutter',
-            // home: SplashScreen(),
+            home: SplashScreen(),
             // home:SplashScreen(title: 'onBoarding'),
-            home: HomeScreen(),
+            // home: HomeScreen(),
           );
         },
       ),

@@ -21,11 +21,13 @@ import 'package:sport_center_project/Screens/product_component/product_component
 import 'package:sport_center_project/Screens/product_component/product_service/product_service.dart';
 import 'package:sport_center_project/Screens/product_details/product_details_screen.dart';
 import 'package:sport_center_project/Screens/profile/Profile_Screen.dart';
+import 'package:sport_center_project/Screens/profile/about_us.dart';
 import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/cubit/cubit.dart';
 import 'package:sport_center_project/cubit/states.dart';
 import 'package:sport_center_project/models/product_model.dart';
+import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
 import 'package:sport_center_project/registration/login/login_screen.dart';
 import 'package:sport_center_project/shared/component/component.dart';
 
@@ -126,108 +128,165 @@ class _HomeScreenState extends State<HomeScreen> {
             return Scaffold(
               key: scaffoldKey,
               drawer: Drawer(
+                width: 220,
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
-                    const DrawerHeader(
+                    DrawerHeader(
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
                         color: Color(0xFF030A59),
                       ),
-                      child: Text('hello dear',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      ),
-                    ),
-                    ListTile(
-                      leading:Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xFF030A59),
-                        ),
-                        child: TextButton(
-                          onPressed: (){
-                            navigators.navigateTo(context, ProfileScreen());
-                          },
-                          child: Text(
-                            "Profile",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight:  FontWeight.bold,
-                              color:  Colors.white,
-                            ),
+                      child: Center(
+                        child: Text('MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                           ),
-
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    ListTile(
-                      leading:Container(
-                      decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(15),
-                       color: Color(0xFF030A59),
-                      ),
-                         child: TextButton(
-                          onPressed: (){
-                            navigators.navigateTo(context, ChatbotScreen());
-                          },
-                          child: Text(
-                            "ChatBot",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight:  FontWeight.bold,
-                              color:  Colors.white,
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xFF030A59),
+                            ),
+                            child: TextButton(
+                              onPressed: (){
+                                navigators.navigatorWithBack(context, ProfileScreen());
+                              },
+                              child: Text(
+                                "Profile",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  // fontWeight:  FontWeight.bold,
+                                  color:  Colors.white,
+                                ),
+                              ),
+
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 40,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xFF030A59),
+                            ),
+                            child: TextButton(
+                              onPressed: (){
+                                navigators.navigatorWithBack(context, ChatbotScreen());
+                              },
+                              child: Text(
+                                "ChatBot",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  // fontWeight:  FontWeight.bold,
+                                  color:  Colors.white,
+                                ),
+                              ),
 
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      leading:Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xFF030A59),
-                        ),
-                        child: TextButton(
-                          onPressed: (){
-                            navigators.navigateTo(context, NewsScreen());
-                          },
-                          child: Text(
-                            "News",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight:  FontWeight.bold,
-                              color:  Colors.white,
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 40,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xFF030A59),
+                            ),
+                            child: TextButton(
+                              onPressed: (){
+                                navigators.navigatorWithBack(context, NewsScreen());
+                              },
+                              child: Text(
+                                "News",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  // fontWeight:  FontWeight.bold,
+                                  color:  Colors.white,
+                                ),
+                              ),
 
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      leading:Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xEEE7CCD1),
-                        ),
-                        child: TextButton(
-                          onPressed: (){
-                            navigators.navigateTo(context, LoginScreen());
-                          },
-                          child: Text(
-                            "Log out",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight:  FontWeight.bold,
-                              color:  Colors.red.shade800
                             ),
                           ),
-
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 40,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xFF030A59),
+                            ),
+                            child: TextButton(
+                              onPressed: (){
+                                navigators.navigatorWithBack(context, about());
+                              },
+                              child: Text(
+                                "About Us",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  // fontWeight:  FontWeight.bold,
+                                  color:  Colors.white,
+                                ),
+                              ),
+
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 40,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Color(0xEEE7CCD1),
+                            ),
+                            child: TextButton(
+                              onPressed: (){
+                                LoginCubit.get(context)
+                                    .logout()
+                                    .then((value) =>
+                                    navigators.navigateTo(
+                                        context, LoginScreen()))
+                                    .whenComplete(() =>
+                                    showToast(
+                                        text: 'Logged out',
+                                        state: ToastStates.Success));
+                              },
+                              child: Text(
+                                "Log out",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight:  FontWeight.bold,
+                                    color:  Colors.red.shade800
+                                ),
+                              ),
+
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
