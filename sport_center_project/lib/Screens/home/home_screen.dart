@@ -214,31 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: TextButton(
                               onPressed: (){
-                                navigators.navigatorWithBack(context, NewsScreen());
-                              },
-                              child: Text(
-                                "News",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  // fontWeight:  FontWeight.bold,
-                                  color:  Colors.white,
-                                ),
-                              ),
-
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 40,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFF030A59),
-                            ),
-                            child: TextButton(
-                              onPressed: (){
                                 navigators.navigatorWithBack(context, about());
                               },
                               child: Text(
