@@ -139,7 +139,18 @@ class ProductsModel{
       quantity:data['quantity'],
     );
   }
-
+// factory ProductsModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
+  //   Map<String, dynamic>? data = doc.data();
+  //   return ProductsModel(
+  //     price: data?['price'] != null ? int.tryParse(data?['price'] ?? '') : null,
+  //     image: data?['image'] as String?,
+  //     name: data?['name'] as String?,
+  //     productId: data?['productId'] as String?,
+  //     description: data?['description'] as String?,
+  //     quantity: data?['quantity'] != null ? int.tryParse(data?['quantity'] ?? '') : null,
+  //     isFavorite: data?['isFavorite'] as bool? ?? false,
+  //   );
+  // }
   ProductsModel copyWith({bool? isFavorite}) {
     return ProductsModel(
       name: this.name,

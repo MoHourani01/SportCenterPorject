@@ -116,7 +116,23 @@ class ProductService {
         .snapshots()
         .map((snapshot) => ProductsList.fromJson(snapshot.docs.map((doc) => doc.data()).toList()));
   }
-
+  // Stream<ProductsList> getPosts(String collection) {
+  //   return FirebaseFirestore.instance
+  //       .collection(collection)
+  //       .snapshots()
+  //       .map((snapshot) {
+  //     List<ProductsModel> products = snapshot.docs.map((doc) {
+  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+  //       return ProductsModel.fromFirestore(doc);
+  //     }).toList();
+  //
+  //     return ProductsList(posts: products);
+  //   })
+  //       .handleError((error) {
+  //     // Handle any errors that occur during the stream processing
+  //     print('Error retrieving products: $error');
+  //   });
+  // }
   CollectionReference _collection = FirebaseFirestore.instance.collection('products');
   Future<ProductsModel> getUser(String id) async {
     QuerySnapshot result = await _collection.where('productId', isEqualTo: id).get();
