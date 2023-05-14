@@ -142,10 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Center(
                         child: Text('MENU',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -561,38 +561,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                           );
                                         });
                                       },
-                                      cartOnPressed: () {
-                                        // controleQuantity(1);
-                                        // if (CartService.instance.cartItems.any((item) => item.productId == productt.productId)){
-                                        //   print('exists=> ${CartService.instance.cartItems.length}');
-                                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                        //     backgroundColor: Colors.grey.shade800,
-                                        //     content: Text('Product has already added into cart list'),
-                                        //     duration: Duration(seconds: 2),
-                                        //     action: SnackBarAction(
-                                        //       textColor: Colors.white,
-                                        //       label: 'View',
-                                        //       onPressed: () {
-                                        //         navigators.navigatorWithBack(context, CartScreen());
-                                        //       },
-                                        //     ),
-                                        //   ));
-                                        // }else{
-                                          addToCart(productt);
-                                          // print('added=> ${CartService.instance.cartItems.length}');
-                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                            backgroundColor: Colors.grey.shade800,
-                                            content: Text('Product ${productt.name} added to cart'),
-                                            duration: Duration(seconds: 2),
-                                            action: SnackBarAction(
-                                              textColor: Colors.white,
-                                              label: 'View',
-                                              onPressed: () {
-                                                navigators.navigatorWithBack(context, CartScreen());
-                                              },
-                                            ),
-                                          ));
-                                        },
+                                      // cartOnPressed: () {
+                                      //   // controleQuantity(1);
+                                      //   // if (CartService.instance.cartItems.any((item) => item.productId == productt.productId)){
+                                      //   //   print('exists=> ${CartService.instance.cartItems.length}');
+                                      //   //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      //   //     backgroundColor: Colors.grey.shade800,
+                                      //   //     content: Text('Product has already added into cart list'),
+                                      //   //     duration: Duration(seconds: 2),
+                                      //   //     action: SnackBarAction(
+                                      //   //       textColor: Colors.white,
+                                      //   //       label: 'View',
+                                      //   //       onPressed: () {
+                                      //   //         navigators.navigatorWithBack(context, CartScreen());
+                                      //   //       },
+                                      //   //     ),
+                                      //   //   ));
+                                      //   // }else{
+                                      //   addToCart(productt);
+                                      //   // print('added=> ${CartService.instance.cartItems.length}');
+                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      //     backgroundColor: Colors.grey.shade800,
+                                      //     content: Text('Product ${productt.name} added to cart'),
+                                      //     duration: Duration(seconds: 2),
+                                      //     action: SnackBarAction(
+                                      //       textColor: Colors.white,
+                                      //       label: 'View',
+                                      //       onPressed: () {
+                                      //         navigators.navigatorWithBack(context, CartScreen());
+                                      //       },
+                                      //     ),
+                                      //   ));
+                                      // },
                                       // },
                                     );
                                   }

@@ -81,23 +81,28 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ),
       ),
-      body: StreamBuilder(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: firestore
               .collection('users')
               .doc(user!.uid)
               .collection('favorites')
               .snapshots(),
-          builder: (context,snapshot){
+          builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
+
             final favoriteProducts = snapshot.data!.docs.map((doc) {
-              final product = ProductsModel.fromJson(doc.data()['Product']);
+              final productData = doc.data() as Map<String, dynamic>?;
+              if (productData == null) {
+                return null;
+              }
+              final product = ProductsModel.fromJson(productData['Product'] as Map<String, dynamic>);
               product.isFavorite = true;
               return product;
-            }).toList();
+            }).where((product) => product != null).toList();
 
             return SafeArea(
               child: SingleChildScrollView(
@@ -115,7 +120,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       ),
                     )
                         :
-                  SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     MasonryGridView.count(
@@ -128,34 +133,34 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       itemCount: favoriteProducts.length,
                       itemBuilder: (BuildContext context, int index) {
                         // final product = ProductsModel.products[index];
-                        final product = favoriteProducts[index];
+                        final product = favoriteProducts[index]!;
                         // if (index >= favoriteProducts.length) {
                         //   return Container(); // Return an empty widget if index is out of bounds
                         // }
                         return cardFlippers(
-                          favoriteProducts[index],
+                          favoriteProducts[index]!,
                           IconButton(
                             onPressed: user == null
                                 ? null
                                 : () async {
                               // toggle the isFavorite flag
                               setState(() {
-                                favoriteProducts[index].isFavorite = !favoriteProducts[index].isFavorite;
+                                favoriteProducts[index]!.isFavorite = !favoriteProducts[index]!.isFavorite;
                               });
 
                               // update the favorites collection
-                              if (favoriteProducts[index].productId != null) {
-                                await FavoriteService().toggleFavorite(favoriteProducts[index]);
+                              if (favoriteProducts[index]!.productId != null) {
+                                await FavoriteService().toggleFavorite(favoriteProducts[index]!);
                                 // widget.favorites.remove(product);
                               } else {
                                 print('error');
                               }
                             },
                             icon: Icon(
-                              favoriteProducts[index].isFavorite
+                              favoriteProducts[index]!.isFavorite
                                   ? Icons.favorite
                                   : Icons.favorite_border_outlined,
-                              color: favoriteProducts[index].isFavorite
+                              color: favoriteProducts[index]!.isFavorite
                                   ? Colors.red
                                   : Colors.red,
                             ),
@@ -164,42 +169,42 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             navigators.navigateTo(
                                 context,
                                 ProductDetail(
-                                  product: favoriteProducts[index],
+                                  product: product,
                                 ));
                           },
-                          cartOnPressed: () {
-                            if (CartService.instance.cartItems.any((item) => item.productId == favoriteProducts[index].productId)){
-                              print('exists=> ${CartService.instance.cartItems.length}');
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.grey.shade800,
-                                content: Text('Product has already into cart list'),
-                                duration: Duration(seconds: 2),
-                                action: SnackBarAction(
-                                  textColor: Colors.white,
-                                  label: 'View',
-                                  onPressed: () {
-                                    navigators.navigatorWithBack(context, CartScreen());
-                                  },
-                                ),
-                              ));
-                            }else{
-                              addToCart(product);
-                              print('added=> ${CartService.instance.cartItems.length}');
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.grey.shade800,
-                                content: Text('Product added to cart'),
-                                duration: Duration(seconds: 2),
-                                action: SnackBarAction(
-                                  textColor: Colors.white,
-                                  label: 'View',
-                                  onPressed: () {
-                                    navigators.navigatorWithBack(context, CartScreen());
-                                  },
-                                ),
-                              ));
-                            }
+                          // cartOnPressed: () {
+                          //   if (CartService.instance.cartItems.any((item) => item.productId == favoriteProducts[index]!.productId)){
+                          //     print('exists=> ${CartService.instance.cartItems.length}');
+                          //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //       backgroundColor: Colors.grey.shade800,
+                          //       content: Text('Product has already into cart list'),
+                          //       duration: Duration(seconds: 2),
+                          //       action: SnackBarAction(
+                          //         textColor: Colors.white,
+                          //         label: 'View',
+                          //         onPressed: () {
+                          //           navigators.navigatorWithBack(context, CartScreen());
+                          //         },
+                          //       ),
+                          //     ));
+                          //   }else{
+                          //     addToCart(product!);
+                          //     print('added=> ${CartService.instance.cartItems.length}');
+                          //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //       backgroundColor: Colors.grey.shade800,
+                          //       content: Text('Product added to cart'),
+                          //       duration: Duration(seconds: 2),
+                          //       action: SnackBarAction(
+                          //         textColor: Colors.white,
+                          //         label: 'View',
+                          //         onPressed: () {
+                          //           navigators.navigatorWithBack(context, CartScreen());
+                          //         },
+                          //       ),
+                          //     ));
+                          //   }
                             // addToCart(product);
-                          },
+                          // },
                         );
                       },
                     ),

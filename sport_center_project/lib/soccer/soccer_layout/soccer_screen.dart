@@ -79,9 +79,9 @@ class _soccerState extends State<soccer> {
               child: Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(image),
-                )),
+                      fit: BoxFit.cover,
+                      image: AssetImage(image),
+                    )),
               ),
             ),
           ),
@@ -180,8 +180,8 @@ class _soccerState extends State<soccer> {
                               child: Text(
                                 "Explore Our Soccer Collections",
                                 style: TextStyle(
-                                    color: Color(0xF717217A),
-                                    fontSize: 17.0,
+                                  color: Color(0xF717217A),
+                                  fontSize: 17.0,
                                 ),
                               ),
                             ),
@@ -287,43 +287,58 @@ class _soccerState extends State<soccer> {
                           return Container(); // Return an empty widget if index is out of bounds
                         }
                         return cardFlippers(
-                          filteredItems[index],
-                          IconButton(
-                            onPressed: user == null ? null : () async {
-                              // toggle the isFavorite flag
-                              setState(() {
-                                filteredItems[index].isFavorite = !filteredItems[index].isFavorite;
-                              });
+                            filteredItems[index],
+                            IconButton(
+                              onPressed: user == null ? null : () async {
+                                // toggle the isFavorite flag
+                                setState(() {
+                                  filteredItems[index].isFavorite = !filteredItems[index].isFavorite;
+                                });
 
-                              // update the favorites collection
-                              if (filteredItems[index].productId != null) {
-                                await FavoriteService().toggleFavorite(filteredItems[index]);
-                                toggleFavorite(index);
-                                FavoriteScreen(favorites: favorites);
-                                if (favorites.length > 0) {
-                                  print(favorites);
+                                // update the favorites collection
+                                if (filteredItems[index].productId != null) {
+                                  await FavoriteService().toggleFavorite(filteredItems[index]);
+                                  toggleFavorite(index);
+                                  FavoriteScreen(favorites: favorites);
+                                  if (favorites.length > 0) {
+                                    print(favorites);
+                                  }
+                                  print(favorites.length);
+                                } else {
+                                  print('error');
                                 }
-                                print(favorites.length);
-                              } else {
-                                print('error');
-                              }
-                            },
-                            icon: Icon(
-                              filteredItems[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-                              color: Colors.red,
+                              },
+                              icon: Icon(
+                                filteredItems[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                color: Colors.red,
+                              ),
                             ),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              navigators.navigatorWithBack(context, ProductDetail(product: product,));
-                            });
-                          },
-                          cartOnPressed: (){
-                            // if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
-                            //   print('exists=> ${CartService.instance.cartItems.length}');
+                            onPressed: () {
+                              setState(() {
+                                navigators.navigatorWithBack(context, ProductDetail(product: product,));
+                              });
+                            },
+                            // cartOnPressed: (){
+                            //   // if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                            //   //   print('exists=> ${CartService.instance.cartItems.length}');
+                            //   //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            //   //     backgroundColor: Colors.grey.shade800,
+                            //   //     content: Text('Product has already added into cart list'),
+                            //   //     duration: Duration(seconds: 2),
+                            //   //     action: SnackBarAction(
+                            //   //       textColor: Colors.white,
+                            //   //       label: 'View',
+                            //   //       onPressed: () {
+                            //   //         navigators.navigatorWithBack(context, CartScreen());
+                            //   //       },
+                            //   //     ),
+                            //   //   ));
+                            //   // }else{
+                            //   addToCart(product);
+                            //   // print('added=> ${CartService.instance.cartItems.length}');
                             //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             //     backgroundColor: Colors.grey.shade800,
-                            //     content: Text('Product has already added into cart list'),
+                            //     content: Text('Product added to cart'),
                             //     duration: Duration(seconds: 2),
                             //     action: SnackBarAction(
                             //       textColor: Colors.white,
@@ -333,23 +348,8 @@ class _soccerState extends State<soccer> {
                             //       },
                             //     ),
                             //   ));
-                            // }else{
-                              addToCart(product);
-                              // print('added=> ${CartService.instance.cartItems.length}');
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                backgroundColor: Colors.grey.shade800,
-                                content: Text('Product added to cart'),
-                                duration: Duration(seconds: 2),
-                                action: SnackBarAction(
-                                  textColor: Colors.white,
-                                  label: 'View',
-                                  onPressed: () {
-                                    navigators.navigatorWithBack(context, CartScreen());
-                                  },
-                                ),
-                              ));
-                            }
-                            // addToCart(product);
+                            // }
+                          // addToCart(product);
                           // },
                         );
                       },
