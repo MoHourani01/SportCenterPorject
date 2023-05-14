@@ -146,7 +146,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                         ),
                         Text(
-                          "\$${widget.product.price}",
+                          "${widget.product.price}",
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,

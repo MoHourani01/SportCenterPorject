@@ -39,7 +39,7 @@ List<flipWidget> flipper=[
     image: 'assets/images/basketball.jpg',
     title: 'hello',),
 ];
-Widget cardFlippers(ProductsModel model,IconButton icon,{required Function() onPressed,required Function() cartOnPressed }) {
+Widget cardFlippers(ProductsModel model,IconButton icon,{required Function() onPressed}) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 10),
     child: FlipCard(
@@ -74,43 +74,43 @@ Widget cardFlippers(ProductsModel model,IconButton icon,{required Function() onP
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
                       child: Container(
-                          height: 36,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.3)),
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.only(left: 10, bottom: 3),
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                icon,
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 3),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Text(
-                                      '${model.price}',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                        height: 36,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.3)),
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.only(left: 10, bottom: 3),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              icon,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 12),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Text(
+                                    '${model.price}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: InkWell(
-                                    onTap: cartOnPressed,
-                                    child: Icon(
-                                      Icons.shopping_cart_outlined,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 8),
+                              //   child: InkWell(
+                              //     onTap: cartOnPressed,
+                              //     child: Icon(
+                              //       Icons.shopping_cart_outlined,
+                              //       color: Colors.white,
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
                           ),
+                        ),
                       ),
                     ),
                   ),
@@ -118,11 +118,22 @@ Widget cardFlippers(ProductsModel model,IconButton icon,{required Function() onP
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: onPressed,
-              icon: Icon(Icons.arrow_forward),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0,top: 8.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: IconButton(
+                  onPressed: onPressed,
+                  icon: Icon(Icons.shopping_cart_outlined),
+                ),
+              ),
             ),
           ),
         ],

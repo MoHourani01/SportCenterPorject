@@ -94,9 +94,9 @@ class _basketState extends State<basket> {
               child: Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(image),
-                )),
+                      fit: BoxFit.cover,
+                      image: AssetImage(image),
+                    )),
               ),
             ),
           ),
@@ -354,39 +354,40 @@ class _basketState extends State<basket> {
                             setState(() {
                               navigators.navigatorWithBack(context, ProductDetail(product: product));
                             });
-                          }, cartOnPressed: () {
-                          // if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
-                          //   print('exists=> ${CartService.instance.cartItems.length}');
-                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //     backgroundColor: Colors.grey.shade800,
-                          //     content: Text('Product has already added into cart list'),
-                          //     duration: Duration(seconds: 2),
-                          //     action: SnackBarAction(
-                          //       textColor: Colors.white,
-                          //       label: 'View',
-                          //       onPressed: () {
-                          //         navigators.navigatorWithBack(context, CartScreen());
-                          //       },
-                          //     ),
-                          //   ));
-                          // }else{
-                            addToCart(product);
-                            // print('added=> ${CartService.instance.cartItems.length}');
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.grey.shade800,
-                              content: Text('Product added to cart'),
-                              duration: Duration(seconds: 2),
-                              action: SnackBarAction(
-                                textColor: Colors.white,
-                                label: 'View',
-                                onPressed: () {
-                                  navigators.navigatorWithBack(context, CartScreen());
-                                },
-                              ),
-                            ));
                           },
-                          // addToCart(product);
+                        //   cartOnPressed: () {
+                        //   // if (CartService.instance.cartItems.any((item) => item.productId == product.productId)){
+                        //   //   print('exists=> ${CartService.instance.cartItems.length}');
+                        //   //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //   //     backgroundColor: Colors.grey.shade800,
+                        //   //     content: Text('Product has already added into cart list'),
+                        //   //     duration: Duration(seconds: 2),
+                        //   //     action: SnackBarAction(
+                        //   //       textColor: Colors.white,
+                        //   //       label: 'View',
+                        //   //       onPressed: () {
+                        //   //         navigators.navigatorWithBack(context, CartScreen());
+                        //   //       },
+                        //   //     ),
+                        //   //   ));
+                        //   // }else{
+                        //   addToCart(product);
+                        //   // print('added=> ${CartService.instance.cartItems.length}');
+                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //     backgroundColor: Colors.grey.shade800,
+                        //     content: Text('Product added to cart'),
+                        //     duration: Duration(seconds: 2),
+                        //     action: SnackBarAction(
+                        //       textColor: Colors.white,
+                        //       label: 'View',
+                        //       onPressed: () {
+                        //         navigators.navigatorWithBack(context, CartScreen());
+                        //       },
+                        //     ),
+                        //   ));
                         // },
+                          // addToCart(product);
+                          // },
                         );
                       },
                     ),
