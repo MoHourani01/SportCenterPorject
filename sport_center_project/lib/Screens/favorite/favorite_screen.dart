@@ -45,9 +45,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     // add the product to the cart
     await CartService().addToCart(user.uid, product, 1);
   }
+
+
   ProductService productService=ProductService();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  List<ProductsModel> favorites = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,28 +83,23 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ),
       ),
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      body: StreamBuilder(
           stream: firestore
               .collection('users')
               .doc(user!.uid)
               .collection('favorites')
               .snapshots(),
-          builder: (context, snapshot) {
+          builder: (context,snapshot){
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-
             final favoriteProducts = snapshot.data!.docs.map((doc) {
-              final productData = doc.data() as Map<String, dynamic>?;
-              if (productData == null) {
-                return null;
-              }
-              final product = ProductsModel.fromJson(productData['Product'] as Map<String, dynamic>);
+              final product = ProductsModel.fromJson(doc.data()['Product']);
               product.isFavorite = true;
               return product;
-            }).where((product) => product != null).toList();
+            }).toList();
 
             return SafeArea(
               child: SingleChildScrollView(
@@ -150,7 +147,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
                               // update the favorites collection
                               if (favoriteProducts[index]!.productId != null) {
-                                await FavoriteService().toggleFavorite(favoriteProducts[index]!);
+                                // await FavoriteService().toggleFavorite(favoriteProducts[index]!);
+                                await FavoriteService().removeFavorite(favoriteProducts[index]!);
                                 // widget.favorites.remove(product);
                               } else {
                                 print('error');
@@ -203,7 +201,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           //       ),
                           //     ));
                           //   }
-                            // addToCart(product);
+                          //   // addToCart(product);
                           // },
                         );
                       },
@@ -223,6 +221,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
+    // favorites = widget.favorites;
     user = auth.currentUser;
     auth.authStateChanges().listen((User? firebaseUser) {
       setState(() {
@@ -231,5 +230,24 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     });
   }
 }
+/*
+StreamBuilder(
+          stream: firestore
+              .collection('users')
+              .doc(user!.uid)
+              .collection('favorites')
+              .snapshots(),
+          builder: (context,snapshot){
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final favoriteProducts = snapshot.data!.docs.map((doc) {
+              final product = ProductsModel.fromJson(doc.data()['Product']);
+              product.isFavorite = true;
+              return product;
+            }).toList();
 
+ */
 var flipController = PageController();

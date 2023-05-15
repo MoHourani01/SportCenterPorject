@@ -71,17 +71,34 @@ class _HomeScreenState extends State<HomeScreen> {
   //     FavoriteScreen(favorites: favorites,);
   //   });
   // }
-  void toggleFavorite(int index, ProductsList productsList) async{
+  // void toggleFavorite(int index, ProductsList productsList) async{
+  //   setState(() {
+  //     final product = productsList.posts[index];
+  //     if (product.isFavorite) {
+  //       favorites.add(product);
+  //     } else {
+  //       favorites.remove(product);
+  //     }
+  //     FavoriteScreen(favorites: favorites);
+  //   });
+  // }
+
+  void toggleFavorite(int index, ProductsList productsList) async {
     setState(() {
       final product = productsList.posts[index];
-      if (product.isFavorite) {
+      final isAlreadyFavorite = favorites.contains(product);
+
+      if (!isAlreadyFavorite) {
         favorites.add(product);
+        FavoriteService().addFavorite(product);
+
       } else {
         favorites.remove(product);
+        FavoriteService().removeFavorite(product);
       }
-      FavoriteScreen(favorites: favorites);
     });
   }
+
   ProductService productService=ProductService();
 
   Future<void> addToCart(ProductsModel product) async {
@@ -529,9 +546,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                           // update the favorites collection
                                           if (productt.productId != null) {
-                                            await FavoriteService().toggleFavorite(productt);
+                                            // await FavoriteService().toggleFavorite(productt);
                                             toggleFavorite(index, productsList);
                                             FavoriteScreen(favorites: favorites);
+                                            print(favorites.length);
                                           }
                                         },
                                         icon: StreamBuilder<bool>(
