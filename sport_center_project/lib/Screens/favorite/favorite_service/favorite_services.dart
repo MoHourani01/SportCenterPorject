@@ -157,56 +157,6 @@ class FavoriteService {
   }
 
 
-  // Future<void> toggleFavorite(ProductsModel product) async {
-  //   if (product.productId == null) {
-  //     return;
-  //   }
-  //
-  //   // get the current user
-  //   final user = firebaseAuth.currentUser;
-  //
-  //   if (user == null) {
-  //     // handle the case when no user is signed in
-  //     return;
-  //   }
-  //
-  //   // get the user document and the favorites subcollection
-  //   final userDoc = firestore.collection('users').doc(user.uid);
-  //   final favoritesCollection = userDoc.collection('favorites');
-  //
-  //   // check if the product is already in favorites
-  //   final doc = await favoritesCollection.doc(product.productId).get();
-  //   bool isFavorite = doc.exists;
-  //
-  //   // toggle the isFavorite flag
-  //   isFavorite = !isFavorite;
-  //
-  //   // update the favorites collection
-  //   if (isFavorite) {
-  //     // if the product is not in favorites, add it
-  //     await favoritesCollection.doc(product.productId).set({'productId': product.toProductMap(), 'userId': user.uid});
-  //     showToast(text: 'Product ${product.name} added to favorite', state: ToastStates.Success);
-  //   } else {
-  //     // if the product is already in favorites, remove it
-  //     await favoritesCollection.doc(product.productId).delete();
-  //     showToast(text: 'Product ${product.name} deleted from favorite', state: ToastStates.Error);
-  //   }
-  // }
-  Stream<bool> isFavoriteStream(ProductsModel product) {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      // User is not signed in
-      return Stream.value(false);
-    } else {
-      final favoritesCollection =
-      FirebaseFirestore.instance.collection('users/${user.uid}/favorites');
-      return favoritesCollection
-          .doc(product.productId)
-          .snapshots()
-          .map((snapshot) => snapshot.exists);
-    }
-  }
-
   Future<void> toggleFavorite(ProductsModel product) async {
     if (product.productId == null) {
       return;
@@ -234,7 +184,7 @@ class FavoriteService {
     // update the favorites collection
     if (isFavorite) {
       // if the product is not in favorites, add it
-      await favoritesCollection.doc(product.productId).set({'Product':product.toProductMap(),'userId': user.uid});
+      await favoritesCollection.doc(product.productId).set({'productId': product.toProductMap(), 'userId': user.uid});
       showToast(text: 'Product ${product.name} added to favorite', state: ToastStates.Success);
     } else {
       // if the product is already in favorites, remove it
@@ -242,6 +192,56 @@ class FavoriteService {
       showToast(text: 'Product ${product.name} deleted from favorite', state: ToastStates.Error);
     }
   }
+  // Stream<bool> isFavoriteStream(ProductsModel product) {
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   if (user == null) {
+  //     // User is not signed in
+  //     return Stream.value(false);
+  //   } else {
+  //     final favoritesCollection =
+  //     FirebaseFirestore.instance.collection('users/${user.uid}/favorites');
+  //     return favoritesCollection
+  //         .doc(product.productId)
+  //         .snapshots()
+  //         .map((snapshot) => snapshot.exists);
+  //   }
+  // }
+
+  // Future<void> toggleFavorite(ProductsModel product) async {
+  //   if (product.productId == null) {
+  //     return;
+  //   }
+  //
+  //   // get the current user
+  //   final user = firebaseAuth.currentUser;
+  //
+  //   if (user == null) {
+  //     // handle the case when no user is signed in
+  //     return;
+  //   }
+  //
+  //   // get the user document and the favorites subcollection
+  //   final userDoc = firestore.collection('users').doc(user.uid);
+  //   final favoritesCollection = userDoc.collection('favorites');
+  //
+  //   // check if the product is already in favorites
+  //   final doc = await favoritesCollection.doc(product.productId).get();
+  //   bool isFavorite = doc.exists;
+  //
+  //   // toggle the isFavorite flag
+  //   isFavorite = !isFavorite;
+  //
+  //   // update the favorites collection
+  //   if (isFavorite) {
+  //     // if the product is not in favorites, add it
+  //     await favoritesCollection.doc(product.productId).set({'Product':product.toProductMap(),'userId': user.uid});
+  //     showToast(text: 'Product ${product.name} added to favorite', state: ToastStates.Success);
+  //   } else {
+  //     // if the product is already in favorites, remove it
+  //     await favoritesCollection.doc(product.productId).delete();
+  //     showToast(text: 'Product ${product.name} deleted from favorite', state: ToastStates.Error);
+  //   }
+  // }
 
   // Future<List<ProductsModel>> getFavorites() async {
   //   try {
