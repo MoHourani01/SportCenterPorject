@@ -71,33 +71,32 @@ class _HomeScreenState extends State<HomeScreen> {
   //     FavoriteScreen(favorites: favorites,);
   //   });
   // }
-  // void toggleFavorite(int index, ProductsList productsList) async{
+  void toggleFavorite(int index, ProductsList productsList) async{
+    setState(() {
+      final product = productsList.posts[index];
+      if (product.isFavorite) {
+        favorites.add(product);
+      } else {
+        favorites.remove(product);
+      }
+      FavoriteScreen(favorites: favorites);
+    });
+  }
+
+  // void toggleFavorite(int index, ProductsList productsList) async {
   //   setState(() {
   //     final product = productsList.posts[index];
   //     if (product.isFavorite) {
   //       favorites.add(product);
+  //       FavoriteService().addFavorite(product);
+  //
   //     } else {
   //       favorites.remove(product);
+  //       FavoriteService().removeFavorite(product);
   //     }
   //     FavoriteScreen(favorites: favorites);
   //   });
   // }
-
-  void toggleFavorite(int index, ProductsList productsList) async {
-    setState(() {
-      final product = productsList.posts[index];
-      final isAlreadyFavorite = favorites.contains(product);
-
-      if (!isAlreadyFavorite) {
-        favorites.add(product);
-        FavoriteService().addFavorite(product);
-
-      } else {
-        favorites.remove(product);
-        FavoriteService().removeFavorite(product);
-      }
-    });
-  }
 
   ProductService productService=ProductService();
 
@@ -546,27 +545,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                           // update the favorites collection
                                           if (productt.productId != null) {
-                                            // await FavoriteService().toggleFavorite(productt);
-                                            toggleFavorite(index, productsList);
-                                            FavoriteScreen(favorites: favorites);
-                                            print(favorites.length);
+                                            await FavoriteService().toggleFavorite(productt);
+                                            // toggleFavorite(index, productsList);
+                                            // toggleFavorite(index, );
+                                            // FavoriteScreen(favorites: favorites);
+                                            // print(favorites.length);
                                           }
                                         },
-                                        icon: StreamBuilder<bool>(
-                                          stream: FavoriteService().isFavoriteStream(productt),
-                                          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                                            if (snapshot.hasData && snapshot.data == true) {
-                                              return Icon(
-                                                Icons.favorite,
-                                                color: Colors.red,
-                                              );
-                                            } else {
-                                              return Icon(
-                                                Icons.favorite_border_outlined,
-                                                color: Colors.red,
-                                              );
-                                            }
-                                          },
+                                        icon: Icon(
+                                          productt.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                                          color: productt.isFavorite
+                                              ? Colors.red
+                                              : Colors.red,
                                         ),
                                       ),
                                       onPressed: () {

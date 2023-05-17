@@ -96,7 +96,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               );
             }
             final favoriteProducts = snapshot.data!.docs.map((doc) {
-              final product = ProductsModel.fromJson(doc.data()['Product']);
+              final product = ProductsModel.fromJson(doc.data()['productId']);
               product.isFavorite = true;
               return product;
             }).toList();
@@ -147,8 +147,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
                               // update the favorites collection
                               if (favoriteProducts[index]!.productId != null) {
-                                // await FavoriteService().toggleFavorite(favoriteProducts[index]!);
-                                await FavoriteService().removeFavorite(favoriteProducts[index]!);
+                                await FavoriteService().toggleFavorite(favoriteProducts[index]!);
+                                // await FavoriteService().removeFavorite(favoriteProducts[index]!);
                                 // widget.favorites.remove(product);
                               } else {
                                 print('error');
