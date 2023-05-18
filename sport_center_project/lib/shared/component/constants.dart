@@ -31,3 +31,38 @@ void printFullText(String text){
 
 String token='';
 String uId='';
+
+// Padding(
+//   padding: const EdgeInsets.only(left: 5),
+//   child: IconButton(
+//     onPressed: user == null ? null : () async {
+//       // toggle the isFavorite flag
+//       setState(() {
+//         cartModel.isFavorite = !cartModel.isFavorite;
+//       });
+//
+//       // update the favorites collection
+//       if (cartModel.productId != null) {
+//         await FavoriteService().toggleFavorite(cartModel);
+//         // toggleFavorite(index, productsList);
+//         // toggleFavorite(index, );
+//         // FavoriteScreen(favorites: favorites);
+//         // print(favorites.length);
+//       }
+//     },
+//     icon: Icon(
+//       cartModel.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+//       color: cartModel.isFavorite
+//           ? Colors.red
+//           : Colors.red,
+//     ),
+//   ),
+// ),
+
+// Padding(
+// padding: const EdgeInsets.only(left: 5),
+// child: InkWell(
+// onTap: () {},
+// child: Icon(Icons.favorite_border_outlined,color: Colors.red,),
+// ),
+// ),
