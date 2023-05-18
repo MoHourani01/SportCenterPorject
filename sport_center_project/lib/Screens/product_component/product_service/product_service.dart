@@ -123,7 +123,7 @@ class ProductService {
         .map((snapshot) {
       List<ProductsModel> products = snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return ProductsModel.fromFirestore(doc);
+        return ProductsModel.fromJson(data);
       }).toList();
 
       return ProductsList(posts: products);

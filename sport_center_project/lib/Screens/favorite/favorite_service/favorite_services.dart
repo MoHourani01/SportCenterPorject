@@ -177,17 +177,21 @@ class FavoriteService {
     // check if the product is already in favorites
     final doc = await favoritesCollection.doc(product.productId).get();
     bool isFavorite = doc.exists;
+    print(isFavorite);
 
     // toggle the isFavorite flag
     isFavorite = !isFavorite;
 
     // update the favorites collection
+    print(isFavorite);
     if (isFavorite) {
+      print('added=>${isFavorite}');
       // if the product is not in favorites, add it
       await favoritesCollection.doc(product.productId).set({'productId': product.toProductMap(), 'userId': user.uid});
       showToast(text: 'Product ${product.name} added to favorite', state: ToastStates.Success);
     } else {
       // if the product is already in favorites, remove it
+      print('deleted=>${isFavorite}');
       await favoritesCollection.doc(product.productId).delete();
       showToast(text: 'Product ${product.name} deleted from favorite', state: ToastStates.Error);
     }
