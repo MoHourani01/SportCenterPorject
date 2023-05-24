@@ -25,57 +25,57 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   // const FavoriteScreen({Key? key}) : super(key: key);
 
-  List<String> myCart=[
-    'assets/images/basketball.jpg',
-    'assets/images/Soccer.jpg',
-    'assets/images/basketball.jpg',
-    'assets/images/Soccer.jpg',
-  ];
+  // List<String> myCart=[
+  //   'assets/images/basketball.jpg',
+  //   'assets/images/Soccer.jpg',
+  //   'assets/images/basketball.jpg',
+  //   'assets/images/Soccer.jpg',
+  // ];
+  //
+  // List<String> stringCart=[
+  //   'basketball',
+  //   'soccer',
+  //   'basketball',
+  //   'soccer',
+  // ];
 
-  List<String> stringCart=[
-    'basketball',
-    'soccer',
-    'basketball',
-    'soccer',
-  ];
-
-  int counter=0;
-  final CartService cartService = CartService();
-  List<ProductsModel> cartItems = CartService().cartItems;
-  // final auth = FirebaseAuth.instance;
-
-
-  @override
-  void initState() {
-    super.initState();
-    _getProductQuantityFromCart();
-  }
-
-  void _getProductQuantityFromCart() async {
-    if (widget.product == null) {
-      return;
-    }
-    final quantity = await cartService.getProductQuantityFromCart(widget.product!.productId!);
-    setState(() {
-      counter = quantity;
-    });
-  }
-
-  Future<void> addToCart(ProductsModel product, qunatity) async {
-    // CartService.instance.cartItems.add(product);
-    // get the current user
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
-      // handle the case when no user is signed in
-      return;
-    }
-
-    // add the product to the cart
-    await CartService().addToCart(user.uid, product, qunatity);
-
-    // show a toast message
-  }
+  // int counter=0;
+  // final CartService cartService = CartService();
+  // List<ProductsModel> cartItems = CartService().cartItems;
+  // // final auth = FirebaseAuth.instance;
+  //
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _getProductQuantityFromCart();
+  // }
+  //
+  // void _getProductQuantityFromCart() async {
+  //   if (widget.product == null) {
+  //     return;
+  //   }
+  //   final quantity = await cartService.getProductQuantityFromCart(widget.product!.productId!);
+  //   setState(() {
+  //     counter = quantity;
+  //   });
+  // }
+  //
+  // Future<void> addToCart(ProductsModel product, qunatity) async {
+  //   // CartService.instance.cartItems.add(product);
+  //   // get the current user
+  //   final user = FirebaseAuth.instance.currentUser;
+  //
+  //   if (user == null) {
+  //     // handle the case when no user is signed in
+  //     return;
+  //   }
+  //
+  //   // add the product to the cart
+  //   await CartService().addToCart(user.uid, product, qunatity);
+  //
+  //   // show a toast message
+  // }
 
   @override
   Widget build(BuildContext context) {

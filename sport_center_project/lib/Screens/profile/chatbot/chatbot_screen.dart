@@ -42,6 +42,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     );
 
     setState(() {
+      if (text.isEmpty){
+        return;
+      }
       chatModel.addMessage(message);
     });
 
@@ -54,6 +57,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
+        if (text.isEmpty){
+          return;
+        }
         chatModel.addMessage(botMessage);
       });
     });

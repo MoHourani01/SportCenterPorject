@@ -33,18 +33,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   List<ProductsModel> products = ProductsModel.products;
 
-  Future<void> addToCart(ProductsModel product) async {
-    // get the current user
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
-      // handle the case when no user is signed in
-      return;
-    }
-
-    // add the product to the cart
-    await CartService().addToCart(user.uid, product, 1);
-  }
+  // Future<void> addToCart(ProductsModel product) async {
+  //   // get the current user
+  //   final user = FirebaseAuth.instance.currentUser;
+  //
+  //   if (user == null) {
+  //     // handle the case when no user is signed in
+  //     return;
+  //   }
+  //
+  //   // add the product to the cart
+  //   await CartService().addToCart(user.uid, product, 1);
+  // }
 
 
   ProductService productService=ProductService();
@@ -130,12 +130,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       itemCount: favoriteProducts.length,
                       itemBuilder: (BuildContext context, int index) {
                         // final product = ProductsModel.products[index];
-                        final product = favoriteProducts[index]!;
+                        final product = favoriteProducts[index];
                         // if (index >= favoriteProducts.length) {
                         //   return Container(); // Return an empty widget if index is out of bounds
                         // }
                         return cardFlippers(
-                          favoriteProducts[index]!,
+                          favoriteProducts[index],
                           IconButton(
                             onPressed: user == null
                                 ? null

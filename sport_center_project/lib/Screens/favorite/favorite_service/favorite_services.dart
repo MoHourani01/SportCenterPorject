@@ -92,69 +92,69 @@ class FavoriteService {
   final firebaseAuth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
 
-  Future<void> addFavorite(ProductsModel product) async {
-    if (product.productId == null) {
-      return;
-    }
-
-    // Get the current user
-    final user = firebaseAuth.currentUser;
-
-    if (user == null) {
-      // Handle the case when no user is signed in
-      return;
-    }
-
-    // Get the user document and the favorites subcollection
-    final userDoc = firestore.collection('users').doc(user.uid);
-    final favoritesCollection = userDoc.collection('favorites');
-
-    // Check if the product already exists in favorites
-    final querySnapshot = await favoritesCollection
-        .where('productId', isEqualTo: product.productId)
-        .get();
-
-    if (querySnapshot.size == 0) {
-      // If the product is not in favorites, add it
-      await favoritesCollection
-          .add({'productId': product.productId, 'Product': product.toProductMap()});
-    }
-    showToast(
-      text: 'Product ${product.name} added to favorites',
-      state: ToastStates.Success,
-    );
-  }
-
-  Future<void> removeFavorite(ProductsModel product) async {
-    if (product.productId == null) {
-      return;
-    }
-
-    // Get the current user
-    final user = firebaseAuth.currentUser;
-
-    if (user == null) {
-      // Handle the case when no user is signed in
-      return;
-    }
-
-    // Get the user document and the favorites subcollection
-    final userDoc = firestore.collection('users').doc(user.uid);
-    final favoritesCollection = userDoc.collection('favorites');
-
-    // Query and delete the product from favorites
-    final querySnapshot = await favoritesCollection
-        .where('productId', isEqualTo: product.productId)
-        .get();
-
-    querySnapshot.docs.forEach((doc) {
-      doc.reference.delete();
-    });
-    showToast(
-      text: 'Product ${product.name} removed from favorites',
-      state: ToastStates.Error,
-    );
-  }
+  // Future<void> addFavorite(ProductsModel product) async {
+  //   if (product.productId == null) {
+  //     return;
+  //   }
+  //
+  //   // Get the current user
+  //   final user = firebaseAuth.currentUser;
+  //
+  //   if (user == null) {
+  //     // Handle the case when no user is signed in
+  //     return;
+  //   }
+  //
+  //   // Get the user document and the favorites subcollection
+  //   final userDoc = firestore.collection('users').doc(user.uid);
+  //   final favoritesCollection = userDoc.collection('favorites');
+  //
+  //   // Check if the product already exists in favorites
+  //   final querySnapshot = await favoritesCollection
+  //       .where('productId', isEqualTo: product.productId)
+  //       .get();
+  //
+  //   if (querySnapshot.size == 0) {
+  //     // If the product is not in favorites, add it
+  //     await favoritesCollection
+  //         .add({'productId': product.productId, 'Product': product.toProductMap()});
+  //   }
+  //   showToast(
+  //     text: 'Product ${product.name} added to favorites',
+  //     state: ToastStates.Success,
+  //   );
+  // }
+  //
+  // Future<void> removeFavorite(ProductsModel product) async {
+  //   if (product.productId == null) {
+  //     return;
+  //   }
+  //
+  //   // Get the current user
+  //   final user = firebaseAuth.currentUser;
+  //
+  //   if (user == null) {
+  //     // Handle the case when no user is signed in
+  //     return;
+  //   }
+  //
+  //   // Get the user document and the favorites subcollection
+  //   final userDoc = firestore.collection('users').doc(user.uid);
+  //   final favoritesCollection = userDoc.collection('favorites');
+  //
+  //   // Query and delete the product from favorites
+  //   final querySnapshot = await favoritesCollection
+  //       .where('productId', isEqualTo: product.productId)
+  //       .get();
+  //
+  //   querySnapshot.docs.forEach((doc) {
+  //     doc.reference.delete();
+  //   });
+  //   showToast(
+  //     text: 'Product ${product.name} removed from favorites',
+  //     state: ToastStates.Error,
+  //   );
+  // }
 
 
   Future<void> toggleFavorite(ProductsModel product) async {

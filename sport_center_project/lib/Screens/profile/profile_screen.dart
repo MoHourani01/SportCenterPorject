@@ -11,8 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_center_project/Screens/profile/about_us.dart';
 import 'package:sport_center_project/Screens/profile/add_products_admin/add_products_admin.dart';
 import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
-import 'package:sport_center_project/Screens/profile/profile_components/add_products.dart';
-import 'package:sport_center_project/Screens/profile/profile_components/checkout.dart';
 import 'package:sport_center_project/Screens/profile/profile_services/profile_services.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/models/login_model.dart';
