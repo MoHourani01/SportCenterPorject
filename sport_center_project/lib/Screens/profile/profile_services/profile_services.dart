@@ -19,27 +19,27 @@ class ProfileService {
     return await _firebaseAuth.currentUser;
   }
 
-  Future<void> updateProfile(String uid, UserModel model) async {
-    log('message');
-    QuerySnapshot querySnapshot = await _firestore
-        .collection(collectionName)
-        .where('uid', isEqualTo: uid)
-        .get();
-    log('${querySnapshot.docs.length}');
-    String documentId = querySnapshot.docs[0].id;
-    await _firestore
-        .collection(collectionName)
-        .doc(documentId)
-        .update(model.toMap())
-        .whenComplete(() {
-      log('post data updated successful');
-      statusCode = 200;
-      msg = 'post data updated successful';
-    }).catchError((error) {
-      handleAuthErrors(error);
-      log('statusCode : $statusCode , error msg : $msg');
-    });
-  }
+  // Future<void> updateProfile(String uid, UserModel model) async {
+  //   log('message');
+  //   QuerySnapshot querySnapshot = await _firestore
+  //       .collection(collectionName)
+  //       .where('uid', isEqualTo: uid)
+  //       .get();
+  //   log('${querySnapshot.docs.length}');
+  //   String documentId = querySnapshot.docs[0].id;
+  //   await _firestore
+  //       .collection(collectionName)
+  //       .doc(documentId)
+  //       .update(model.toMap())
+  //       .whenComplete(() {
+  //     log('post data updated successful');
+  //     statusCode = 200;
+  //     msg = 'post data updated successful';
+  //   }).catchError((error) {
+  //     handleAuthErrors(error);
+  //     log('statusCode : $statusCode , error msg : $msg');
+  //   });
+  // }
 
   late Reference firebaseStorageRef;
 
@@ -100,15 +100,15 @@ class ProfileService {
   }
   final userCollection = FirebaseFirestore.instance.collection('users');
 
-  UserModel? model;
-  Future getCurrentUserData() async{
-    try {
-      DocumentSnapshot ds = await userCollection.doc(model!.uId).get();
-      String  firstname = ds.get('name');
-      return [firstname];
-    }catch(e){
-      print(e.toString());
-      return null;
-    }
-  }
+  // UserModel? model;
+  // Future getCurrentUserData() async{
+  //   try {
+  //     DocumentSnapshot ds = await userCollection.doc(model!.uId).get();
+  //     String  firstname = ds.get('name');
+  //     return [firstname];
+  //   }catch(e){
+  //     print(e.toString());
+  //     return null;
+  //   }
+  // }
 }
