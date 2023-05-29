@@ -189,6 +189,13 @@ class FavoriteService {
       // if the product is not in favorites, add it
       await favoritesCollection.doc(product.productId).set({'productId': product.toProductMap(), 'userId': user.uid});
       showToast(text: 'Product ${product.name} added to favorite', state: ToastStates.Success);
+      final reportDocRef = FirebaseFirestore.instance.collection('reports').doc(product.productId);
+      await reportDocRef.set({
+        ...product.toProductMap(),
+        'userId': user.uid,
+        'addedTime': DateTime.now(),
+        'source': 'favorites',
+      });
     } else {
       // if the product is already in favorites, remove it
       print('deleted=>${isFavorite}');

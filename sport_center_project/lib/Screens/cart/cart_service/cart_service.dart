@@ -130,6 +130,14 @@ class CartService {
     final cartData = await cartCollection.get();
     final cartItemsList = ProductsList.fromJson(cartData.docs.map((e) => e.data()).toList());
     final cartItems = cartItemsList.posts;
+    final reportDocRef = FirebaseFirestore.instance.collection('reports').doc(product.productId);
+    await reportDocRef.set({
+      ...product.toProductMap(),
+      'userId': userId,
+      'quantity': quantity,
+      'addedTime': DateTime.now(),
+      'source': 'cart',
+    });
   }
 
   static Future<ProductsList> getProducts() async {

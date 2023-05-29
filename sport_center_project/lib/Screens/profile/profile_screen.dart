@@ -12,6 +12,7 @@ import 'package:sport_center_project/Screens/profile/about_us.dart';
 import 'package:sport_center_project/Screens/profile/add_products_admin/add_products_admin.dart';
 import 'package:sport_center_project/Screens/profile/chatbot/chatbot_screen.dart';
 import 'package:sport_center_project/Screens/profile/profile_services/profile_services.dart';
+import 'package:sport_center_project/Screens/profile/reports/reports_screen.dart';
 import 'package:sport_center_project/Utilities/VariablesUtils.dart';
 import 'package:sport_center_project/models/login_model.dart';
 import 'package:sport_center_project/registration/login/login_cubit/login_cubit.dart';
@@ -147,6 +148,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 title: Text('Add Product'),
                                 leading: Icon(Icons.add),
+                                iconColor: Colors.blueGrey.shade900,
+                              ),
+                            ),
+                          ),
+                        SizedBox(height: 10,),
+                        if( VariablesUtils.userName == 'Admin')
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: InkWell(
+                              onTap: () {},
+                              child: ListTile(
+                                onTap: () {
+                                  navigators.navigatorWithBack(
+                                      context, ReportsScreen());
+                                },
+                                trailing: Icon(
+                                  Icons.navigate_next,
+                                ),
+                                title: Text('Reports'),
+                                leading: Icon(Icons.report_gmailerrorred),
                                 iconColor: Colors.blueGrey.shade900,
                               ),
                             ),
