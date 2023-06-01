@@ -53,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 colors:[Colors.black,Colors.black38],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-              ).createShader(bounds),blendMode: BlendMode.darken,
+              ).createShader(bounds),blendMode: BlendMode.srcATop,
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(

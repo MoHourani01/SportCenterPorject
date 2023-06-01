@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 colors:[Colors.black,Colors.black38],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-              ).createShader(bounds),blendMode: BlendMode.darken,
+              ).createShader(bounds),blendMode: BlendMode.srcOver,
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(

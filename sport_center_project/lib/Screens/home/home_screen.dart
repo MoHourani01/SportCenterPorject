@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.grey.shade300,
               body: CustomScrollView(
                 slivers: [
-                  SliverAppBar.medium(
+                  SliverAppBar(
                     shape: OutlineInputBorder(
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(10.0),
@@ -314,7 +314,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     elevation: 0,
-                    // expandedHeight: 200,
                     backgroundColor: Color(0xFF030A59),
                     leading: IconButton(
                       onPressed: () {
@@ -325,10 +324,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                       ),
                     ),
-                    title: Text(
-                      'Sport Center',
-                    ),
-                    centerTitle: true,
+                    // title: Text(
+                    //   'Sport Center',
+                    // ),
+                    // centerTitle: true,
                     actions: [
                       IconButton(
                         onPressed: () {
@@ -340,10 +339,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
+                    floating: true,
+                    pinned: true,
+                    expandedHeight: 145,
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
                         decoration: BoxDecoration(
-                          // color: Color(0xFF130359),
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(10.0),
                             bottomLeft: Radius.circular(10.0),

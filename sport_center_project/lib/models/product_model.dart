@@ -32,7 +32,7 @@ class ProductsModel{
     ProductsModel(
       name: 'Barcelona Jersey',
       price: '50 JD',
-      image: 'https://arenajerseys.com/wp-content/uploads/2022/06/download-4.jpg',
+      image: 'https://cdn.shoplightspeed.com/shops/611228/files/47811308/1652x1652x1/nike-fc-barcelona-22-23-home-jersey-blue-red.jpg',
       isFavorite: false,
       description: 'This is the newest Barcelona jersey season 2023',
     ),
@@ -86,7 +86,7 @@ class ProductsModel{
     ProductsModel(
       name: 'Barcelona Jersey',
       price: '50 JD',
-      image: 'https://arenajerseys.com/wp-content/uploads/2022/06/download-4.jpg',
+      image: 'https://cdn.shoplightspeed.com/shops/611228/files/47811308/1652x1652x1/nike-fc-barcelona-22-23-home-jersey-blue-red.jpg',
       isFavorite: false,
       description: 'This is the newest Barcelona jersey season 2023',
     ),
