@@ -106,7 +106,7 @@ class _CategoriesInfoState extends State<CategoriesInfo> {
                       ),
                     ),
                     Text(
-                      'Explore Our Soccer Collections',
+                      'Explore Our basketball Collections',
                       style: TextStyle(
                         fontSize: 18,
                         color: Color(0xFF000056),
