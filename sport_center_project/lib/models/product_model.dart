@@ -98,11 +98,11 @@ class ProductsModel{
     ),
   ];
 
-  void addProductIds(List<ProductsModel> products) {
-    for (var product in products) {
-      product.productId = Uuid().v4();
-    }
-  }
+  // void addProductIds(List<ProductsModel> products) {
+  //   for (var product in products) {
+  //     product.productId = Uuid().v4();
+  //   }
+  // }
 
   ProductsModel.fromJson(Map<String, dynamic> json){
     price=json['price'];

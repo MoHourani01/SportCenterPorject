@@ -397,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               autoPlayAnimationDuration: Duration(milliseconds: 800),
                               autoPlayCurve: Curves.fastOutSlowIn,
                               enlargeCenterPage: true,
-                              enlargeFactor: 0.3,
+                              enlargeFactor: 2.3,
                               // onPageChanged: callbackFunction,
                               scrollDirection: Axis.horizontal,
                               onPageChanged: (index, reason) =>
