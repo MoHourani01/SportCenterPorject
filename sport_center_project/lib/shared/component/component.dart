@@ -267,11 +267,11 @@ Widget buildArticle(article,context) {
   );
 }
 
-Widget articleBuilder(list,context,{isSearch=false}) => ConditionalBuilder(
+Widget articleBuilder(list,context,) => ConditionalBuilder(
   // condition: state is! NewsGetBusinessLoadingChange,
   condition: list.length>0,
   builder: (context)=>ListView.builder(
       physics: BouncingScrollPhysics(),
       itemBuilder: (context,index)=>buildArticle(list[index],context),
-      itemCount: 10),
-  fallback: (context)=> isSearch ? Container() : Center(child: CircularProgressIndicator()),);
+      itemCount: 20),
+  fallback: (context)=> false ? Container() : Center(child: CircularProgressIndicator()),);

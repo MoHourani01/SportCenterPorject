@@ -34,12 +34,12 @@ void main() async{
   ProductService.addProducts(ProductsModel.products);
   ProductService.addSoccerProducts(ProductsModel.soccer_products);
   ProductService.addBasketballProducts(ProductsModel.basket_products);
-  ProductsModel().addProductIds(ProductsModel.soccer_products);
-  ProductsModel().addProductIds(ProductsModel.basket_products);
-  ProductsModel().addProductIds(ProductsModel.products);
-  print('Products Model${ProductsModel.products}');
-  print('Soccer Model${ProductsModel.soccer_products}');
-  print('Basketball Model${ProductsModel.basket_products}');
+  // ProductsModel().addProductIds(ProductsModel.soccer_products);
+  // ProductsModel().addProductIds(ProductsModel.basket_products);
+  // ProductsModel().addProductIds(ProductsModel.products);
+  // print('Products Model${ProductsModel.products}');
+  // print('Soccer Model${ProductsModel.soccer_products}');
+  // print('Basketball Model${ProductsModel.basket_products}');
   runApp(MyApp());
 }
 // List<ProductsModel> products=[
