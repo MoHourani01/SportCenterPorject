@@ -27,7 +27,14 @@ import 'Screens/profile/about_us.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: 'AIzaSyBz43ee3u6cIbdExdIUk7GyztIQxVwlMaE',
+        appId: '1:847158307893:web:9ec0ffafd04e8838a9d57c',
+        messagingSenderId: '847158307893',
+        projectId: 'sport-center-d9e1c',
+    ),
+  );
   await DioHelper.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // prefs.setBool('productsAddedToFirebase', false);
